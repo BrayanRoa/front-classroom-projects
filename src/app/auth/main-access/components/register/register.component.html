@@ -1,0 +1,97 @@
+<div class="container">
+
+    <div class="logo-img">
+        <img src="https://ingsistemas.cloud.ufps.edu.co/rsc/img/logo_vertical_ingsistemas_ht180.png" alt="">
+    </div>
+    <div class="row">
+
+        <form autocomplete="off" [formGroup]="registerForm" (ngSubmit)="register()">
+            <div class="mb-1 row">
+                <label class="col-sm-4 col-form-label text-end fw-bold">Nombres:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" formControlName="names">
+                    <span class="form-text text-danger" *ngIf="validateFields('names')">
+                        El campo debe tener minimo 6 caracteres
+                    </span>
+                </div>
+            </div>
+            <div class="mb-1 row">
+                <label class="col-sm-4 col-form-label text-end fw-bold">Apellidos:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" formControlName="lastnames">
+                    <span class="form-text text-danger" *ngIf="validateFields('lastnames')">
+                        El campo debe tener minimo 6 caracteres
+                    </span>
+                </div>
+            </div>
+            <div class="mb-1 row">
+                <label class="col-sm-4 col-form-label text-end fw-bold">Tipo Documento:</label>
+                <div class="col-sm-8">
+                    <select formControlName="document_id" class="form-select" aria-label="Default select example">
+                        <option *ngFor="let type of document_types" selected value="{{type.id}}">{{type.name}}</option>
+                    </select>
+                    <span class="form-text text-danger" *ngIf="validateFields('document_id')">
+                        Debe seleccionar un tipo de documento
+                    </span>
+                </div>
+            </div>
+            <div class="mb-1 row">
+                <label class="col-sm-4 col-form-label text-end fw-bold">Documento:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" formControlName="num_document">
+                    <span class="form-text text-danger" *ngIf="validateFields('num_document')">
+                        El campo debe entre 7 y 12 caracteres
+                    </span>
+                </div>
+            </div>
+            <div class="mb-1 row">
+                <label class="col-sm-4 col-form-label text-end fw-bold">Rol:</label>
+                <div class="col-sm-8">
+                    <select formControlName="role_id" class="form-select" aria-label="Default select example">
+                        <option *ngFor="let rol of role" selected value="{{rol.id}}">{{rol.name}}</option>
+                    </select>
+                    <span class="form-text text-danger" *ngIf="validateFields('role_id')">
+                        Debe seleccionar un role
+                    </span>
+                </div>
+            </div>
+            <div class="mb-1 row">
+                <label class="col-sm-4 col-form-label text-end fw-bold">Correo Institucional:</label>
+                <div class="col-sm-8">
+                    <input type="email" class="form-control" formControlName="institutional_mail">
+                    <span class="form-text text-danger" *ngIf="validateFields('institutional_mail')">
+                        Debe ser un correo institucional
+                    </span>
+                </div>
+            </div>
+
+            <div class="mb-1 row">
+                <label class="col-sm-4 col-form-label text-end fw-bold">Contraseña:</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" formControlName="password">
+                    <span class="form-text text-danger" *ngIf="validateFields('password')">
+                        Campo debe tener entre 6 y 15 caracteres
+                    </span>
+                </div>
+            </div>
+
+            <div class="mb-1 row">
+                <label class="col-sm-4 col-form-label text-end fw-bold">Código:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" formControlName="code">
+                    <span class="form-text text-danger" *ngIf="validateFields('code')">
+                        Campo debe tener 7 caracteres
+                    </span>
+                </div>
+            </div>
+            <div class="button mt-2">
+                <button routerLink="/auth/login" type="submit" class="btn btn-success">Volver</button>
+                <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+        </form>
+    </div>
+
+    <div *ngIf="errors" class="alert alert-danger" role="alert">
+        {{errors}}
+    </div>
+</div>

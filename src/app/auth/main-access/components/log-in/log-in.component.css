@@ -1,0 +1,15 @@
+.button{
+    display: flex;
+    justify-content: center;
+}
+
+.logo-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+img{
+    width: 120px;
+}

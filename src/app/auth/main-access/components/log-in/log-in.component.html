@@ -1,0 +1,36 @@
+<div class="logo-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/UFPS_Logo.png" alt="">
+</div>
+
+<form autocomplete="off" [formGroup]="formLogin" (ngSubmit)="getInto()">
+    <div class="mb-3 row">
+        <label class="col-sm-4 col-form-label text-end fw-bold">Email:</label>
+        <div class="col-sm-8">
+            <input type="email" class="form-control" formControlName="email" placeholder="@ufps.edu.co">
+            <span class="form-text text-danger" *ngIf="validateFields('email')">
+                Correo electronico invalído
+            </span>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-4 col-form-label text-end fw-bold">Password:</label>
+        <div class="col-sm-8">
+            <input type="password" class="form-control" formControlName="password">
+            <span class="form-text text-danger" *ngIf="validateFields('password')">
+                Contraseña invalída
+            </span>
+        </div>
+    </div>
+
+    <div *ngIf="errors" class="alert alert-danger" role="alert">
+        {{errors}}
+    </div>
+
+    <div class="button">
+        <button [disabled]="formLogin.invalid" type="submit" class="btn btn-primary">Ingresar</button>
+    </div>
+
+    <div class="text-center pt-3">
+        <p>¿Aún no tienes una cuenta?</p><a routerLink="/auth/register">Registrate</a>
+    </div>
+</form>

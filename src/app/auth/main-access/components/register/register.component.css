@@ -1,0 +1,27 @@
+[nz-form] {
+    max-width: 600px;
+}
+
+button {
+    margin-left: 8px;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+}
+
+.row {
+    width: 500px;
+}
+
+img {
+    width: 250px;
+}
+
+.logo-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
