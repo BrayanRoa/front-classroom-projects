@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ResponseHttp } from '../../../shared/interfaces/response.interface';
-import { RegisterPerson } from '../interfaces/person.interface';
+import { GetAllPersonsInterface, RegisterPerson } from '../interfaces/person.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +18,9 @@ export class PersonService {
 
   registerPerson(body:RegisterPerson):Observable<ResponseHttp>{
     return this.http.post<ResponseHttp>(`${this.URL}/person/create`, body)
+  }
+
+  uploadPersons():Observable<GetAllPersonsInterface>{
+    return this.http.get<GetAllPersonsInterface>(`${this.URL}/persons`)
   }
 }
