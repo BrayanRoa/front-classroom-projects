@@ -25,3 +25,7 @@ img {
     align-items: center;
     margin-bottom: 15px;
 }
+
+nz-alert {
+    margin-bottom: 16px;
+}

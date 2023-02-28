@@ -6,13 +6,16 @@ import { RoleService } from '../../../../main/role/service/role.service';
 import { RoleData } from '../../../../main/role/interface/role.interface';
 import { PersonService } from '../../../../main/persons/service/person.service';
 import { Router } from '@angular/router';
+import { BaseComponent } from '../../../../shared/base/base.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { concatMap } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent extends BaseComponent {
 
   errors: string = ""
   document_types: DocumentsData[] = []
@@ -23,8 +26,10 @@ export class RegisterComponent {
     private documentService: DocumentService,
     private roleService: RoleService,
     private personService: PersonService,
-    private router: Router
+    private router: Router,
+    private message: NzMessageService
   ) {
+    super()
     this.uploadData()
   }
 
@@ -86,8 +91,23 @@ export class RegisterComponent {
 
   register() {
     this.personService.registerPerson(this.registerForm.value).subscribe({
-      next: value => { this.router.navigateByUrl("/auth/login") },
-      error: err => { this.errors = err.error.data }
+      next: value => {
+        this.createBasicMessage()
+      },
+      error: err => {
+        this.alertError(err.error.data)
+      }
     })
+  }
+
+  createBasicMessage(): void {
+    this.message
+      .loading('Registrando Persona', { nzDuration: 2500 })
+      .onClose!.pipe(concatMap(() =>
+        this.message.success('Persona Registrada Con Exito', { nzDuration: 1000 }).onClose!),
+      )
+      .subscribe(() => {
+        this.router.navigateByUrl("/auth/login")
+      });
   }
 }
