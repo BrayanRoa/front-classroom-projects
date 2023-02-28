@@ -1,0 +1,10 @@
+.box-cards{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.card{
+    width: 30%;
+    margin-bottom: 20px;
+}

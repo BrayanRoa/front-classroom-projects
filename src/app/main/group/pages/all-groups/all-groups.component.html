@@ -1,0 +1,38 @@
+<div class="base">
+
+
+    <div class="site-page-header-ghost-wrapper">
+        <nz-page-header nzBackIcon [nzGhost]="false">
+            <nz-page-header-title>{{title}} - {{subject | titlecase}}</nz-page-header-title>
+            <!-- <nz-page-header-subtitle>Listado de grupos de la materia {{subject}}</nz-page-header-subtitle> -->
+            <nz-page-header-extra>
+                <nz-space>
+                    <button *nzSpaceItem nz-button>Ver Alumnos</button>
+                    <button *nzSpaceItem nz-button nzType="primary">Ver Todos</button>
+                </nz-space>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </div>
+
+
+    <div class="box-info">
+        <div *ngIf="loading; else content">
+            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        </div>
+
+        <ng-template #content>
+            <div class="box-cards">
+                <div class="card" *ngFor="let group of groups">
+                    <img src="https://miro.medium.com/max/700/1*bRuxpf9ZMC2QVXVJKEoS0w.png" class="card-img-top"
+                        alt="...">
+                    <div class="card-body">
+                        <h6 class="card-title">{{subject}}</h6>
+                        <p class="card-text">Grupo - {{group.name}}.</p>
+                        <p class="card-text">Docente - {{group.name}}.</p>
+                        <a href="#" class="btn btn-success">Matricularme</a>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
