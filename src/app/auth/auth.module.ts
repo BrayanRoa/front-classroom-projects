@@ -6,6 +6,9 @@ import { MainAccessComponent } from './main-access/page/main-access.component';
 import { LogInComponent } from './main-access/components/log-in/log-in.component';
 import { RegisterComponent } from './main-access/components/register/register.component';
 
+//* NG-ZORRO
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 
 @NgModule({
@@ -17,7 +20,9 @@ import { RegisterComponent } from './main-access/components/register/register.co
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzAlertModule,
+    NzMessageModule
   ]
 })
 export class AuthModule { }
