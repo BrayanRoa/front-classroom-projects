@@ -20,7 +20,7 @@
                         <tr>
                             <th class="text-center">Código</th>
                             <th class="text-center">Materia</th>
-                            <th class="text-center">Acciones</th>
+                            <th class="text-center">Grupo</th>
                             <th class="text-center">Estado</th>
                             <th class="text-center">Acciones</th>
                         </tr>
@@ -31,9 +31,33 @@
                             <td>{{subject.group.subject.code}}</td>
                             <td>{{subject.group.subject.name| titlecase}}</td>
                             <td>{{subject.group.name| titlecase}}</td>
-                            <td>{{subject.state | titlecase}}</td>
                             <td>
-                                <button nz-button nzType="primary">Ver</button>
+                                <div class="state">
+                                    <div *ngIf="subject.state === 'cancelled' ">
+                                        <nz-tag nzColor="#cd201f">
+                                            <span nz-icon nzType="close-circle"></span>
+                                            <span>Cancelada</span>
+                                        </nz-tag>
+                                    </div>
+
+                                    <div *ngIf="subject.state === 'in progress' ">
+                                        <nz-tag nzColor="#3b5999">
+                                            <span nz-icon nzType="sync" nzSpin></span>
+                                            <span>En Proceso</span>
+                                        </nz-tag>
+                                    </div>
+
+                                    <div *ngIf="subject.state === 'approved' ">
+                                        <nz-tag nzColor="#609966">
+                                            <span nz-icon nzType="check-circle"></span>
+                                            <span>Aprovada</span>
+                                        </nz-tag>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="actions">
+                                <button nz-button nzType="primary" routerLink="/dashboard/personas/{{subject.group.subject.name}}/{{subject.group.name}}/{{subject.group.id}}">Ver</button>
+                                <button nz-button nzType="primary" nzDanger (click)="cancel(subject.group.id)" [disabled]="subject.state === 'cancelled'">Cancelar</button>
                             </td>
                         </tr>
                     </tbody>

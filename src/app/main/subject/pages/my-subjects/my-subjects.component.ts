@@ -3,18 +3,22 @@ import { PersonService } from '../../../persons/service/person.service';
 import { ActivatedRoute } from '@angular/router';
 import { GroupElement } from '../../interfaces/my-subjects.interface';
 import { Subject } from 'rxjs';
+import Swal from 'sweetalert2';
+import { GroupPersonService } from '../../../group_person/service/group-person.service';
+import { BaseComponent } from '../../../../shared/base/base.component';
 
 @Component({
   selector: 'app-my-subjects',
   templateUrl: './my-subjects.component.html',
   styleUrls: ['./my-subjects.component.css']
 })
-export class MySubjectsComponent {
+export class MySubjectsComponent extends BaseComponent {
 
-  title:string = "Mis Materias"
-  mySubjects:GroupElement[]=[]
-  id:string = ""
+  title: string = "Mis Materias"
+  mySubjects: GroupElement[] = []
+  id: string = ""
   loading = true;
+  person_id: string = ""
 
 
   dtOptions: DataTables.Settings = {}
@@ -22,9 +26,10 @@ export class MySubjectsComponent {
 
 
   constructor(
-    private personService:PersonService,
-    private aRoute:ActivatedRoute
-  ){
+    private personService: PersonService,
+    private groupPersonService: GroupPersonService
+  ) {
+    super()
     this.uploadMySubjects()
   }
 
@@ -38,15 +43,40 @@ export class MySubjectsComponent {
     };
   }
 
-  uploadMySubjects(){
+  uploadMySubjects() {
     const email = localStorage.getItem("email")
     this.personService.uploadMySubjects(email!).subscribe({
-      next: value =>{
+      next: value => {
         this.mySubjects = value.data.groups
+        this.person_id = value.data.id
         this.loading = false
       },
-      error: err =>{
+      error: err => {
         console.log(err);
+      }
+    })
+  }
+
+  cancel(group: string) {
+    Swal.fire({
+      icon: "warning",
+      title: '¿Estas Seguro/a?',
+      showCancelButton: true,
+      confirmButtonText: 'Si',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.groupPersonService.changeStateOfSubject(this.person_id, group, "cancelled").subscribe({
+          next: value => {
+            this.alertSuccess(value.data)
+            this.uploadMySubjects()
+          },
+          error: err =>{
+            this.alertError(err.error.data)
+          }
+        })
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
       }
     })
   }

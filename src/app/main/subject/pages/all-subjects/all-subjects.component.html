@@ -4,11 +4,11 @@
     <div class="site-page-header-ghost-wrapper">
         <nz-page-header nzBackIcon [nzGhost]="false">
             <nz-page-header-title>{{title}}</nz-page-header-title>
-            <nz-page-header-subtitle>Listado de personas registradas en el sistema</nz-page-header-subtitle>
+            <nz-page-header-subtitle>Listado de materias registradas en el sistema</nz-page-header-subtitle>
             <nz-page-header-extra>
                 <nz-space>
+                    <!-- TODO: SOLO LO PUEDE HACER UN ADMIN -->
                     <button *nzSpaceItem nz-button (click)="showModal()">Nueva Materia</button>
-                    <!-- <button *nzSpaceItem nz-button nzType="primary">Ver Todos</button> -->
                 </nz-space>
             </nz-page-header-extra>
         </nz-page-header>
@@ -36,11 +36,6 @@
                         </span>
                     </div>
                 </div>
-            
-            
-                <!-- <div class="button">
-                    <button [disabled]="infoSubject.invalid" type="submit" class="btn btn-primary">Registrar</button>
-                </div> -->
             </form>
         </ng-container>
     </nz-modal>
@@ -67,7 +62,7 @@
                             <td>{{subject.name | titlecase}}</td>
                             <td>{{subject.code| titlecase}}</td>
                             <td class="buttons">
-                                <a class="me-2" routerLink="/dashboard/grupos/{{subject.code}}" nz-button
+                                <a class="me-2" routerLink="/dashboard/grupos/{{subject.id}}" nz-button
                                     nzType="primary">ver Grupos</a>
                             </td>
                         </tr>

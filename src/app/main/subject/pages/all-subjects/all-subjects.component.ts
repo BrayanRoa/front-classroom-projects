@@ -53,7 +53,7 @@ export class AllSubjectsComponent extends BaseComponent {
     const { name, code } = this.infoSubject.value
     this.subjectService.register(code, name).subscribe({
       next: value => {
-        this.alertSuccess()
+        this.alertSuccess(value.data)
         this.handleOk()
       },
       error: err =>{
@@ -86,6 +86,7 @@ export class AllSubjectsComponent extends BaseComponent {
 
   handleOk(): void {
     this.isVisible = false;
+    this.uploadsSubjects()
   }
 
   handleCancel(): void {
