@@ -78,3 +78,23 @@ nz-content {
   background: #fff;
   height: 100vh;
 }
+
+.header-logout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mini-box{
+  width: 35%;
+  background: #fff;
+}
+
+nz-button-group {
+  margin: 0 8px 8px 0;
+}
+
+.log-out{
+  text-align: right;
+  padding-right: 20px;
+}

@@ -8,13 +8,25 @@
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Personas' : ''"
+        nzMatchRouter>
+        <span nz-icon nzType="user"></span>
+        <span>Administración</span>
+      </li>
+
+      <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Personas' : ''"
+        routerLink="/dashboard/personas" nzMatchRouter>
+        <span nz-icon nzType="user"></span>
+        <span>Personas</span>
+      </li>
+
       <li nz-submenu nzOpen nzTitle="Materias" nzIcon="book">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/dashboard/materias">Todas</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a>Mis Materias</a>
+            <a routerLink="/dashboard/mis_materias">Mis Materias</a>
           </li>
         </ul>
       </li>
@@ -26,11 +38,7 @@
             </li>
           </ul>
         </li> -->
-      <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Personas' : ''"
-        routerLink="/dashboard/personas" nzMatchRouter>
-        <span nz-icon nzType="user"></span>
-        <span>Personas</span>
-      </li>
+
 
       <!-- <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Materias' : ''"
         routerLink="/dashboard/materias">
@@ -40,17 +48,29 @@
     </ul>
   </nz-sider>
   <nz-layout>
-    <nz-header>
-      <div class="app-header">
+    <nz-header class="header-logout">
+      <div class="app-header mini-box">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
           <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
         </span>
       </div>
+      <div class="mini-box">
+        hola
+      </div>
+      <div class="mini-box log-out">
+        <a nz-dropdown [nzDropdownMenu]="menu">
+          <nz-avatar nzIcon="user" nzSrc="https://thumbs.dreamstime.com/b/icono-de-la-muestra-del-usuario-s%C3%ADmbolo-de-la-persona-avatar-humano-84519083.jpg" [nzSize]="'large'"></nz-avatar>
+        </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item >Editar Perfil</li>
+            <li nz-menu-item nzDanger (click)="logOut()">Cerrar Sesión</li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
     </nz-header>
     <nz-content>
-      <!-- <div class="inner-content"> -->
       <router-outlet></router-outlet>
-      <!-- </div> -->
     </nz-content>
   </nz-layout>
 </nz-layout>
