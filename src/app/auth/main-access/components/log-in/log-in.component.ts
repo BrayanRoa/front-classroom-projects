@@ -7,6 +7,7 @@ import { BaseComponent } from '../../../../shared/base/base.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { concatMap } from 'rxjs';
 
+
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
@@ -39,6 +40,8 @@ export class LogInComponent extends BaseComponent {
 
     this.loginService.login(email, password).subscribe({
       next: value => {
+        localStorage.setItem("token", value.data.accessToken)
+        localStorage.setItem("email", value.data.email)
         this.createBasicMessage()
       },
       error: err => {
