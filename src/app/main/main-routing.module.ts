@@ -3,8 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainPageComponent } from './main-page/main-page.component';
 import { AllPersonsComponent } from './persons/page/all-persons/all-persons.component';
 import { AllSubjectsComponent } from './subject/pages/all-subjects/all-subjects.component';
-// import { PersonsGroupComponent } from './group/pages/persons-group/persons-group.component';
 import { AllGroupsComponent } from './group/pages/all-groups/all-groups.component';
+import { MySubjectsComponent } from './subject/pages/my-subjects/my-subjects.component';
+import { PersonsGroupComponent } from './group/pages/persons-group/persons-group.component';
 
 const routes: Routes = [
   {
@@ -13,7 +14,9 @@ const routes: Routes = [
     children: [
       { path: "personas", component: AllPersonsComponent },
       { path: "materias", component: AllSubjectsComponent },
-      { path: "grupos/:id", component: AllGroupsComponent},
+      { path: "grupos/:id", component: AllGroupsComponent },
+      { path: "mis_materias", component: MySubjectsComponent },
+      { path: "personas/:subject/:group/:id", component:PersonsGroupComponent},
       { path: "**", redirectTo: "" }
     ]
   }
