@@ -1,23 +1,64 @@
 <div class="base">
 
-
+    <!-- * HEADER -->
     <div class="site-page-header-ghost-wrapper">
         <nz-page-header nzBackIcon [nzGhost]="false">
-            <nz-page-header-title>{{title}} - {{subject | titlecase}}</nz-page-header-title>
-            <!-- <nz-page-header-subtitle>Listado de grupos de la materia {{subject}}</nz-page-header-subtitle> -->
+            <nz-page-header-title>{{title}} - {{subject | titlecase}} ({{code}})</nz-page-header-title>
             <nz-page-header-extra>
                 <nz-space>
-                    <button *nzSpaceItem nz-button>Ver Alumnos</button>
-                    <button *nzSpaceItem nz-button nzType="primary">Ver Todos</button>
+                    <!-- TODO: ESTAS DOS OPCIONES SOLO LAS PUEDE VER EL ADMIN (DOCENTES) -->
+                    <button *nzSpaceItem nz-button (click)="showModal()">Agregar Grupo</button>
                 </nz-space>
             </nz-page-header-extra>
         </nz-page-header>
     </div>
 
+    <!-- * MODAL NEW SUBJECT -->
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Nueva Materia" (nzOnCancel)="handleCancel()"
+        (nzOnOk)="registerGroupAndTeacher()">
+        <ng-container *nzModalContent>
+            <form autocomplete="off" [formGroup]="infoGroup">
+                <div class="mb-4 row">
 
+                    <div class="col-sm-8">
+                        <input type="hidden" class="form-control" formControlName="subject_code" [value]="id">
+                    </div>
+                </div>
+                <div class="mb-4 row">
+                    <label class="col-sm-4 col-form-label text-end fw-bold">Nombre:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" formControlName="name" placeholder="nombre grupo">
+                        <span class="form-text text-danger" *ngIf="validateFields('name')">
+                            Nombre invalido
+                        </span>
+                    </div>
+                </div>
+                <div class="mb-4 row">
+                    <label class="col-sm-4 col-form-label text-end fw-bold">Docente:</label>
+                    <div class="col-sm-8">
+                        <select formControlName="person" class="form-select" aria-label="Default select example">
+                            <option *ngFor="let teacher of teachers" selected value="{{teacher.id}}">{{teacher.names}}
+                                {{teacher.lastnames}}</option>
+                        </select>
+                        <span class="form-text text-danger" *ngIf="validateFields('person')">
+                            Debe seleccionar un Docente
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+    </nz-modal>
+
+
+    <!-- * MAIN CONTENT -->
     <div class="box-info">
-        <div *ngIf="loading; else content">
-            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        <!-- * IF THERE ARE NO GROUPS THIS RESULT IS SHOWN -->
+        <div *ngIf="groups.length === 0; else content">
+            <nz-result nzStatus="warning" nzTitle="Esta materia no tiene grupos aún">
+                <div nz-result-extra>
+                    <button nz-button nzType="primary" (click)="showModal()">¿Asignar Grupo?</button>
+                </div>
+            </nz-result>
         </div>
 
         <ng-template #content>
@@ -26,9 +67,10 @@
                     <img src="https://miro.medium.com/max/700/1*bRuxpf9ZMC2QVXVJKEoS0w.png" class="card-img-top"
                         alt="...">
                     <div class="card-body">
-                        <h6 class="card-title">{{subject}}</h6>
+                        <h6 class="card-title">{{subject | titlecase}}</h6>
                         <p class="card-text">Grupo - {{group.name}}.</p>
-                        <p class="card-text">Docente - {{group.name}}.</p>
+                        <p class="card-text"><b>Docente - {{group.persons[0].person.names | titlecase}}
+                                {{group.persons[0].person.lastnames | titlecase}}.</b></p>
                         <a href="#" class="btn btn-success">Matricularme</a>
                     </div>
                 </div>
