@@ -56,7 +56,7 @@
                                 </div>
                             </td>
                             <td class="actions">
-                                <button nz-button nzType="primary" routerLink="/dashboard/personas/{{subject.group.subject.name}}/{{subject.group.name}}/{{subject.group.id}}">Ver</button>
+                                <button nz-button nzType="primary" [disabled]="subject.state === 'cancelled' || subject.state === 'approved'" routerLink="/dashboard/personas/{{subject.group.subject.name}}/{{subject.group.name}}/{{subject.group.id}}">Ver</button>
                                 <button nz-button nzType="primary" nzDanger (click)="cancel(subject.group.id)" [disabled]="subject.state === 'cancelled'">Cancelar</button>
                             </td>
                         </tr>

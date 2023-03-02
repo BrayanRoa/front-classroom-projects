@@ -16,6 +16,9 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 
 import { DataTablesModule } from "angular-datatables";
@@ -24,7 +27,7 @@ import { AllSubjectsComponent } from './subject/pages/all-subjects/all-subjects.
 import { PersonsGroupComponent } from './group/pages/persons-group/persons-group.component';
 import { ProjectsGroupComponent } from './group/pages/projects-group/projects-group.component';
 import { AllGroupsComponent } from './group/pages/all-groups/all-groups.component';
-import { NewSubjectComponent } from './subject/components/new-subject/new-subject.component';
+import { MySubjectsComponent } from './subject/pages/my-subjects/my-subjects.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,7 @@ import { NewSubjectComponent } from './subject/components/new-subject/new-subjec
     PersonsGroupComponent,
     ProjectsGroupComponent,
     AllGroupsComponent,
-    NewSubjectComponent,
+    MySubjectsComponent,
   ],
   imports: [
     CommonModule,
@@ -52,7 +55,10 @@ import { NewSubjectComponent } from './subject/components/new-subject/new-subjec
     NzSpinModule,
     NzCardModule,
     NzModalModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzResultModule,
+    NzAvatarModule,
+    NzDropDownModule
   ]
 })
 export class MainModule { }

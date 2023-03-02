@@ -42,6 +42,7 @@ export class LogInComponent extends BaseComponent {
       next: value => {
         localStorage.setItem("token", value.data.accessToken)
         localStorage.setItem("email", value.data.email)
+        localStorage.setItem("role", value.data.role)
         this.createBasicMessage()
       },
       error: err => {

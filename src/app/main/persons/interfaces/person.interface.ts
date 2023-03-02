@@ -29,9 +29,13 @@ export interface Persons {
     img:                null;
     active:             boolean;
     document_type:      DocumentType;
-    role:               DocumentType;
+    role:               RoleType;
 }
 
 export interface DocumentType {
+    name: string;
+}
+
+export interface RoleType {
     name: string;
 }

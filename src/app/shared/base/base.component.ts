@@ -10,11 +10,11 @@ export class BaseComponent {
         })
     }
 
-    alertSuccess(){
+    alertSuccess(msg:string){
         Swal.fire({
             icon: 'success',
             title: 'OK',
-            text: "Registrado/a"
+            text: msg
         })
     }
 }

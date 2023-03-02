@@ -14,4 +14,6 @@ export interface ResponseToken {
 
 export interface Data {
     accessToken: string;
+    email:       string;
+    role:        string
 }
