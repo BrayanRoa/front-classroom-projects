@@ -1,0 +1,20 @@
+.main{
+    height: 100vh;
+}
+
+.info{
+    background-color: grey;
+}
+
+.login{
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.access{
+    background-color: bisque;
+    padding: 10px;
+    border-radius: 10px;
+}

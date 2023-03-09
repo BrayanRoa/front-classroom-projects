@@ -1,0 +1,32 @@
+<div class="base">
+
+
+    <div class="site-page-header-ghost-wrapper">
+        <nz-page-header nzBackIcon [nzGhost]="false">
+            <nz-page-header-title>{{title}}</nz-page-header-title>
+            <nz-page-header-subtitle>Listado de personas registradas en el sistema</nz-page-header-subtitle>
+            <nz-page-header-extra>
+                <nz-space>
+                    <!-- TODO: POR EL MOMENTO NO SE QUE OPCIONES COLOCAR AQUI -->
+                    <!-- <button *nzSpaceItem nz-button>Ver Alumnos</button>
+                    <button *nzSpaceItem nz-button nzType="primary">Ver Todos</button> -->
+                </nz-space>
+            </nz-page-header-extra>
+        </nz-page-header>
+    </div>
+
+
+    <div class="box-info">
+        <div class="my-cards row">
+            <div class="col-sm-4 mb-3 mb-sm-0" *ngFor="let person of persons">
+                <div  class="card" style="width: 18rem;">
+                    <img src="https://aprendeencasa.sep.gob.mx/multimedia/B64images/202111/B64-IMG-kHFu2lKGso-a5bAcQcVKw.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{person.names | titlecase}} {{person.lastnames | titlecase}}</h5>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

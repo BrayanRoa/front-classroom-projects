@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 //* MODULOS PROPIOS
-import { MainModule } from './main/main.module';
 import { AuthModule } from './auth/auth.module';
 
 //* NG ZORRO
@@ -35,7 +34,6 @@ registerLocaleData(es);
     HttpClientModule,
     BrowserAnimationsModule,
     IconsProviderModule,
-    MainModule,
     AuthModule,
     DataTablesModule
   ],
