@@ -10,9 +10,13 @@ import { PersonService } from '../../service/person.service';
 })
 export class AllStudentsComponent {
   title: string = "Estudiantes"
+
+  //* ESTO SIEMPRE VA IGUAL
   dtOptions: DataTables.Settings = {}
   dtTrigger = new Subject<any>();
   persons: Persons[] = []
+  //* END
+
   errors: string = ""
   loading = true;
 
@@ -24,6 +28,7 @@ export class AllStudentsComponent {
     this.uploadPersons()
   }
 
+  //* SI ES TABLA SIEMPRE VA
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -34,6 +39,7 @@ export class AllStudentsComponent {
     };
   }
 
+  //* SI ES TABLA SIEMPRE VA
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
