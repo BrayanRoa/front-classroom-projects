@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Persons } from '../../interfaces/all-persons.interface';
+import { PersonsInterface } from '../../interfaces/all-persons.interface';
 import { PersonService } from '../../service/person.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class AllStudentsComponent {
   //* ESTO SIEMPRE VA IGUAL
   dtOptions: DataTables.Settings = {}
   dtTrigger = new Subject<any>();
-  persons: Persons[] = []
+  persons: PersonsInterface[] = []
   //* END
 
   errors: string = ""
