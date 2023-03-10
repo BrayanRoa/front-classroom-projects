@@ -7,6 +7,9 @@ import { AllStudentsComponent } from './persons/pages/all-students/all-students.
 import { AllTeachersComponent } from './persons/pages/all-teachers/all-teachers.component';
 import { AllSubjectsComponent } from './subjects/pages/all-subjects/all-subjects.component';
 import { MySubjectsComponent } from './subjects/pages/my-subjects/my-subjects.component';
+import { SeePersonComponent } from './persons/pages/see-person/see-person.component';
+import { PersonsGroupComponent } from './groups/pages/persons-group/persons-group.component';
+import { ProjectsGroupComponent } from './groups/pages/projects-group/projects-group.component';
 
 const routes: Routes = [
   {
@@ -14,16 +17,19 @@ const routes: Routes = [
     component: DashboardAdminComponent,
     children: [
 
-      { 
+      {
         path: "estudiantes",
-        canLoad:[HasRoleGuard],
-        data:{allowedRoles:["docente"]}, 
-        component: AllStudentsComponent },
+        canLoad: [HasRoleGuard],
+        data: { allowedRoles: ["docente"] },
+        component: AllStudentsComponent
+      },
+      { path: "ver_persona/:code", component: SeePersonComponent },
       { path: "docentes", component: AllTeachersComponent },
       { path: "materias", component: AllSubjectsComponent },
       { path: "mis_materias", component: MySubjectsComponent },
       { path: "grupos/:id", component: AllGroupsComponent },
-      // { path: "personas/:subject/:group/:id", component:PersonsGroupComponent},
+      { path: "personas/:subject/:group/:id", component: PersonsGroupComponent },
+      { path: "proyectos/:subject/:group_name/:group_id", component: ProjectsGroupComponent },
       { path: "**", redirectTo: "" }
     ]
   }
