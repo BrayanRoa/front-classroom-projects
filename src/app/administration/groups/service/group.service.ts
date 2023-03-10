@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { GroupSubjectInterface } from '../interfaces/group-subject.interface';
-import { ResponseHttp } from '../../../shared/interfaces/response.interface';
 import { NewGroupInterface } from '../interfaces/new-group-interface';
+import { GroupProjectsInterface } from '../interfaces/group-projects.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,10 @@ export class GroupService {
 
   createGroup(name: string, subject_code: string): Observable<NewGroupInterface> {
     return this.http.post<NewGroupInterface>(`${this.URL}/group/create`, { name, subject_code })
+  }
+
+  uploadProjectsOfGroup(group_id:string):Observable<GroupProjectsInterface>{
+    return this.http.get<GroupProjectsInterface>(`${this.URL}/group/projects/${group_id}`)
   }
 
 }
