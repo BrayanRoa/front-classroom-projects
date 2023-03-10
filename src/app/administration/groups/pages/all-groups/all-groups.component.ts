@@ -22,6 +22,7 @@ export class AllGroupsComponent extends BaseComponent {
   isVisible = false;
   teachers: any[] = []
   infoGroup!: FormGroup
+  person!:string
 
   constructor(
     private groupService: GroupService,
@@ -30,7 +31,8 @@ export class AllGroupsComponent extends BaseComponent {
     private fb: FormBuilder
   ) {
     super()
-    this.id = this.aRoute.snapshot.paramMap.get('id') || ""
+    this.id = this.aRoute.snapshot.paramMap.get('id')!
+    this.person = localStorage.getItem("email")!
     this.uploadGroupsOfSubject()
   }
 
@@ -76,7 +78,24 @@ export class AllGroupsComponent extends BaseComponent {
         })
       },
       error: err => {
-        console.log(err);
+        this.alertError(err.error.data)
+      }
+    })
+  }
+
+  enrollInGroup(id_group:string){
+    this.personService.seePerson(this.person).subscribe({
+      next: person =>{
+        this.personService.registerPersonInGroup(person.data.id, id_group).subscribe({
+          next: value =>{
+            this.alertSuccess(value.data)
+          },
+          error: err =>{
+            this.alertWarning(err.error.data)
+          }
+        })
+      },
+      error: err =>{
         this.alertError(err.error.data)
       }
     })

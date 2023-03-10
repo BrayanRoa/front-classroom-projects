@@ -12,8 +12,7 @@ export class PersonsGroupComponent {
   title: string = "Personas"
   dtOptions: DataTables.Settings = {}
   dtTrigger = new Subject<any>();
-  persons: any[] = []
-  errors: string = ""
+  persons: any[] = [] //* TODO: 👀 QUITAR EL ANY
   loading = true;
   id: string = ""
   subject: string = ""
@@ -51,7 +50,6 @@ export class PersonsGroupComponent {
         this.loading = false
       }),
       error: (e => {
-        this.errors = e.error.data
       })
     })
   }

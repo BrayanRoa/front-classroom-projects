@@ -71,7 +71,7 @@
                         <p class="card-text">Grupo - {{group.name}}.</p>
                         <p class="card-text"><b>Docente - {{group.persons[0].person.names | titlecase}}
                                 {{group.persons[0].person.lastnames | titlecase}}.</b></p>
-                        <a href="#" class="btn btn-success">Matricularme</a>
+                        <button type="button" href="#" class="btn btn-success" (click)="enrollInGroup(group.id)">Matricularme</button>
                     </div>
                 </div>
             </div>
