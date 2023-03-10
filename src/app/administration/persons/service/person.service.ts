@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MySubjectInterface } from '../../subjects/interfaces/my-subjects.interface';
-import { GetAllPersonsInterface } from '../interfaces/all-persons.interface';
+import { GetAllPersonsInterface, PersonsInterface } from '../interfaces/all-persons.interface';
 import { ResponseHttp } from '../../../shared/interfaces/response.interface';
+import { GetOnePersonsInterface } from '../interfaces/one-person.interface';
+import { AllPersonGroupInterface } from '../../groups/interfaces/all-persons-group.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +40,11 @@ export class PersonService {
     return this.http.get<MySubjectInterface>(`${this.URL}/person/subjects/${email}`)
   }
 
-  // uploadPersonOfGroup(id:string):Observable<GetAllPersonsInterface>{
-  //   return this.http.get<GetAllPersonsInterface>(`${this.URL}/persons/group/${id}`)
-  // }
+  seePerson(term:string):Observable<GetOnePersonsInterface>{
+    return this.http.get<GetOnePersonsInterface>(`${this.URL}/person/${term}`)
+  }
+
+  uploadPersonOfGroup(id:string):Observable<AllPersonGroupInterface>{
+    return this.http.get<AllPersonGroupInterface>(`${this.URL}/persons/group/${id}`)
+  }
 }

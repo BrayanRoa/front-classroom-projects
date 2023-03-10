@@ -1,10 +1,10 @@
-export interface GetAllPersonsInterface {
+export interface GetOnePersonsInterface {
     status:    number;
     statusMsg: string;
-    data:      PersonsInterface[];
+    data:      OnePersonsInterface;
 }
 
-export interface PersonsInterface {
+export interface OnePersonsInterface {
     id:                 string;
     created_at:         string;
     updated_at:         string;
