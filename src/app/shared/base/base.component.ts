@@ -10,6 +10,14 @@ export class BaseComponent {
         })
     }
 
+    alertWarning(msg: string) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: msg
+        })
+    }
+
     alertSuccess(msg:string){
         Swal.fire({
             icon: 'success',
