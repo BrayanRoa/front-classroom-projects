@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NzButtonSize } from 'ng-zorro-antd/button';
 import { Subject } from 'rxjs';
 import { PersonsInterface } from '../../interfaces/all-persons.interface';
 import { PersonService } from '../../service/person.service';
@@ -20,7 +21,7 @@ export class AllStudentsComponent {
   errors: string = ""
   loading = true;
 
-  prueba:string=""
+  size: NzButtonSize = 'large';
 
   constructor(
     private personService: PersonService

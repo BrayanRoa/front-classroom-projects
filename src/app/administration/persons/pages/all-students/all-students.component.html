@@ -47,7 +47,11 @@
                                     <nz-tag class="tag-ng-zorro" [nzColor]="'#16FF00'"><small>Activo</small></nz-tag>
                                 </div>
                             <td>
-                                <button pButton type="button" routerLink="/dashboard/ver_persona/{{person.code}}" class="p-button-info" label="Ver"></button>
+                                <!-- <button  nz-button nzType="primary" [nzSize]="size" nzShape="round">
+                                    <span nz-icon nzType="eye"></span>
+                                    Ver
+                                </button> -->
+                                <button routerLink="/dashboard/ver_persona/{{person.code}}" nz-button nzType="primary">Ver</button>
                             </td>
                         </tr>
                     </tbody>

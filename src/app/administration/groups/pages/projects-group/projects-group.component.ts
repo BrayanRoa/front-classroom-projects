@@ -20,6 +20,8 @@ export class ProjectsGroupComponent extends BaseComponent {
 
   title: string = "Proyectos"
   group_id!: string
+  subject_name!:string
+  group_name!:string
   infoProject!: FormGroup
 
   loading: boolean = false
@@ -34,6 +36,10 @@ export class ProjectsGroupComponent extends BaseComponent {
   ) {
     super()
     this.group_id = this.aRoute.snapshot.paramMap.get("group_id")!
+    this.subject_name = this.aRoute.snapshot.paramMap.get("subject")!
+    this.group_name = this.aRoute.snapshot.paramMap.get("group_name")!
+    console.log(this.subject_name);
+    console.log(this.group_name);
     this.uploadProjectOfGroup()
     this.loadForm()
   }
@@ -71,6 +77,7 @@ export class ProjectsGroupComponent extends BaseComponent {
     this.groupService.uploadProjectsOfGroup(this.group_id).subscribe({
       next: value => {
         this.projects = value.data.project
+        this.dtTrigger.next(this.projects)
       },
       error: err => {
         this.alertError(err.error.data)

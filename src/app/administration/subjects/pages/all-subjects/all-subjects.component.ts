@@ -17,14 +17,12 @@ export class AllSubjectsComponent extends BaseComponent {
   dtOptions: DataTables.Settings = {}
   dtTrigger = new Subject<any>();
   subjects: SubjectData[] = []
-  errors: string = ""
   loading = true;
   isVisible = false;
 
   constructor(
     private subjectService: SubjectService,
-    private fb: FormBuilder,
-
+    private fb: FormBuilder
   ) {
     super()
     this.uploadsSubjects()
@@ -76,7 +74,6 @@ export class AllSubjectsComponent extends BaseComponent {
       }),
       error: (e => {
         this.loading = false
-        this.errors = e.error.data
       })
     })
   }

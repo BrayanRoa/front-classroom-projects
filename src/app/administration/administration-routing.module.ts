@@ -10,6 +10,7 @@ import { MySubjectsComponent } from './subjects/pages/my-subjects/my-subjects.co
 import { SeePersonComponent } from './persons/pages/see-person/see-person.component';
 import { PersonsGroupComponent } from './groups/pages/persons-group/persons-group.component';
 import { ProjectsGroupComponent } from './groups/pages/projects-group/projects-group.component';
+import { SeeOneProjectComponent } from './projects/pages/see-one-project/see-one-project.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
       { path: "grupos/:id", component: AllGroupsComponent },
       { path: "personas/:subject/:group/:id", component: PersonsGroupComponent },
       { path: "proyectos/:subject/:group_name/:group_id", component: ProjectsGroupComponent },
+      { path: ":subject:/:group/:project_id", component: SeeOneProjectComponent },
       { path: "**", redirectTo: "" }
     ]
   }

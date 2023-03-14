@@ -13,6 +13,10 @@ import { MySubjectsComponent } from './subjects/pages/my-subjects/my-subjects.co
 
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { AllGroupsComponent } from './groups/pages/all-groups/all-groups.component';
+import { SeePersonComponent } from './persons/pages/see-person/see-person.component';
+import { PersonsGroupComponent } from './groups/pages/persons-group/persons-group.component';
+import { ProjectsGroupComponent } from './groups/pages/projects-group/projects-group.component';
+import { SeeOneProjectComponent } from './projects/pages/see-one-project/see-one-project.component';
 
 
 @NgModule({
@@ -23,6 +27,10 @@ import { AllGroupsComponent } from './groups/pages/all-groups/all-groups.compone
     AllSubjectsComponent,
     MySubjectsComponent,
     AllGroupsComponent,
+    SeePersonComponent,
+    PersonsGroupComponent,
+    ProjectsGroupComponent,
+    SeeOneProjectComponent
   ],
   imports: [
     CommonModule,
