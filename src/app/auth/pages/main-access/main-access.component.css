@@ -3,18 +3,28 @@
 }
 
 .info{
-    background-color: grey;
+    background-image: url("https://lh3.googleusercontent.com/p/AF1QipO6U9oUCSyuw2DesOl84ydpWSb1TR725FU77eQe=s680-w680-h510");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color:brown;
+    position: relative;
 }
 
 .login{
-    background-color: aquamarine;
+    background-image: url("https://media.istockphoto.com/id/817414862/vector/grey-and-red-corporate-abstract-stripes-background.jpg?s=612x612&w=0&k=20&c=icCtVFpCkk8gxtS2Mrruzwej__ndDLVXj5uNjkdyUdw=");
     display: flex;
     justify-content: center;
     align-items: center;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color:rgb(255, 255, 255);
+    position: relative;
 }
 
 .access{
-    background-color: bisque;
-    padding: 10px;
-    border-radius: 10px;
+    background: linear-gradient(rgba(255, 255, 255, 0.289), rgba(255, 255, 255, 0.523)), url("https://img.freepik.com/foto-gratis/tarjeta-plantilla-informe-papel-suave_1258-167.jpg");
+    padding: 75px;
+    border-radius: 75px;
 }
