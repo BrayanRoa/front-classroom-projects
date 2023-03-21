@@ -13,3 +13,21 @@
 img{
     width: 120px;
 }
+
+/* Icons */
+
+ul.icons {
+    cursor: default;
+    list-style: none;
+    padding:center;
+    padding-top: 20px;
+}
+
+    ul.icons li {
+        display: inline-block;
+        padding: 0 1.75rem 0 0;
+    }
+
+        ul.icons li:last-child {
+            padding-right: -1;
+        }
