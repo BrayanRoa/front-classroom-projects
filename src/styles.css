@@ -57,3 +57,16 @@ nz-spin {
     display: inline-block;
     margin-right: 16px;
 }
+
+td{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.photo-person{
+    width: 100px;
+}
+
+p-button{
+    margin-right: 2px;
+}
