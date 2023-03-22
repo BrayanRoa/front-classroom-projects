@@ -15,6 +15,8 @@ import { concatMap } from 'rxjs';
 })
 export class LogInComponent extends BaseComponent {
 
+  formLogin!: FormGroup
+
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
@@ -22,12 +24,15 @@ export class LogInComponent extends BaseComponent {
     private message: NzMessageService
   ) {
     super()
+    this.loadForm()
   }
 
-  formLogin: FormGroup = this.fb.group({
-    email: ["@ufps.edu.co", [Validators.required, Validators.email]],
-    password: ["", [Validators.required, Validators.minLength(6)]]
-  })
+  loadForm() {
+    this.formLogin = this.fb.group({
+      email: ["@ufps.edu.co", [Validators.required, Validators.email]],
+      password: ["", [Validators.required, Validators.minLength(6)]]
+    })
+  }
 
   validateFields(field: string) {
     return this.formLogin.controls[field].errors &&

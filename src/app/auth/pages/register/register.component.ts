@@ -17,9 +17,9 @@ import { PersonService } from 'src/app/administration/persons/service/person.ser
 })
 export class RegisterComponent extends BaseComponent {
 
-  errors: string = ""
   document_types: DocumentsData[] = []
   role: RoleData[] = []
+  registerForm!:FormGroup
 
   constructor(
     private fb: FormBuilder,
@@ -31,41 +31,48 @@ export class RegisterComponent extends BaseComponent {
   ) {
     super()
     this.uploadData()
+    this.loadForm()
   }
 
+  loadForm(){
+    this.registerForm = this.fb.group({
+      names: ["", [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(30)]],
+      lastnames: ["", [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(30)]],
+      institutional_mail: ["@ufps.edu.co", [
+        Validators.required,
+        this.validateEmail]],
+      password: ["", [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(15)]],
+      code: ["", [
+        Validators.required,
+        Validators.minLength(7),
+        Validators.maxLength(7)
+      ]],
+      document_id: ["", [
+        Validators.required
+      ]],
+      num_document: ["", [
+        Validators.required,
+        Validators.minLength(7),
+        Validators.maxLength(12)
+      ]],
+      role_id: ["", [Validators.required]]
+    })
+  }
 
-  registerForm: FormGroup = this.fb.group({
-    names: ["", [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(30)]],
-    lastnames: ["", [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(30)]],
-    institutional_mail: ["@ufps.edu.co", [
-      Validators.required,
-      this.validateEmail]],
-    password: ["", [
-      Validators.required,
-      Validators.minLength(6),
-      Validators.maxLength(15)]],
-    code: ["", [
-      Validators.required,
-      Validators.minLength(7),
-      Validators.maxLength(7)
-    ]],
-    document_id: ["", [
-      Validators.required
-    ]],
-    num_document: ["", [
-      Validators.required,
-      Validators.minLength(7),
-      Validators.maxLength(12)
-    ]],
-    role_id: ["", [Validators.required]]
-  })
-
+  validateFields(field: string) {
+    return this.registerForm.controls[field].errors &&
+      this.registerForm.controls[field].touched
+  }
+  
   uploadData() {
     this.documentService.getAll().subscribe(resp => {
       this.document_types = resp.data
@@ -82,11 +89,6 @@ export class RegisterComponent extends BaseComponent {
     } else {
       return { invalidEmail: true }; // correo inválido
     }
-  }
-
-  validateFields(field: string) {
-    return this.registerForm.controls[field].errors &&
-      this.registerForm.controls[field].touched
   }
 
   register() {
