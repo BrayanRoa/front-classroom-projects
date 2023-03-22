@@ -69,14 +69,16 @@
                 hola
             </div>
             <div class="mini-box log-out">
-                <a nz-dropdown [nzDropdownMenu]="menu">
-                    <nz-avatar nzIcon="user"
-                        nzSrc="https://thumbs.dreamstime.com/b/icono-de-la-muestra-del-usuario-s%C3%ADmbolo-de-la-persona-avatar-humano-84519083.jpg"
-                        [nzSize]="'large'"></nz-avatar>
-                </a>
+                <div class="avatar">
+                    <div class="botoncito">
+                        <a nz-dropdown [nzDropdownMenu]="menu">
+                            <p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" styleClass="mr-2"></p-chip>
+                        </a>    
+                    </div>
+                </div>
                 <nz-dropdown-menu #menu="nzDropdownMenu">
                     <ul nz-menu>
-                        <li nz-menu-item>Editar Perfil</li>
+                        <a nz-menu-item routerLink="/dashboard/persona/{{mail}}/editProfile">Editar Perfil</a>
                         <li nz-menu-item nzDanger (click)="logOut()">Cerrar Sesión</li>
                     </ul>
                 </nz-dropdown-menu>

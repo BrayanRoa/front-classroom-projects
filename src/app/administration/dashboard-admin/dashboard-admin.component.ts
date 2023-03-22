@@ -10,11 +10,13 @@ import Swal from 'sweetalert2';
 })
 export class DashboardAdminComponent extends BaseComponent{
   isCollapsed = false;
+  mail!:string
 
   constructor(
     private router:Router
   ){
     super()
+    this.mail = localStorage.getItem("email")!
   }
 
   logOut(){
@@ -24,7 +26,6 @@ export class DashboardAdminComponent extends BaseComponent{
       showCancelButton: true,
       confirmButtonText: 'Si',
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         localStorage.removeItem("token")
         localStorage.removeItem("email")
