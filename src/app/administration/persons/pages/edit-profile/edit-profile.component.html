@@ -1,0 +1,71 @@
+<div class="base">
+  <div class="site-page-header-ghost-wrapper">
+    <nz-page-header nzBackIcon [nzGhost]="false">
+      <nz-page-header-title>{{ title }}</nz-page-header-title>
+      <nz-page-header-subtitle
+        >Listado de personas registradas en el sistema</nz-page-header-subtitle
+      >
+      <nz-page-header-extra>
+        <nz-space>
+          <!-- TODO: POR EL MOMENTO NO SE QUE OPCIONES COLOCAR AQUI -->
+          <!-- <button *nzSpaceItem nz-button>Ver Alumnos</button>
+                    <button *nzSpaceItem nz-button nzType="primary">Ver Todos</button> -->
+        </nz-space>
+      </nz-page-header-extra>
+    </nz-page-header>
+  </div>
+
+  <div class="box-info">
+    <div class="loading" *ngIf="loading; else content">
+      <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+    </div>
+
+    <div>
+      <ng-template #content>
+        <div class="container">
+          <div class="row">
+            <div class="col-4 info-img">
+              <div>
+                <div class="img">
+                  <img [src]="person.img" alt="" />
+                </div>
+                <div class="names-person">
+                  <h2>
+                    {{ person.names | titlecase }}
+                    {{ person.lastnames | titlecase }}
+                  </h2>
+                </div>
+              </div>
+            </div>
+            <div class="col-8 info-text">
+              <!-- TODO: COLOCAR EL FORMULARIO AQUI -->
+              <!-- TODO: formControlName="" -->
+              <div class="field col-12 md:col-4">
+                <span class="p-float-label">
+                  <input type="text" id="inputtext" pInputText />
+                  <label for="inputtext">InputText</label>
+                </span>
+              </div>
+              <div class="field col-12 md:col-4">
+                <span class="p-float-label p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input formControlName="" type="text" id="inputtext-left" pInputText />
+                  <label for="inputtext-left">Apellidos</label>
+                </span>
+              </div>
+              <div class="field col-12 md:col-4">
+                <span class="p-float-label p-input-icon-right">
+                  <i class="pi pi-spin pi-spinner"></i>
+                  <input type="text" id="inputtext-right" pInputText />
+                  <label for="inputtext-right">Right Icon</label>
+                </span>
+              </div>
+              <!-- TODO: FINAL DEL FORMULARIO -->
+            </div>
+          </div>
+        </div>
+        <!-- Aquí puedes agregar el contenido que deseas mostrar cuando isLoading es false -->
+      </ng-template>
+    </div>
+  </div>
+</div>
