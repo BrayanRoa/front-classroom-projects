@@ -5,6 +5,8 @@ import { environment } from '../../../../environments/environment';
 import { GroupSubjectInterface } from '../interfaces/group-subject.interface';
 import { NewGroupInterface } from '../interfaces/new-group-interface';
 import { GroupProjectsInterface } from '../interfaces/group-projects.interface';
+import { OneGroupInterface } from '../interfaces/one-group.interface';
+import { AllTaskInterface } from '../interfaces/all-task.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -35,4 +37,11 @@ export class GroupService {
     return this.http.get<GroupProjectsInterface>(`${this.URL}/group/projects/${group_id}`)
   }
 
+  uploadOneGroup(id:string):Observable<OneGroupInterface>{
+    return this.http.get<OneGroupInterface>(`${this.URL}/group/${id}`)
+  }
+
+  findAllTaskOfGroup(id:string):Observable<AllTaskInterface>{
+    return this.http.get<AllTaskInterface>(`${this.URL}/group/tasks/${id}`) 
+  }
 }

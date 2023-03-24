@@ -6,6 +6,7 @@ import { BaseComponent } from '../../../../shared/base/base.component';
 import { ProjectInterface } from '../../interfaces/group-projects.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../../projects/service/project.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-projects-group',
@@ -13,6 +14,7 @@ import { ProjectService } from '../../../projects/service/project.service';
   styleUrls: ['./projects-group.component.css']
 })
 export class ProjectsGroupComponent extends BaseComponent {
+  
 
   dtOptions: DataTables.Settings = {}
   dtTrigger = new Subject<any>();
@@ -24,9 +26,13 @@ export class ProjectsGroupComponent extends BaseComponent {
   group_name!:string
   infoProject!: FormGroup
 
-  loading: boolean = false
+  loading: boolean = true
   isVisible: boolean = false
 
+  items!: MenuItem[];
+  home!: MenuItem;
+
+  selectedFile!: File;
 
   constructor(
     private readonly groupService: GroupService,
@@ -38,8 +44,6 @@ export class ProjectsGroupComponent extends BaseComponent {
     this.group_id = this.aRoute.snapshot.paramMap.get("group_id")!
     this.subject_name = this.aRoute.snapshot.paramMap.get("subject")!
     this.group_name = this.aRoute.snapshot.paramMap.get("group_name")!
-    console.log(this.subject_name);
-    console.log(this.group_name);
     this.uploadProjectOfGroup()
     this.loadForm()
   }
@@ -52,6 +56,21 @@ export class ProjectsGroupComponent extends BaseComponent {
         url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
       }
     };
+    this.items = [
+      { label: 'Materias', disabled:true }, 
+      { label: 'Mis Materias', routerLink:"/dashboard/mis_materias" }, 
+      { label: this.subject_name, routerLink:`/dashboard/personas/${this.subject_name}/${this.group_name}/${this.group_id}` }, 
+      { label: 'Proyectos', disabled:true }]
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+  }
+
+  formTemplate:FormGroup = this.fb.group({
+    template:["", [Validators.required]]
+  })
+
+  sendTemplate(event:any){
+    this.selectedFile=event.target.files[0];
+    console.log(this.selectedFile);
   }
 
   loadForm() {
@@ -78,6 +97,7 @@ export class ProjectsGroupComponent extends BaseComponent {
       next: value => {
         this.projects = value.data.project
         this.dtTrigger.next(this.projects)
+        this.loading = false
       },
       error: err => {
         this.alertError(err.error.data)
@@ -104,10 +124,25 @@ export class ProjectsGroupComponent extends BaseComponent {
 
   handleOk(): void {
     this.isVisible = false;
+    const formData = new FormData();
+    formData.append('archivo', this.selectedFile, this.selectedFile.name);
+    this.projectService.uploadExcelOfProjects(this.group_id, formData).subscribe({
+      next: value =>{
+        this.alertSuccess(value.data)
+        this.uploadProjectOfGroup()
+      },
+      error: e =>{
+        this.alertError(e.error.data)
+      }
+    })
   }
 
   handleCancel(): void {
     console.log('Button cancel clicked!');
     this.isVisible = false;
+  }
+
+  onBasicUploadAuto(event:any) {
+    console.log(event);
   }
 }

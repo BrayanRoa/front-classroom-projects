@@ -2,15 +2,9 @@
 
     <!-- * HEADER -->
     <div class="site-page-header-ghost-wrapper">
-        <nz-page-header nzBackIcon [nzGhost]="false">
-            <nz-page-header-title>{{title}} - {{subject | titlecase}} ({{code}})</nz-page-header-title>
-            <nz-page-header-extra>
-                <nz-space>
-                    <!-- TODO: ESTAS DOS OPCIONES SOLO LAS PUEDE VER EL ADMIN (DOCENTES) -->
-                    <button *nzSpaceItem nz-button (click)="showModal()">Agregar Grupo</button>
-                </nz-space>
-            </nz-page-header-extra>
-        </nz-page-header>
+        <div class="card flex justify-content-center">
+            <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+        </div>
     </div>
 
     <!-- * MODAL NEW SUBJECT -->
@@ -62,8 +56,19 @@
         </div>
 
         <ng-template #content>
+            <div class="botones">
+                <nz-space>
+                    <!-- TODO: 👮 SOLO LO PUEDE HACER UN ADMIN -->
+                    <p-button 
+                            label="Agregar Grupo" 
+                            icon="pi pi-plus" 
+                            (click)="showModal()"
+                            styleClass="p-button-sm p-button-raised p-button-success"></p-button>
+                </nz-space>
+            </div>
+
             <div class="box-cards">
-                <div class="card" *ngFor="let group of groups">
+                <div class="card-group" *ngFor="let group of groups">
                     <img src="https://miro.medium.com/max/700/1*bRuxpf9ZMC2QVXVJKEoS0w.png" class="card-img-top"
                         alt="...">
                     <div class="card-body">

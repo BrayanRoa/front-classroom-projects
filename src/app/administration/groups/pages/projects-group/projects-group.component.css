@@ -1,0 +1,7 @@
+.botones{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 10%;
+    margin-bottom: 10px;
+}

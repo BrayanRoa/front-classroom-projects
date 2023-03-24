@@ -22,4 +22,5 @@ export interface ProjectInterface {
     state:              string;
     number_of_students: number;
     full:               boolean;
+    registeredPersons:  number
 }

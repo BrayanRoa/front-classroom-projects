@@ -5,6 +5,7 @@ import { GroupService } from '../../service/group.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from '../../../../shared/base/base.component';
 import { PersonService } from '../../../persons/service/person.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-all-groups',
@@ -14,15 +15,22 @@ import { PersonService } from '../../../persons/service/person.service';
 export class AllGroupsComponent extends BaseComponent {
 
   title: string = "Grupos"
-  subject: string = ""
-  code: string = ""
-  loading: boolean = false
+  
   groups: GroupData[] = []
+  teachers: any[] = [] //TODO: OJO CAMBIAR EL ANY
+
+  subject!: string
+  code: string = ""
   id: string = ""
-  isVisible = false;
-  teachers: any[] = []
+  
   infoGroup!: FormGroup
+  
+  loading: boolean = false
+  isVisible = false;
   person!:string
+
+  items!: MenuItem[];
+  home!: MenuItem;
 
   constructor(
     private groupService: GroupService,
@@ -34,6 +42,10 @@ export class AllGroupsComponent extends BaseComponent {
     this.id = this.aRoute.snapshot.paramMap.get('id')!
     this.person = localStorage.getItem("email")!
     this.uploadGroupsOfSubject()
+  }
+  
+  ngOnInit(): void {    
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 
   chargeForm() {
@@ -55,6 +67,12 @@ export class AllGroupsComponent extends BaseComponent {
         this.subject = value.data.name
         this.code = value.data.code
         this.groups = value.data.group
+
+        this.items = [
+          { label: "Materias", disabled:true},
+          { label: 'Todas', routerLink:"/dashboard/materias"},
+          { label: `Grupos - ${this.subject}`, disabled:true}
+        ];
       },
       error: err => {
         this.subject = "Materia Sin Grupos"
