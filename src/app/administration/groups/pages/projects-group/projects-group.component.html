@@ -37,8 +37,11 @@
                         <p-button (click)="showModal()" label="Cargar Proyectos" icon="pi pi-upload" type="file"
                             styleClass="p-button-sm p-button-raised p-button-success"></p-button>
 
+                        <p-button (click)="downloadFile()" label="Descargar Plantilla" icon="pi pi-file-excel"
+                            styleClass="p-button-sm p-button-raised p-button-primary"></p-button>
                     </nz-space>
                 </div>
+                
                 <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered row-border hover">
                     <thead class="table-dark">
                         <tr>
@@ -56,27 +59,32 @@
                             <td>{{project.description}}</td>
                             <td>{{project.number_of_students}}</td>
                             <td>
-                                <div class="tag" *ngIf="project.registeredPersons === project.number_of_students">
+                                <div class="tag"
+                                    *ngIf="project.registeredPersons === project.number_of_students || project.state === 'finished'; else disponibilidad">
                                     <p-tag styleClass="mr-2" icon="pi pi-times" severity="danger"
                                         value="No Disponible"></p-tag>
                                 </div>
-                                <div class="tag" *ngIf="project.registeredPersons < project.number_of_students">
+                                <ng-template class="tag" #disponibilidad>
                                     <p-tag styleClass="mr-2" icon="pi pi-check" severity="success"
                                         value="{{project.number_of_students - project.registeredPersons}} Disponible"></p-tag>
-                                </div>
+                                </ng-template>
                             </td>
                             <td>
                                 <div class="tag" *ngIf="project.state === 'in progress'">
-                                    <p-tag styleClass="mr-2" icon="pi pi-check" severity="warning"
+                                    <p-tag styleClass="mr-2" icon="pi pi-hourglass" severity="warning"
                                         value="En Desarrollo"></p-tag>
                                 </div>
                                 <div class="tag" *ngIf="project.state === 'on hold'">
-                                    <p-tag styleClass="mr-2" icon="pi pi-hourglass" severity="danger"
+                                    <p-tag styleClass="mr-2" icon="pi pi-stopwatch" severity="danger"
                                         value="En Espera"></p-tag>
                                 </div>
                                 <div class="tag" *ngIf="project.state === 'finished'">
                                     <p-tag styleClass="mr-2" icon="pi pi-flag-fill" severity="success"
                                         value="Finalizado"></p-tag>
+                                </div>
+                                <div class="tag" *ngIf="project.state === 'to start'">
+                                    <p-tag styleClass="mr-2" icon="pi pi-flag-fill" severity="success"
+                                        value="Por Iniciar"></p-tag>
                                 </div>
                             </td>
                             <td>

@@ -7,6 +7,7 @@ import { ProjectInterface } from '../../interfaces/group-projects.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../../projects/service/project.service';
 import { MenuItem } from 'primeng/api';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-projects-group',
@@ -38,6 +39,7 @@ export class ProjectsGroupComponent extends BaseComponent {
     private readonly groupService: GroupService,
     private readonly projectService:ProjectService,
     private readonly aRoute: ActivatedRoute,
+    private http: HttpClient,
     private fb: FormBuilder
   ) {
     super()
@@ -144,5 +146,18 @@ export class ProjectsGroupComponent extends BaseComponent {
 
   onBasicUploadAuto(event:any) {
     console.log(event);
+  }
+
+  downloadFile() {
+    console.log("ola");
+    const url = 'https://res.cloudinary.com/dmaqkkeno/raw/upload/v1679692829/ayd-folder-pruebas/projects-excel_d7flbk.xlsx';
+    this.http.get(url, { responseType: 'blob' }).subscribe((res:any) => {
+      const a = document.createElement('a');
+      const objectUrl = URL.createObjectURL(res);
+      a.href = objectUrl;
+      a.download = 'plantilla-proyectos.xlsx';
+      a.click();
+      URL.revokeObjectURL(objectUrl);
+    });
   }
 }
