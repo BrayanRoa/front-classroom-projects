@@ -1,10 +1,9 @@
 <div class="base">
 
     <div class="site-page-header-ghost-wrapper">
-        <nz-page-header nzBackIcon [nzGhost]="false">
-            <nz-page-header-title>{{title}}</nz-page-header-title>
-            <nz-page-header-subtitle>Listado de mis materias matriculada</nz-page-header-subtitle>
-        </nz-page-header>
+        <div class="card flex justify-content-center">
+            <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+        </div>
     </div>
 
 
@@ -34,30 +33,45 @@
                             <td>
                                 <div class="state">
                                     <div *ngIf="subject.state === 'cancelled' ">
-                                        <nz-tag nzColor="#cd201f">
-                                            <span nz-icon nzType="close-circle"></span>
-                                            <span>Cancelada</span>
-                                        </nz-tag>
+                                        <p-tag icon="pi pi-times" severity="danger" value="Cancelada"></p-tag>
                                     </div>
 
                                     <div *ngIf="subject.state === 'in progress' ">
-                                        <nz-tag nzColor="#3b5999">
-                                            <span nz-icon nzType="sync" nzSpin></span>
-                                            <span>En Proceso</span>
-                                        </nz-tag>
+                                        <p-tag styleClass="mr-2" icon="pi pi-hourglass" severity="info" value="En Proceso"></p-tag>
                                     </div>
 
                                     <div *ngIf="subject.state === 'approved' ">
-                                        <nz-tag nzColor="#609966">
-                                            <span nz-icon nzType="check-circle"></span>
-                                            <span>Aprovada</span>
-                                        </nz-tag>
+                                        <p-tag styleClass="mr-2" icon="pi pi-check" severity="success" value="Aprovada"></p-tag>
                                     </div>
                                 </div>
                             </td>
                             <td class="actions">
-                                <button nz-button nzType="primary" [disabled]="subject.state === 'cancelled' || subject.state === 'approved'" routerLink="/dashboard/personas/{{subject.group.subject.name}}/{{subject.group.name}}/{{subject.group.id}}">Ver</button>
-                                <button nz-button nzType="primary" nzDanger (click)="cancel(subject.group.id)" [disabled]="subject.state === 'cancelled'">Cancelar</button>
+                                
+                                <ng-container *ngIf="subject.state === 'in progress'">
+                                    <p-button 
+                                        label="Ver" 
+                                        icon="pi pi-eye" 
+                                        styleClass="p-button-sm"
+                                        routerLink="/dashboard/personas/{{subject.group.subject.name}}/{{subject.group.name}}/{{subject.group.id}}"></p-button>                                    
+                                </ng-container>
+
+                                <ng-container *ngIf="subject.state !== 'cancelled'">
+                                    <p-button 
+                                        label="Cancelar" 
+                                        icon="pi pi-times" 
+                                        styleClass="p-button-sm p-button-raised p-button-danger"
+                                        (click)="cancel(subject.group.id, 'cancelled')">
+                                    </p-button>
+                                </ng-container>
+
+
+                                <ng-container *ngIf="subject.state === 'cancelled'">
+                                    <p-button 
+                                        label="Matricular" 
+                                        icon="pi pi-check" 
+                                        styleClass="p-button-sm p-button-raised p-button-success"
+                                        (click)="cancel(subject.group.id, 'in progress')"></p-button>
+                                </ng-container>
                             </td>
                         </tr>
                     </tbody>

@@ -5,6 +5,7 @@ import { PersonService } from 'src/app/administration/persons/service/person.ser
 import { BaseComponent } from 'src/app/shared/base/base.component';
 import Swal from 'sweetalert2';
 import { GroupElement } from '../../interfaces/my-subjects.interface';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-my-subjects',
@@ -19,10 +20,11 @@ export class MySubjectsComponent extends BaseComponent{
   loading = true;
   person_id: string = ""
 
-
   dtOptions: DataTables.Settings = {}
   dtTrigger = new Subject<any>();
 
+  items!: MenuItem[];
+  home!: MenuItem;
 
   constructor(
     private personService: PersonService,
@@ -40,6 +42,10 @@ export class MySubjectsComponent extends BaseComponent{
         url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
       }
     };
+    this.items = [
+      { label: "Materias", disabled:true},
+      { label: 'Mis Materias'}];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 
   uploadMySubjects() {
@@ -56,7 +62,7 @@ export class MySubjectsComponent extends BaseComponent{
     })
   }
 
-  cancel(group: string) {
+  cancel(group: string, state:string) {
     Swal.fire({
       icon: "warning",
       title: '¿Estas Seguro/a?',
@@ -65,7 +71,7 @@ export class MySubjectsComponent extends BaseComponent{
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        this.groupPersonService.changeStateOfSubject(this.person_id, group, "cancelled").subscribe({
+        this.groupPersonService.changeStateOfSubject(this.person_id, group, state).subscribe({
           next: value => {
             this.alertSuccess(value.data)
             this.uploadMySubjects()

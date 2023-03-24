@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { BaseComponent } from 'src/app/shared/base/base.component';
 import { SubjectData } from "../../interfaces/all-subject.interface"
 import { SubjectService } from '../../service/subject.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-all-subjects',
@@ -19,6 +20,9 @@ export class AllSubjectsComponent extends BaseComponent {
   subjects: SubjectData[] = []
   loading = true;
   isVisible = false;
+
+  items!: MenuItem[];
+  home!: MenuItem;
 
   constructor(
     private subjectService: SubjectService,
@@ -36,6 +40,10 @@ export class AllSubjectsComponent extends BaseComponent {
         url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
       }
     };
+    this.items = [
+      { label: "Materias",  disabled:true},
+      { label: 'Todas'}];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 
   infoSubject: FormGroup = this.fb.group({
