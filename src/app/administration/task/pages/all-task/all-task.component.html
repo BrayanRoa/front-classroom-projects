@@ -1,0 +1,74 @@
+<div class="base">
+
+
+    <div class="site-page-header-ghost-wrapper">
+        <div class="card flex justify-content-center">
+            <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+        </div>
+    </div>
+
+    
+    <div class="box-info">
+        <div *ngIf="loading; else content">
+            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        </div>
+
+        <ng-template #content>
+            <!-- <div class="botones">
+                <nz-space>
+                    <p-button 
+                            label="Proyectos" 
+                            icon="pi pi-eye" 
+                            routerLink="/dashboard/proyectos/{{subject}}/{{group}}/{{id}}"
+                            styleClass="p-button-sm p-button-raised p-button-success"></p-button>
+
+                    <p-button 
+                            label="Tareas" 
+                            icon="pi pi-users" 
+                            styleClass="p-button-sm p-button-warning"
+                            routerLink="/dashboard/task/{{subject}}/{{group}}/{{id}}" 
+                            badge="8" 
+                            badgeClass="p-badge-danger"></p-button>
+                </nz-space>
+            </div> -->
+            <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered row-border hover">
+                <thead class="table-dark">
+                <tr>
+                    <th>Tarea</th>
+                    <th>Descripción</th>
+                    <th>Fecha Limite</th>
+                    <th>Activo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let task of tasks">
+                    <td>{{task.name | titlecase}}</td>
+                    <td>{{task.description}}</td>
+                    <td>{{task.expired_date}}</td>
+                    <td>
+                        <div class="state">
+                            <div *ngIf="task.active">
+                                <p-tag severity="success" value="Activa"></p-tag>
+                            </div>
+
+                            <div *ngIf="!task.active">
+                                <p-tag severity="danger" value="Activa"></p-tag>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p-button 
+                            label="Ver" 
+                            icon="pi pi-eye" 
+                            styleClass="p-button-sm"
+
+                            ></p-button>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-template>
+    </div>
+</div>
