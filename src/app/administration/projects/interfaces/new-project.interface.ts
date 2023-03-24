@@ -6,4 +6,5 @@ export interface NewProjectInterface {
     state:              string;
     group:              string;
     number_of_students: number;
+    full:               boolean
 }

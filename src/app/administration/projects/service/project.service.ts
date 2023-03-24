@@ -4,6 +4,7 @@ import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { ResponseHttp } from 'src/app/shared/interfaces/response.interface';
 import { NewProjectInterface } from '../interfaces/new-project.interface';
+import { OneProjectInterface } from '../interfaces/one-project.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,14 @@ export class ProjectService {
   ) { }
 
   create(body:NewProjectInterface):Observable<ResponseHttp>{
-    return this.http.post<ResponseHttp>(`${this.URL}/project/create`, {...body})
+    return this.http.post<ResponseHttp>(`${this.URL}/project/create`, body)
+  }
+
+  uploadExcelOfProjects(id:string,archivo:any):Observable<ResponseHttp>{
+    return this.http.post<ResponseHttp>(`${this.URL}/projects/excel/${id}`, archivo)
+  }
+
+  findOneProject(id:string):Observable<OneProjectInterface>{
+    return this.http.get<OneProjectInterface>(`${this.URL}/project/${id}`)
   }
 }

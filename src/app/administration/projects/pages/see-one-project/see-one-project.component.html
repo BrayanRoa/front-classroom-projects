@@ -1,1 +1,33 @@
-<p>see-one-project works!</p>
+<div class="base">
+
+
+    <div class="site-page-header-ghost-wrapper">
+        <div class="card flex justify-content-center">
+            <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+        </div>
+    </div>
+
+
+    <div class="box-info">
+        <div class="loading" *ngIf="loading; else content">
+            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        </div>
+
+        <div>
+            <ng-template #content>
+                <div>
+                    <!-- <nz-breadcrumb>
+                        <nz-breadcrumb-item>
+                            <a routerLink="/dashboard/estudiantes">Application List</a>
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-item>
+                            <a>Application List</a>
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-item>An Application</nz-breadcrumb-item>
+                    </nz-breadcrumb> -->
+                    
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
