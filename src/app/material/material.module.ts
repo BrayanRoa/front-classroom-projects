@@ -17,7 +17,7 @@ import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
-
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 import { DataTablesModule } from "angular-datatables";
 
@@ -41,7 +41,8 @@ import { DataTablesModule } from "angular-datatables";
     NzResultModule,
     NzAvatarModule,
     NzDropDownModule,
-    NzUploadModule
+    NzUploadModule,
+    NzBreadCrumbModule
   ],
   exports:[
     CommonModule,
@@ -60,7 +61,8 @@ import { DataTablesModule } from "angular-datatables";
     NzAvatarModule,
     NzDropDownModule,
     DataTablesModule,
-    NzUploadModule
+    NzUploadModule,
+    NzBreadCrumbModule
   ]
 })
 export class MaterialModule { }
