@@ -37,28 +37,25 @@
                                     </div>
 
                                     <div *ngIf="subject.state === 'in progress' ">
-                                        <p-tag styleClass="mr-2" icon="pi pi-hourglass" severity="info" value="En Proceso"></p-tag>
+                                        <p-tag styleClass="mr-2" icon="pi pi-hourglass" severity="info"
+                                            value="En Proceso"></p-tag>
                                     </div>
 
                                     <div *ngIf="subject.state === 'approved' ">
-                                        <p-tag styleClass="mr-2" icon="pi pi-check" severity="success" value="Aprovada"></p-tag>
+                                        <p-tag styleClass="mr-2" icon="pi pi-check" severity="success"
+                                            value="Aprovada"></p-tag>
                                     </div>
                                 </div>
                             </td>
                             <td class="actions">
-                                
+
                                 <ng-container *ngIf="subject.state === 'in progress'">
-                                    <p-button 
-                                        label="Ver" 
-                                        icon="pi pi-eye" 
-                                        styleClass="p-button-sm"
-                                        routerLink="/dashboard/personas/{{subject.group.subject.name}}/{{subject.group.name}}/{{subject.group.id}}"></p-button>                                    
+                                    <p-button label="Ver" icon="pi pi-eye" styleClass="p-button-sm p-button-raised p-button-primary"
+                                        routerLink="/dashboard/personas/{{subject.group.subject.name}}/{{subject.group.name}}/{{subject.group.id}}"></p-button>
                                 </ng-container>
 
                                 <ng-container *ngIf="subject.state !== 'cancelled'">
-                                    <p-button 
-                                        label="Cancelar" 
-                                        icon="pi pi-times" 
+                                    <p-button label="Cancelar" icon="pi pi-times"
                                         styleClass="p-button-sm p-button-raised p-button-danger"
                                         (click)="cancel(subject.group.id, 'cancelled')">
                                     </p-button>
@@ -66,9 +63,7 @@
 
 
                                 <ng-container *ngIf="subject.state === 'cancelled'">
-                                    <p-button 
-                                        label="Matricular" 
-                                        icon="pi pi-check" 
+                                    <p-button label="Matricular" icon="pi pi-check"
                                         styleClass="p-button-sm p-button-raised p-button-success"
                                         (click)="cancel(subject.group.id, 'in progress')"></p-button>
                                 </ng-container>
