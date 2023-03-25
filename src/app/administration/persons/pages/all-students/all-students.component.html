@@ -2,13 +2,9 @@
 
 
     <div class="site-page-header-ghost-wrapper">
-        <nz-page-header nzBackIcon [nzGhost]="false">
-            <nz-page-header-title>{{title}}</nz-page-header-title>
-            <nz-page-header-extra>
-                <nz-space>
-                </nz-space>
-            </nz-page-header-extra>
-        </nz-page-header>
+        <div class="card flex justify-content-center">
+            <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+        </div>
     </div>
 
 
@@ -20,6 +16,7 @@
         <div>
 
             <ng-template #content>
+
                 <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered row-border hover">
                     <thead class="table-dark">
                         <tr>
@@ -35,19 +32,19 @@
                         <tr *ngFor="let person of persons">
                             <td>{{person.names | titlecase}} {{person.lastnames | titlecase}}</td>
                             <td>
-                                <img class="photo-person" src="https://photoshop-kopona.com/uploads/posts/2019-02/1549666719_landscape_4.jpg" alt="">
+                                <img class="photo-person"
+                                    src="https://photoshop-kopona.com/uploads/posts/2019-02/1549666719_landscape_4.jpg"
+                                    alt="">
                             </td>
                             <td>{{person.institutional_mail}}</td>
                             <td>{{person.code}}</td>
                             <td *ngIf="person.active">
                                 <div>
-                                    <p-tag styleClass="mr-2" icon="pi pi-check" severity="success" value="Activo"></p-tag>
+                                    <p-tag styleClass="mr-2" icon="pi pi-check" severity="success"
+                                        value="Activo"></p-tag>
                                 </div>
                             <td>
-                                <p-button 
-                                    label="Ver" 
-                                    icon="pi pi-eye" 
-                                    styleClass="p-button-sm"
+                                <p-button label="Ver" icon="pi pi-eye" styleClass="p-button-sm"
                                     routerLink="/dashboard/ver_persona/{{person.code}}"></p-button>
                             </td>
                         </tr>

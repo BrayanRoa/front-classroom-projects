@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NzButtonSize } from 'ng-zorro-antd/button';
 import { Subject } from 'rxjs';
 import { PersonsInterface } from '../../interfaces/all-persons.interface';
 import { PersonService } from '../../service/person.service';
 import { BaseComponent } from '../../../../shared/base/base.component';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-all-students',
@@ -18,6 +18,9 @@ export class AllStudentsComponent extends BaseComponent{
   persons: PersonsInterface[] = []
 
   loading = true;
+
+  items!: MenuItem[];
+  home!: MenuItem;
 
   constructor(
     private personService: PersonService
@@ -34,6 +37,11 @@ export class AllStudentsComponent extends BaseComponent{
         url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
       }
     };
+
+    this.items = [
+      { label: "Personas", disabled:true},
+      { label: 'Estudiantes'}];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 
   ngOnDestroy(): void {
