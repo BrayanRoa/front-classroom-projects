@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { PersonsInterface } from '../../interfaces/all-persons.interface';
 import { PersonService } from '../../service/person.service';
 import { BaseComponent } from 'src/app/shared/base/base.component';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-all-teachers',
@@ -11,12 +12,15 @@ import { BaseComponent } from 'src/app/shared/base/base.component';
 })
 export class AllTeachersComponent extends BaseComponent {
 
-  title:string = "Docentes"
-  loading:boolean = true
+  title: string = "Docentes"
+  loading: boolean = true
 
   dtOptions: DataTables.Settings = {}
   dtTrigger = new Subject<any>();
   persons: PersonsInterface[] = []
+
+  items!: MenuItem[];
+  home!: MenuItem;
 
   constructor(
     private personService: PersonService
@@ -33,6 +37,10 @@ export class AllTeachersComponent extends BaseComponent {
         url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
       }
     };
+    this.items = [
+      { label: "Personas", disabled:true},
+      { label: 'Docentes'}];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 
   ngOnDestroy(): void {
