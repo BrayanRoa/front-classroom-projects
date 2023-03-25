@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzTagModule } from 'ng-zorro-antd/tag';
+// import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -17,7 +17,7 @@ import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
-import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+// import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 import { DataTablesModule } from "angular-datatables";
 
@@ -30,7 +30,7 @@ import { DataTablesModule } from "angular-datatables";
     NzLayoutModule,
     NzMenuModule,
     NzIconModule,
-    NzTagModule,
+    // NzTagModule,
     NzPageHeaderModule,
     NzSpaceModule,
     NzButtonModule,
@@ -42,14 +42,14 @@ import { DataTablesModule } from "angular-datatables";
     NzAvatarModule,
     NzDropDownModule,
     NzUploadModule,
-    NzBreadCrumbModule
+    // NzBreadCrumbModule
   ],
   exports:[
     CommonModule,
     NzLayoutModule,
     NzMenuModule,
     NzIconModule,
-    NzTagModule,
+    // NzTagModule,
     NzPageHeaderModule,
     NzSpaceModule,
     NzButtonModule,
@@ -62,7 +62,7 @@ import { DataTablesModule } from "angular-datatables";
     NzDropDownModule,
     DataTablesModule,
     NzUploadModule,
-    NzBreadCrumbModule
+    // NzBreadCrumbModule
   ]
 })
 export class MaterialModule { }
