@@ -3,10 +3,10 @@
 export interface AllPersonGroupInterface {
     status:    number;
     statusMsg: string;
-    data:      Datum[];
+    data:      DatumPerson[];
 }
 
-export interface Datum {
+export interface DatumPerson {
     id:                 string;
     created_at:         string;
     updated_at:         string;

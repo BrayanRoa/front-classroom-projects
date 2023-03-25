@@ -3,17 +3,19 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { PersonService } from '../../../persons/service/person.service';
 import { MenuItem } from 'primeng/api';
+import { BaseComponent } from '../../../../shared/base/base.component';
+import { DatumPerson } from '../../interfaces/all-persons-group.interface';
 
 @Component({
   selector: 'app-persons-group',
   templateUrl: './persons-group.component.html',
   styleUrls: ['./persons-group.component.css']
 })
-export class PersonsGroupComponent {
-  title: string = "Personas"
+export class PersonsGroupComponent extends BaseComponent {
+
   dtOptions: DataTables.Settings = {}
   dtTrigger = new Subject<any>();
-  persons: any[] = [] //* TODO: 👀 QUITAR EL ANY
+  persons: DatumPerson[] = [] //* TODO: 👀 QUITAR EL ANY
   loading = true;
   id: string = ""
   subject: string = ""
@@ -27,6 +29,7 @@ export class PersonsGroupComponent {
     private personService: PersonService,
     private aRoute: ActivatedRoute,
   ) {
+    super()
     this.id = this.aRoute.snapshot.paramMap.get("id")!
     this.subject = this.aRoute.snapshot.paramMap.get("subject")!
     this.group = this.aRoute.snapshot.paramMap.get("group")!
@@ -63,6 +66,10 @@ export class PersonsGroupComponent {
       error: (e => {
       })
     })
+  }
+
+  closeGroup(){
+    this.alertWarning("¿Está seguro@ que desea cerrar el grupo? - Está acción es irreversible")
   }
 
   showModal(): void {
