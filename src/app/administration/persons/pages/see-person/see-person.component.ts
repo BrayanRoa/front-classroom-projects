@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { PersonService } from '../../service/person.service';
 import { OnePersonsInterface } from '../../interfaces/one-person.interface';
 import { BaseComponent } from 'src/app/shared/base/base.component';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-see-person',
@@ -16,6 +17,9 @@ export class SeePersonComponent extends BaseComponent {
   loading:boolean = false
   code:string
 
+  items!: MenuItem[];
+  home!: MenuItem;
+
   constructor(
     private readonly personService:PersonService,
     private aRoute:ActivatedRoute
@@ -25,11 +29,23 @@ export class SeePersonComponent extends BaseComponent {
     this.uploadPerson(this.code)
   }
 
+  ngOnInit(): void {
+   
+  }
+
   uploadPerson(code:string){
     this.personService.seePerson(code).subscribe({
       next: value =>{
-        this.title = value.data.institutional_mail
+        const rol = (value.data.role.name === "docente")?"Docente":"Estudiante"
         this.person = value.data
+        this.items = [
+          { label: "Personas", disabled:true},
+          { label: `${rol}`, routerLink: `/dashboard/${value.data.role.name}s`},
+          { 
+            label: `${value.data.names} ${value.data.lastnames}`, 
+            disabled:true
+          }];
+        this.home = { icon: 'pi pi-home', routerLink: '/' };
       },
       error: err =>{
         this.alertError(err.error.data)

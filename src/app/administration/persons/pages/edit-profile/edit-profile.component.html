@@ -1,18 +1,8 @@
 <div class="base">
   <div class="site-page-header-ghost-wrapper">
-    <nz-page-header nzBackIcon [nzGhost]="false">
-      <nz-page-header-title>{{ title }}</nz-page-header-title>
-      <nz-page-header-subtitle
-        >Listado de personas registradas en el sistema</nz-page-header-subtitle
-      >
-      <nz-page-header-extra>
-        <nz-space>
-          <!-- TODO: POR EL MOMENTO NO SE QUE OPCIONES COLOCAR AQUI -->
-          <!-- <button *nzSpaceItem nz-button>Ver Alumnos</button>
-                    <button *nzSpaceItem nz-button nzType="primary">Ver Todos</button> -->
-        </nz-space>
-      </nz-page-header-extra>
-    </nz-page-header>
+    <div class="card flex justify-content-center">
+      <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+    </div>
   </div>
 
   <div class="box-info">

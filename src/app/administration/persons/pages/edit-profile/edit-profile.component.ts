@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-
 import { PersonService } from '../../service/person.service';
 import { OnePersonsInterface } from '../../interfaces/one-person.interface';
 import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../../../../shared/base/base.component';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-edit-profile',
@@ -17,6 +17,9 @@ export class EditProfileComponent extends BaseComponent{
   loading:boolean = false
   mail:string
 
+  items!: MenuItem[];
+  home!: MenuItem;
+
   constructor(
     private readonly personService:PersonService,
     private aRoute:ActivatedRoute
@@ -24,6 +27,13 @@ export class EditProfileComponent extends BaseComponent{
     super()
     this.mail = this.aRoute.snapshot.paramMap.get('mail')!
     this.uploadPerson(this.mail)
+  }
+
+  ngOnInit(): void {
+    this.items = [
+      { label: "Personas", disabled:true},
+      { label: 'Editar Mi Perfil', disabled:true}];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 
   uploadPerson(mail:string){
