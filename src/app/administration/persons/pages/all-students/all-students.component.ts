@@ -10,13 +10,10 @@ import { MenuItem } from 'primeng/api';
   templateUrl: './all-students.component.html',
   styleUrls: ['./all-students.component.css']
 })
-export class AllStudentsComponent extends BaseComponent{
+export class AllStudentsComponent extends BaseComponent {
   title: string = "Estudiantes"
 
-  dtOptions: DataTables.Settings = {}
-  dtTrigger = new Subject<any>();
   persons: PersonsInterface[] = []
-
   loading = true;
 
   items!: MenuItem[];
@@ -30,29 +27,16 @@ export class AllStudentsComponent extends BaseComponent{
   }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 8,
-      language: {
-        url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-      }
-    };
-
     this.items = [
-      { label: "Personas", disabled:true},
-      { label: 'Estudiantes'}];
+      { label: "Personas", disabled: true },
+      { label: 'Estudiantes' }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
-  }
-
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
   }
 
   uploadPersons() {
     this.personService.uploadStudents("estudiante").subscribe({
       next: (resp => {
         this.persons = resp.data
-        this.dtTrigger.next(this.persons)
         this.loading = false
       }),
       error: (e => {
