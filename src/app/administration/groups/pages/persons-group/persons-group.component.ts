@@ -13,13 +13,12 @@ import { DatumPerson } from '../../interfaces/all-persons-group.interface';
 })
 export class PersonsGroupComponent extends BaseComponent {
 
-  dtOptions: DataTables.Settings = {}
-  dtTrigger = new Subject<any>();
-  persons: DatumPerson[] = [] //* TODO: 👀 QUITAR EL ANY
+  persons: DatumPerson[] = []
   loading = true;
-  id: string = ""
+
   subject: string = ""
   group: string = ""
+  id: string = ""
   isVisible = false;
 
   items!: MenuItem[];
@@ -38,13 +37,6 @@ export class PersonsGroupComponent extends BaseComponent {
 
 
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 6,
-      language: {
-        url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-      }
-    };
     this.items = [
       { label: "Materias", disabled:true},
       { label: 'Mis Materias', routerLink: "/dashboard/mis_materias" }, 
@@ -52,18 +44,14 @@ export class PersonsGroupComponent extends BaseComponent {
     this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
-  }
-
   uploadPersonsOfGroup() {
     this.personService.uploadPersonOfGroup(this.id).subscribe({
       next: (resp => {
         this.persons = resp.data
-        this.dtTrigger.next(this.persons)
         this.loading = false
       }),
       error: (e => {
+        this.alertError(e.error.data)
       })
     })
   }

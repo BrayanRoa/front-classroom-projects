@@ -13,19 +13,17 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./all-groups.component.css']
 })
 export class AllGroupsComponent extends BaseComponent {
-
-  title: string = "Grupos"
   
   groups: GroupData[] = []
   teachers: any[] = [] //TODO: OJO CAMBIAR EL ANY
 
   subject!: string
-  code: string = ""
-  id: string = ""
+  code!: string 
+  id!: string
   
   infoGroup!: FormGroup
   
-  loading: boolean = false
+  loading: boolean = true
   isVisible = false;
   person!:string
 
@@ -73,9 +71,11 @@ export class AllGroupsComponent extends BaseComponent {
           { label: 'Todas', routerLink:"/dashboard/materias"},
           { label: `Grupos - ${this.subject}`, disabled:true}
         ];
+        this.loading=false
       },
       error: err => {
         this.subject = "Materia Sin Grupos"
+        this.loading = false
       }
     })
   }

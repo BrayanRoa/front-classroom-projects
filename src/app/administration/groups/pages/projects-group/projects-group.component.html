@@ -27,63 +27,67 @@
         <div>
 
             <ng-template #content>
-                <div class="botones">
-                    <nz-space>
-                        <!-- TODO: 👮 SOLO LO PUEDE HACER UN ADMIN -->
+                <p-toolbar styleClass="mb-4 gap-2">
+                    <ng-template pTemplate="left">
                         <p-button label="Proponer Proyecto" icon="pi pi-plus"
                             routerLink="/dashboard/proyecto/agregar/{{subject_name}}/{{group_name}}/{{group_id}}"
-                            styleClass="p-button-sm p-button-raised p-button-warning"></p-button>
-
-                        <p-button (click)="showModal()" label="Cargar Proyectos" icon="pi pi-upload" type="file"
                             styleClass="p-button-sm p-button-raised p-button-success"></p-button>
 
+                    </ng-template>
+
+                    <ng-template pTemplate="right">
+                        <p-button (click)="showModal()" label="Cargar Proyectos" icon="pi pi-upload" type="file"
+                            styleClass="p-button-sm p-button-raised p-button-help"></p-button>
+
                         <p-button (click)="downloadFile()" label="Descargar Plantilla" icon="pi pi-file-excel"
-                            styleClass="p-button-sm p-button-raised p-button-primary"></p-button>
-                    </nz-space>
-                </div>
-                
-                <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered row-border hover">
-                    <thead class="table-dark">
+                            styleClass="p-button-sm p-button-raised p-button-secondary"></p-button>
+
+                    </ng-template>
+                </p-toolbar>
+                <p-table [value]="projects" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                    selectionMode="single" [tableStyle]="{ 'min-width': '50rem' }"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[5,10, 25, 50]">
+
+                    <ng-template pTemplate="header">
                         <tr>
                             <th>Nombre</th>
-                            <th>Descripción</th>
                             <th># Estudiantes</th>
                             <th>Cupos Disponibles</th>
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let project of projects">
+                    </ng-template>
+                    <ng-template pTemplate="body" let-project>
+                        <tr>
                             <td>{{project.name | titlecase}}</td>
-                            <td>{{project.description}}</td>
                             <td>{{project.number_of_students}}</td>
                             <td>
-                                <div class="tag"
+                                <div
                                     *ngIf="project.registeredPersons === project.number_of_students || project.state === 'finished'; else disponibilidad">
                                     <p-tag styleClass="mr-2" icon="pi pi-times" severity="danger"
                                         value="No Disponible"></p-tag>
                                 </div>
                                 <ng-template class="tag" #disponibilidad>
-                                    <p-tag styleClass="mr-2" icon="pi pi-check" severity="success"
+                                    <p-tag styleClass="mr-2" severity="success"
                                         value="{{project.number_of_students - project.registeredPersons}} Disponible"></p-tag>
                                 </ng-template>
                             </td>
                             <td>
                                 <div class="tag" *ngIf="project.state === 'in progress'">
-                                    <p-tag styleClass="mr-2" icon="pi pi-hourglass" severity="warning"
+                                    <p-tag styleClass="mr-2" icon="pi pi-hourglass" severity="primary"
                                         value="En Desarrollo"></p-tag>
                                 </div>
                                 <div class="tag" *ngIf="project.state === 'on hold'">
                                     <p-tag styleClass="mr-2" icon="pi pi-stopwatch" severity="danger"
-                                        value="En Espera"></p-tag>
+                                        value="Por Aprobar"></p-tag>
                                 </div>
                                 <div class="tag" *ngIf="project.state === 'finished'">
                                     <p-tag styleClass="mr-2" icon="pi pi-flag-fill" severity="success"
                                         value="Finalizado"></p-tag>
                                 </div>
                                 <div class="tag" *ngIf="project.state === 'to start'">
-                                    <p-tag styleClass="mr-2" icon="pi pi-flag-fill" severity="success"
+                                    <p-tag styleClass="mr-2" icon="pi pi-flag-fill" severity="warning"
                                         value="Por Iniciar"></p-tag>
                                 </div>
                             </td>
@@ -92,8 +96,10 @@
                                     routerLink="/dashboard/proyecto/{{subject_name}}/{{group_name}}/{{group_id}}/{{project.id}}"></p-button>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
+
+                    </ng-template>
+                </p-table>
+
             </ng-template>
         </div>
     </div>

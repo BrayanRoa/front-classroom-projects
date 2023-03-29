@@ -16,12 +16,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProjectsGroupComponent extends BaseComponent {
   
-
-  dtOptions: DataTables.Settings = {}
-  dtTrigger = new Subject<any>();
   projects: ProjectInterface[] = []
 
-  title: string = "Proyectos"
   group_id!: string
   subject_name!:string
   group_name!:string
@@ -51,13 +47,6 @@ export class ProjectsGroupComponent extends BaseComponent {
   }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 8,
-      language: {
-        url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-      }
-    };
     this.items = [
       { label: 'Materias', disabled:true }, 
       { label: 'Mis Materias', routerLink:"/dashboard/mis_materias" }, 
@@ -90,15 +79,10 @@ export class ProjectsGroupComponent extends BaseComponent {
       this.infoProject.controls[field].touched
   }
 
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
-  }
-
   uploadProjectOfGroup() {
     this.groupService.uploadProjectsOfGroup(this.group_id).subscribe({
       next: value => {
         this.projects = value.data.project
-        this.dtTrigger.next(this.projects)
         this.loading = false
       },
       error: err => {
@@ -149,7 +133,6 @@ export class ProjectsGroupComponent extends BaseComponent {
   }
 
   downloadFile() {
-    console.log("ola");
     const url = 'https://res.cloudinary.com/dmaqkkeno/raw/upload/v1679692829/ayd-folder-pruebas/projects-excel_d7flbk.xlsx';
     this.http.get(url, { responseType: 'blob' }).subscribe((res:any) => {
       const a = document.createElement('a');

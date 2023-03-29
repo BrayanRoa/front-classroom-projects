@@ -13,7 +13,6 @@
         <ng-container *nzModalContent>
             <form autocomplete="off" [formGroup]="infoGroup">
                 <div class="mb-4 row">
-
                     <div class="col-sm-8">
                         <input type="hidden" class="form-control" formControlName="subject_code" [value]="id">
                     </div>
@@ -46,38 +45,43 @@
 
     <!-- * MAIN CONTENT -->
     <div class="box-info">
-        <!-- * IF THERE ARE NO GROUPS THIS RESULT IS SHOWN -->
-        <div *ngIf="groups.length === 0; else content">
-            <nz-result nzStatus="warning" nzTitle="Esta materia no tiene grupos aún">
-                <div nz-result-extra>
-                    <button nz-button nzType="primary" (click)="showModal()">¿Asignar Grupo?</button>
-                </div>
-            </nz-result>
+        <div class="loading" *ngIf="loading; else content">
+            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
         </div>
 
         <ng-template #content>
-            <div class="botones">
-                <nz-space>
-                    <!-- TODO: 👮 SOLO LO PUEDE HACER UN ADMIN -->
-                    <p-button 
-                            label="Agregar Grupo" 
-                            icon="pi pi-plus" 
-                            (click)="showModal()"
-                            styleClass="p-button-sm p-button-raised p-button-success"></p-button>
-                </nz-space>
-            </div>
 
-            <div class="box-cards">
-                <div class="card-group" *ngFor="let group of groups">
-                    <img src="https://miro.medium.com/max/700/1*bRuxpf9ZMC2QVXVJKEoS0w.png" class="card-img-top"
-                        alt="...">
-                    <div class="card-body">
-                        <h6 class="card-title">{{subject | titlecase}}</h6>
-                        <p class="card-text">Grupo - {{group.name}}.</p>
-                        <p class="card-text"><b>Docente - {{group.persons[0].person.names | titlecase}}
-                                {{group.persons[0].person.lastnames | titlecase}}.</b></p>
-                        <button type="button" href="#" class="btn btn-success" (click)="enrollInGroup(group.id)">Matricularme</button>
+            <p-toolbar styleClass="mb-4 gap-2">
+                <ng-template pTemplate="left">
+
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <p-button label="Agregar Grupo" icon="pi pi-plus" (click)="showModal()"
+                        styleClass="p-button-sm p-button-raised p-button-success"></p-button>
+
+                </ng-template>
+            </p-toolbar>
+            <div class="big-box" *ngFor="let group of groups">
+                <div class="img-person">
+                    <div *ngIf="group.persons[0].person.img; else noimage">
+                        <img src="{{group.persons[0].person.img}}" alt="">
                     </div>
+                    <ng-template #noimage>
+                        <img src="https://miro.medium.com/max/700/1*bRuxpf9ZMC2QVXVJKEoS0w.png">
+                    </ng-template>
+                </div>
+                <div class="info-person">
+                    <div class="flex align-items-center gap-3">
+                        <h4>{{subject | titlecase}}</h4>
+                        <h5>Docente: {{group.persons[0].person.names | titlecase}} {{group.persons[0].person.lastnames |
+                            titlecase}}</h5>
+                        <p-tag>Grupo {{group.name}}</p-tag>
+                    </div>
+                </div>
+                <div class="actions">
+                    <p-button label="Matricularme" icon="pi pi-pencil" (click)="enrollInGroup(group.id)"
+                        styleClass="p-button-sm p-button-raised p-button-warning"></p-button>
                 </div>
             </div>
         </ng-template>

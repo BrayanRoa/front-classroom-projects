@@ -14,38 +14,53 @@
         </div>
 
         <ng-template #content>
-            <div class="botones">
-                <nz-space>
-                    <!-- TODO: 👮 SOLO LO PUEDE HACER UN ADMIN -->
-                    <p-button label="Proyectos" icon="pi pi-folder-open"
-                        routerLink="/dashboard/proyectos/{{subject}}/{{group}}/{{id}}"
-                        styleClass="p-button-sm p-button-raised p-button-success"></p-button>
-
-                    <p-button label="Tareas" icon="pi pi-file-edit" styleClass="p-button-sm p-button-warning"
-                        routerLink="/dashboard/task/{{subject}}/{{group}}/{{id}}" badge="8"
-                        badgeClass="p-badge-danger"></p-button>
-
+            <p-toolbar styleClass="mb-4 gap-2">
+                <ng-template pTemplate="left">
                     <p-button label="Cerrar Grupo" icon="pi pi-warning" (onClick)="closeGroup()"
                         styleClass="p-button-sm p-button-danger"></p-button>
-                </nz-space>
-            </div>
-            <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered row-border hover">
-                <thead class="table-dark">
+
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <nz-space>
+                        <p-button label="Proyectos" icon="pi pi-folder-open"
+                            routerLink="/dashboard/proyectos/{{subject}}/{{group}}/{{id}}"
+                            styleClass="p-button-sm p-button-raised p-button-help"></p-button>
+
+                        <p-button label="Tareas" icon="pi pi-file-edit" styleClass="p-button-sm p-button-warning"
+                            routerLink="/dashboard/task/{{subject}}/{{group}}/{{id}}" badge="8"
+                            badgeClass="p-badge-danger"></p-button>
+
+                    </nz-space>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table [value]="persons" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                selectionMode="single" [tableStyle]="{ 'min-width': '50rem' }"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[5,10, 25, 50]">
+                <ng-template pTemplate="header">
                     <tr>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
+                        <th>Nombre
+                            <p-columnFilter field="names" display="menu" [showOperator]="true"></p-columnFilter>
+                        </th>
+                        <th>Apellidos
+                            <p-columnFilter field="lastnames" display="menu" [showOperator]="true"></p-columnFilter>
+                        </th>
+                        <th>
+                            Codigo
+                            <p-columnFilter field="code" display="menu" [showOperator]="true"></p-columnFilter>
+                        </th>
                         <th>Correo</th>
-                        <th>Codigo</th>
                         <th>Rol</th>
                         <th>Activo</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let person of persons">
+                </ng-template>
+                <ng-template pTemplate="body" let-person>
+                    <tr>
                         <td>{{person.names | titlecase}}</td>
                         <td>{{person.lastnames | titlecase}}</td>
-                        <td>{{person.institutional_mail}}</td>
                         <td>{{person.code}}</td>
+                        <td>{{person.institutional_mail}}</td>
                         <td>
                             <div class="state">
                                 <div *ngIf="person.role.name === 'docente' ">
@@ -59,7 +74,7 @@
                         </td>
                         <td>
                             <div class="tag" *ngIf="person.groups[0].state === 'in progress'">
-                                <p-tag styleClass="mr-2" icon="pi pi-check" severity="success" value=""></p-tag>
+                                <p-tag styleClass="mr-2" icon="pi pi-check" severity="help" value=""></p-tag>
                             </div>
 
                             <div class="tag" *ngIf="person.groups[0].state === 'cancelled'">
@@ -67,8 +82,8 @@
                             </div>
                         </td>
                     </tr>
-                </tbody>
-            </table>
+                </ng-template>
+            </p-table>
         </ng-template>
     </div>
 </div>
