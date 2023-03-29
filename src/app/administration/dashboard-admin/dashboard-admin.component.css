@@ -109,4 +109,6 @@
   .botoncito{
     display: flex;
     align-items: center;
+    justify-content: center;
+    height: 100%; /* establecemos una altura para el contenedor */
   }

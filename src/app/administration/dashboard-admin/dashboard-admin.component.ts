@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from 'src/app/shared/base/base.component';
 import Swal from 'sweetalert2';
+import { PersonService } from '../persons/service/person.service';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -11,12 +12,25 @@ import Swal from 'sweetalert2';
 export class DashboardAdminComponent extends BaseComponent{
   isCollapsed = false;
   mail!:string
+  namePerson!:string
+  img!:string
 
   constructor(
-    private router:Router
+    private router:Router,
+    private personService:PersonService
   ){
     super()
     this.mail = localStorage.getItem("email")!
+    this.infoPerson()
+  }
+
+  infoPerson(){
+    this.personService.seePerson(this.mail).subscribe({
+      next: value =>{
+        this.namePerson = `${value.data.names} ${value.data.lastnames}`
+        this.img = value.data.img!
+      }
+    })
   }
 
   logOut(){

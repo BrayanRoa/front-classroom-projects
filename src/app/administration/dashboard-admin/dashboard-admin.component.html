@@ -4,17 +4,17 @@
         <div class="sidebar-logo">
             <a href="https://ng.ant.design/" target="_blank">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/UFPS_Logo.png" alt="logo">
-                <h1>Ant Design Of Angular</h1>
+                <h1>UFPS - ING. SISTEMAS</h1>
             </a>
         </div>
         <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <!-- <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Personas' : ''"
-                nzMatchRouter>
-                <span nz-icon nzType="user"></span>
-                <span>Administración</span>
-            </li> -->
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Personas' : ''"
+                nzMatchRouter routerLink="/dashboard/main">
+                <span nz-icon nzType="dashboard"></span>
+                <span>Dashboard</span>
+            </li>
 
-            <li nz-submenu nzOpen nzTitle="Personas" nzIcon="book">
+            <li nz-submenu nzOpen nzTitle="Personas" nzIcon="user">
                 <ul>
                     <li nz-menu-item nzMatchRouter>
                         <a routerLink="/dashboard/estudiantes">Estudiantes</a>
@@ -24,12 +24,6 @@
                     </li>
                 </ul>
             </li>
-
-            <!-- <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Personas' : ''"
-                routerLink="/dashboard/personas" nzMatchRouter>
-                <span nz-icon nzType="user"></span>
-                <span>Personas</span>
-            </li> -->
 
             <li nz-submenu nzOpen nzTitle="Materias" nzIcon="book">
                 <ul>
@@ -42,20 +36,12 @@
                 </ul>
             </li>
 
-            <!-- <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-            <ul>
-              <li nz-menu-item nzMatchRouter>
-                <a>Basic Form</a>
-              </li>
-            </ul>
-          </li> -->
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Personas' : ''"
+                nzMatchRouter routerLink="/dashboard/proyecto/my_projects">
+                <span nz-icon nzType="project"></span>
+                <span>Proyectos</span>
+            </li>
 
-
-            <!-- <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Materias' : ''"
-          routerLink="/dashboard/materias">
-          <span nz-icon nzType="book"></span>
-          <span>Materias</span>
-        </li> -->
         </ul>
     </nz-sider>
     <nz-layout>
@@ -70,18 +56,16 @@
             </div>
             <div class="mini-box log-out">
                 <div class="avatar">
-                    <div class="botoncito">
-                        <a nz-dropdown [nzDropdownMenu]="menu">
-                            <p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" styleClass="mr-2"></p-chip>
-                        </a>    
-                    </div>
+                    <a nz-dropdown [nzDropdownMenu]="menu">
+                        <p-chip label="{{namePerson}}" image="{{img}}" styleClass="mr-2"></p-chip>
+                    </a>
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
+                        <ul nz-menu>
+                            <a nz-menu-item routerLink="/dashboard/persona/{{mail}}/editProfile">Editar Perfil</a>
+                            <li nz-menu-item nzDanger (click)="logOut()">Cerrar Sesión</li>
+                        </ul>
+                    </nz-dropdown-menu>
                 </div>
-                <nz-dropdown-menu #menu="nzDropdownMenu">
-                    <ul nz-menu>
-                        <a nz-menu-item routerLink="/dashboard/persona/{{mail}}/editProfile">Editar Perfil</a>
-                        <li nz-menu-item nzDanger (click)="logOut()">Cerrar Sesión</li>
-                    </ul>
-                </nz-dropdown-menu>
             </div>
         </nz-header>
         <nz-content>
