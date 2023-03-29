@@ -18,11 +18,13 @@ img{
     border-radius: 50%;
     width: 200px;
     height: 200px;
-    margin-top: 15px;
+    /* margin-top: 15px; */
+    padding: 25px;
 }
 
 .info-text{
     height: 100%;
     border-radius: 0 10px 10px 0px;
-    background-image: linear-gradient(to bottom, rgb(0, 251, 255), #ff00d9);
+    /* background-image: linear-gradient(to bottom, rgb(0, 251, 255), #ff00d9); */
+    padding: 20px;
 }

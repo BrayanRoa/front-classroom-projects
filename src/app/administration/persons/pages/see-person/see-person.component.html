@@ -16,17 +16,38 @@
         <div>
             <ng-template #content>
                 <!-- Aquí puedes agregar el contenido que deseas mostrar cuando isLoading es false -->
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-4 info-img">
                             <div>
-                                <!-- TODO: COLOCAR AQUI LA IMG DE LA PERSONA -->
-                                <img src="https://img.freepik.com/vector-gratis/avatar-personaje-empresario-aislado_24877-60111.jpg?w=2000"
-                                    alt="">
+                                <div *ngIf="person.img; else noimage">
+                                    <img src="{{person.img}}" alt="">
+                                </div>
+                                <ng-template #noimage>
+                                    <img src="https://res.cloudinary.com/dmaqkkeno/image/upload/v1679972910/ayd-folder-pruebas/imagen-perfil-sin-foto_fpmrc2.jpg" alt="">
+                                </ng-template> 
                             </div>
                         </div>
                         <div class="col-8 info-text">
-                            <!-- TODO: COLOCAR AQUÍ LA INFO DE LA PERSONA -->
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>Nombre:</h5>
+                                    <p>{{person.names |titlecase}} {{person.lastnames | titlecase}}</p>
+                                </div>
+                                <div class="col-6">
+                                    <h5>Correo Institucional:</h5>
+                                    <p>{{person.institutional_mail}}</p>
+                                </div>
+
+                                <div class="col-6">
+                                    <h5>Código:</h5>
+                                    <p>{{person.code}}</p>
+                                </div>
+                                <div class="col-6">
+                                    <h5>Rol:</h5>
+                                    <p>{{person.role.name | titlecase}}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
