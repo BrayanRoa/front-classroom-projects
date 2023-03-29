@@ -16,10 +16,40 @@
         <div>
             <ng-template #content>
                 <form [formGroup]="formProject" (ngSubmit)="newProject()">
-                    <!-- TODO: FORMULARIO -->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="text-end fw-bold">Nombre Proyecto:</label>
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" formControlName="name">
+                                    <span class="form-text text-danger" *ngIf="validateFields('name')">
+                                        El campo debe tener minimo 5 caracteres
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="text-end fw-bold">Cantidad De Alumnos:</label>
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control" formControlName="number_of_students">
+                                    <span class="form-text text-danger" *ngIf="validateFields('number_of_students')">
+                                        El campo debe ser un número positivo
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row pt-3">
+                            <label class="text-start fw-bold">Descripción del Proyecto:</label>
+                            <textarea rows="12" cols="30" pInputTextarea formControlName="description"></textarea>
+                            <span class="form-text text-danger" *ngIf="validateFields('description')">
+                                El campo debe tener minimo 10 caracteres
+                            </span>
+                        </div>
 
-                    <div class="button mt-2">
-                        <button [disabled]="formProject.invalid" type="submit" class="btn btn-primary">Registrar</button>
+                        <div class="button mt-2">
+                            <button [disabled]="formProject.invalid" type="submit"
+                                class="btn btn-primary">Registrar</button>
+                        </div>
                     </div>
                 </form>
             </ng-template>

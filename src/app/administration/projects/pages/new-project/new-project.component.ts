@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../service/project.service';
 import { BaseComponent } from '../../../../shared/base/base.component';
 import { MenuItem } from 'primeng/api';
@@ -25,7 +25,8 @@ export class NewProjectComponent extends BaseComponent {
   constructor(
     private fb: FormBuilder,
     private aRoute: ActivatedRoute,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private router:Router
   ) {
     super()
     this.group_id = this.aRoute.snapshot.paramMap.get("id")!
@@ -56,13 +57,19 @@ export class NewProjectComponent extends BaseComponent {
     this.loading = false
   }
 
+  validateFields(field: string) {
+    return this.formProject.controls[field].errors &&
+      this.formProject.controls[field].touched
+  }
+
+
   newProject() {
     this.projectService.create(this.formProject.value).subscribe({
       next: value => {
         this.alertSuccess(value.data)
+        this.router.navigateByUrl(`/dashboard/proyectos/${this.subject_name}/${this.group_name}/${this.group_id}`)
       },
       error: e => {
-
         this.alertError(e.error.data)
       }
     })
