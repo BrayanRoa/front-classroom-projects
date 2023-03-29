@@ -7,6 +7,8 @@ import { GetAllPersonsInterface, PersonsInterface } from '../interfaces/all-pers
 import { ResponseHttp } from '../../../shared/interfaces/response.interface';
 import { GetOnePersonsInterface } from '../interfaces/one-person.interface';
 import { AllPersonGroupInterface } from '../../groups/interfaces/all-persons-group.interface';
+import { SignInPersonInProject } from '../interfaces/signIn-Person-project.interface';
+import { ViewMyProjects } from '../interfaces/my_projects.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +48,17 @@ export class PersonService {
 
   uploadPersonOfGroup(id:string):Observable<AllPersonGroupInterface>{
     return this.http.get<AllPersonGroupInterface>(`${this.URL}/persons/group/${id}`)
+  }
+
+  signUpInProject(body:SignInPersonInProject):Observable<ResponseHttp>{
+    return this.http.post<ResponseHttp>(`${this.URL}/project_person/create`, body)
+  }
+
+  viewMyProjects(mail:string):Observable<ViewMyProjects>{
+    return this.http.get<ViewMyProjects>(`${this.URL}/person/my_projects/${mail}`)
+  }
+
+  uploadImgProfile(id:string, file:any):Observable<ResponseHttp>{
+    return this.http.post<ResponseHttp>(`${this.URL}/person/image/${id}`, file)
   }
 }
