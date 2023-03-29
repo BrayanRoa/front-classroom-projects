@@ -18,27 +18,45 @@
                 <p-table [value]="persons" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
                     selectionMode="single" [tableStyle]="{ 'min-width': '50rem' }"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                    [rowsPerPageOptions]="[5,10, 25, 50]">
+                    [rowsPerPageOptions]="[5,10, 25, 50]" [scrollable]="true" scrollHeight="370px" [virtualScroll]="true" [virtualScrollItemSize]="46">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th style="width:25%">
-                                Nombre
+                            <th>Docente
                                 <p-columnFilter field="names" display="menu" [showOperator]="true"></p-columnFilter>
                             </th>
-                            <th style="width:25%">Name</th>
-                            <th style="width:25%">Country</th>
-                            <th style="width:25%">
+                            <th>
                                 Codigo
                                 <p-columnFilter field="code" display="menu" [showOperator]="true"></p-columnFilter>
                             </th>
+                            <th>Correo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-persons>
+                    <ng-template pTemplate="body" let-person>
                         <tr>
-                            <td>{{ persons.names }}</td>
-                            <td>{{ persons.lastnames }}</td>
-                            <td>{{ persons.institutional_mail }}</td>
-                            <td>{{ persons.code }}</td>
+                            <td>
+                                <div *ngIf="person.img; else noimage">
+                                    <p-chip label="{{person.names}} {{person.lastnames}}"
+                                        image="{{person.img}}"
+                                        styleClass="mr-2"></p-chip>
+                                </div>
+                                <ng-template #noimage>
+                                    <p-chip label="{{person.names}} {{person.lastnames}}"
+                                        image="https://res.cloudinary.com/dmaqkkeno/image/upload/v1679972910/ayd-folder-pruebas/imagen-perfil-sin-foto_fpmrc2.jpg"
+                                        styleClass="mr-2"></p-chip>
+                                </ng-template>
+                            </td>
+                            <td>{{ person.code }}</td>
+                            <td>{{ person.institutional_mail}}</td>
+                            <td *ngIf="person.active">
+                                <div>
+                                    <p-tag styleClass="mr-2" severity="success" value="Activo"></p-tag>
+                                </div>
+                            <td>
+                                <p-button label="Ver" icon="pi pi-eye" styleClass="p-button-sm"
+                                    routerLink="/dashboard/ver_persona/{{person.code}}"></p-button>
+                            </td>
                         </tr>
                     </ng-template>
                 </p-table>

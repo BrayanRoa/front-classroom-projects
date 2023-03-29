@@ -12,12 +12,8 @@ import { MenuItem } from 'primeng/api';
 })
 export class AllTeachersComponent extends BaseComponent {
 
-  title: string = "Docentes"
-  loading: boolean = true
-
-  dtOptions: DataTables.Settings = {}
-  dtTrigger = new Subject<any>();
   persons: PersonsInterface[] = []
+  loading: boolean = true
 
   items!: MenuItem[];
   home!: MenuItem;
@@ -30,28 +26,16 @@ export class AllTeachersComponent extends BaseComponent {
   }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 8,
-      language: {
-        url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-      }
-    };
     this.items = [
-      { label: "Personas", disabled:true},
-      { label: 'Docentes'}];
+      { label: "Personas", disabled: true },
+      { label: 'Docentes' }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
-  }
-
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
   }
 
   uploadPersons() {
     this.personService.uploadStudents("docente").subscribe({
       next: (resp => {
         this.persons = resp.data
-        this.dtTrigger.next(this.persons)
         this.loading = false
       }),
       error: (e => {
