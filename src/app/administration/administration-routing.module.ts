@@ -15,6 +15,10 @@ import { EditProfileComponent } from './persons/pages/edit-profile/edit-profile.
 import { EditGroupComponent } from './groups/pages/edit-group/edit-group.component';
 import { NewProjectComponent } from './projects/pages/new-project/new-project.component';
 import { AllTaskComponent } from './task/pages/all-task/all-task.component';
+import { InformationComponent } from './main-information/pages/information/information.component';
+import { MyProjectsComponent } from './persons/pages/my-projects/my-projects.component';
+import { NewTaskComponent } from './task/pages/new-task/new-task.component';
+import { ViewTaskComponent } from './task/pages/view-task/view-task.component';
 
 const routes: Routes = [
   {
@@ -28,19 +32,23 @@ const routes: Routes = [
         data: { allowedRoles: ["docente"] },
         component: AllStudentsComponent
       },
+      { path:"main", component: InformationComponent},
       { path: "docentes", component: AllTeachersComponent },
         { path: "ver_persona/:code", component: SeePersonComponent },
         { path: "persona/:mail/editProfile", component:EditProfileComponent},
 
       { path: "materias", component: AllSubjectsComponent },
-        { path: "grupos/:id", component: AllGroupsComponent },
+        { path: ":materia/grupos/:id", component: AllGroupsComponent },
       
       { path: "mis_materias", component: MySubjectsComponent },
       { path: "personas/:subject/:group/:id", component: PersonsGroupComponent }, //TODO: COLOCAR AQUI GROUP_NAME EN LUGAR DE GROUP
       { path: "task/:subject/:group_name/:group_id", component:AllTaskComponent},
+        { path: "task/:subject/:group_name/:group_id/new_task", component: NewTaskComponent},
+        { path: "task/:subject/:group_name/:group_id/:task_id/ver", component: ViewTaskComponent},
       { path: "proyectos/:subject/:group_name/:group_id", component: ProjectsGroupComponent },
         { path: "proyecto/agregar/:subject/:group_name/:id", component:  NewProjectComponent},
         { path: "proyecto/:subject/:group/:group_id/:id", component: SeeOneProjectComponent },
+        { path: "proyecto/my_projects", component:MyProjectsComponent},
 
       { path: "subject/group/edit/:id", component: EditGroupComponent }, //TODO: CREO QUE NO SE ESTA USANDO
       { path: "**", redirectTo: "" }
