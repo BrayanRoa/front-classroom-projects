@@ -7,68 +7,74 @@
         </div>
     </div>
 
-    
+
     <div class="box-info">
-        <div *ngIf="loading; else content">
-            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        <div class="loading" *ngIf="loading; else content">
+            <nz-result nzStatus="info" nzTitle="Cargando Tareas..." nzSubTitle="Espera un momento">
+                <div nz-result-extra>
+                    <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+                </div>
+            </nz-result>
         </div>
 
         <ng-template #content>
-            <!-- <div class="botones">
-                <nz-space>
-                    <p-button 
-                            label="Proyectos" 
-                            icon="pi pi-eye" 
-                            routerLink="/dashboard/proyectos/{{subject}}/{{group}}/{{id}}"
-                            styleClass="p-button-sm p-button-raised p-button-success"></p-button>
+            <p-toolbar styleClass="mb-4 gap-2">
+                <ng-template pTemplate="left">
 
-                    <p-button 
-                            label="Tareas" 
-                            icon="pi pi-users" 
-                            styleClass="p-button-sm p-button-warning"
-                            routerLink="/dashboard/task/{{subject}}/{{group}}/{{id}}" 
-                            badge="8" 
-                            badgeClass="p-badge-danger"></p-button>
-                </nz-space>
-            </div> -->
-            <table datatable [dtOptions]="dtOptions" class="table table-striped table-bordered row-border hover">
-                <thead class="table-dark">
-                <tr>
-                    <th>Tarea</th>
-                    <th>Descripción</th>
-                    <th>Fecha Limite</th>
-                    <th>Activo</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let task of tasks">
-                    <td>{{task.name | titlecase}}</td>
-                    <td>{{task.description}}</td>
-                    <td>{{task.expired_date}}</td>
-                    <td>
-                        <div class="state">
-                            <div *ngIf="task.active">
-                                <p-tag severity="success" value="Activa"></p-tag>
-                            </div>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <nz-space>
+                        <p-button label="Nueva Tarea" icon="pi pi-plus"
+                            styleClass="p-button-sm p-button-raised p-button-success"
+                            routerLink="/dashboard/task/{{subject_name}}/{{group_name}}/{{group_id}}/new_task"></p-button>
 
-                            <div *ngIf="!task.active">
-                                <p-tag severity="danger" value="Activa"></p-tag>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p-button 
-                            label="Ver" 
-                            icon="pi pi-eye" 
-                            styleClass="p-button-sm"
+                    </nz-space>
+                </ng-template>
+            </p-toolbar>
 
-                            ></p-button>
+            <nz-result *ngIf="tasks.length === 0; else info" nzStatus="404"
+                nzTitle="No hay tareas registradas aún">
+            </nz-result>
 
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </ng-template>
+            <ng-template #info>
+                <p-table [value]="tasks" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                    selectionMode="single" [tableStyle]="{ 'min-width': '50rem' }"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[5,10, 25, 50]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Tarea
+                                <p-columnFilter field="names" display="menu" [showOperator]="true"></p-columnFilter>
+                            </th>
+                            <th>Fecha Limite</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-task>
+                        <tr>
+                            <td>{{task.name | titlecase}}</td>
+                            <td>{{task.expired_date | date}}</td>
+                            <td>
+                                <div class="state">
+                                    <div *ngIf="!task.expired; else content">
+                                        <p-tag severity="success" value="Activa"></p-tag>
+                                    </div>
+
+                                    <ng-template #content>
+                                        <p-tag severity="danger" value="Vencida"></p-tag>
+                                    </ng-template>
+                                </div>
+                            </td>
+                            <td>
+                                <p-button label="Ver" icon="pi pi-eye" styleClass="p-button-sm" routerLink="/dashboard/task/{{subject_name}}/{{group_name}}/{{group_id}}/{{task.id}}/ver"></p-button>
+                            </td>
+
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </ng-template>
+
+        </ng-template>
     </div>
 </div>
