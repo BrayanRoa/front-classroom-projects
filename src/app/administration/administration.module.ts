@@ -21,6 +21,10 @@ import { EditProfileComponent } from './persons/pages/edit-profile/edit-profile.
 import { EditGroupComponent } from './groups/pages/edit-group/edit-group.component';
 import { NewProjectComponent } from './projects/pages/new-project/new-project.component';
 import { AllTaskComponent } from './task/pages/all-task/all-task.component';
+import { InformationComponent } from './main-information/pages/information/information.component';
+import { MyProjectsComponent } from './persons/pages/my-projects/my-projects.component';
+import { NewTaskComponent } from './task/pages/new-task/new-task.component';
+import { ViewTaskComponent } from './task/pages/view-task/view-task.component';
 
 
 @NgModule({
@@ -38,7 +42,11 @@ import { AllTaskComponent } from './task/pages/all-task/all-task.component';
     EditProfileComponent,
     EditGroupComponent,
     NewProjectComponent,
-    AllTaskComponent
+    AllTaskComponent,
+    InformationComponent,
+    MyProjectsComponent,
+    NewTaskComponent,
+    ViewTaskComponent,
   ],
   imports: [
     CommonModule,
