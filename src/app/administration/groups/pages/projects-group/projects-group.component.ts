@@ -61,7 +61,6 @@ export class ProjectsGroupComponent extends BaseComponent {
 
   sendTemplate(event:any){
     this.selectedFile=event.target.files[0];
-    console.log(this.selectedFile);
   }
 
   loadForm() {

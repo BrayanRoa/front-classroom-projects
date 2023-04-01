@@ -5,6 +5,7 @@ import { PersonService } from '../../../persons/service/person.service';
 import { MenuItem } from 'primeng/api';
 import { BaseComponent } from '../../../../shared/base/base.component';
 import { DatumPerson } from '../../interfaces/all-persons-group.interface';
+import { TaskService } from '../../../task/service/task.service';
 
 @Component({
   selector: 'app-persons-group',
@@ -16,31 +17,34 @@ export class PersonsGroupComponent extends BaseComponent {
   persons: DatumPerson[] = []
   loading = true;
 
-  subject: string = ""
-  group: string = ""
-  id: string = ""
+  subject!: string
+  group!: string
+  id!: string
   isVisible = false;
+  numTask!:string
 
   items!: MenuItem[];
   home!: MenuItem;
 
   constructor(
     private personService: PersonService,
+    private taskService: TaskService,
     private aRoute: ActivatedRoute,
   ) {
     super()
     this.id = this.aRoute.snapshot.paramMap.get("id")!
     this.subject = this.aRoute.snapshot.paramMap.get("subject")!
     this.group = this.aRoute.snapshot.paramMap.get("group")!
+    this.taskActive()
     this.uploadPersonsOfGroup()
   }
 
 
   ngOnInit(): void {
     this.items = [
-      { label: "Materias", disabled:true},
-      { label: 'Mis Materias', routerLink: "/dashboard/mis_materias" }, 
-      { label: `${this.subject}`, disabled:true }];
+      { label: "Materias", disabled: true },
+      { label: 'Mis Materias', routerLink: "/dashboard/mis_materias" },
+      { label: `${this.subject}`, disabled: true }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 
@@ -56,7 +60,15 @@ export class PersonsGroupComponent extends BaseComponent {
     })
   }
 
-  closeGroup(){
+  taskActive() {
+    this.taskService.countActiveTask(this.id).subscribe({
+      next: value => {
+        this.numTask = value.data
+      }
+    })
+  }
+
+  closeGroup() {
     this.alertWarning("¿Está seguro@ que desea cerrar el grupo? - Está acción es irreversible")
   }
 
@@ -66,7 +78,7 @@ export class PersonsGroupComponent extends BaseComponent {
 
   handleOk(): void {
     this.isVisible = false;
-    
+
   }
 
   handleCancel(): void {
