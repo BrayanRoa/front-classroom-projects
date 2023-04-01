@@ -20,8 +20,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 // import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 import { DataTablesModule } from "angular-datatables";
-
-
+import { CardModule } from 'primeng/card';
+import { CarouselModule } from 'primeng/carousel';
 
 @NgModule({
   declarations: [],
@@ -42,6 +42,8 @@ import { DataTablesModule } from "angular-datatables";
     NzAvatarModule,
     NzDropDownModule,
     NzUploadModule,
+    CardModule,
+    CarouselModule
     // NzBreadCrumbModule
   ],
   exports:[
@@ -62,6 +64,8 @@ import { DataTablesModule } from "angular-datatables";
     NzDropDownModule,
     DataTablesModule,
     NzUploadModule,
+    CardModule,
+    CarouselModule
     // NzBreadCrumbModule
   ]
 })
