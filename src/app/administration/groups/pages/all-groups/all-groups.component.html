@@ -46,11 +46,14 @@
     <!-- * MAIN CONTENT -->
     <div class="box-info">
         <div class="loading" *ngIf="loading; else content">
-            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+            <nz-result nzStatus="info" nzTitle="Cargando Grupos..." nzSubTitle="Espera un momento">
+                <div nz-result-extra>
+                    <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+                </div>
+            </nz-result>
         </div>
 
         <ng-template #content>
-
             <p-toolbar styleClass="mb-4 gap-2">
                 <ng-template pTemplate="left">
 
@@ -62,28 +65,37 @@
 
                 </ng-template>
             </p-toolbar>
-            <div class="big-box" *ngFor="let group of groups">
-                <div class="img-person">
-                    <div *ngIf="group.persons[0].person.img; else noimage">
-                        <img src="{{group.persons[0].person.img}}" alt="">
+
+            <nz-result *ngIf="groups.length === 0; else info" nzStatus="404" nzTitle="No hay grupos registrados para la materia">
+            </nz-result>
+
+            <ng-template #info>
+
+
+                <div class="big-box" *ngFor="let group of groups">
+                    <div class="img-person">
+                        <div *ngIf="group.persons[0].person.img; else noimage">
+                            <img src="{{group.persons[0].person.img}}" alt="">
+                        </div>
+                        <ng-template #noimage>
+                            <img src="https://miro.medium.com/max/700/1*bRuxpf9ZMC2QVXVJKEoS0w.png">
+                        </ng-template>
                     </div>
-                    <ng-template #noimage>
-                        <img src="https://miro.medium.com/max/700/1*bRuxpf9ZMC2QVXVJKEoS0w.png">
-                    </ng-template>
-                </div>
-                <div class="info-person">
-                    <div class="flex align-items-center gap-3">
-                        <h4>{{subject | titlecase}}</h4>
-                        <h5>Docente: {{group.persons[0].person.names | titlecase}} {{group.persons[0].person.lastnames |
-                            titlecase}}</h5>
-                        <p-tag>Grupo {{group.name}}</p-tag>
+                    <div class="info-person">
+                        <div class="flex align-items-center gap-3">
+                            <h4>{{subject | titlecase}}</h4>
+                            <h5>Docente: {{group.persons[0].person.names | titlecase}}
+                                {{group.persons[0].person.lastnames |
+                                titlecase}}</h5>
+                            <p-tag>Grupo {{group.name}}</p-tag>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <p-button label="Matricularme" icon="pi pi-pencil" (click)="enrollInGroup(group.id)"
+                            styleClass="p-button-sm p-button-raised p-button-warning"></p-button>
                     </div>
                 </div>
-                <div class="actions">
-                    <p-button label="Matricularme" icon="pi pi-pencil" (click)="enrollInGroup(group.id)"
-                        styleClass="p-button-sm p-button-raised p-button-warning"></p-button>
-                </div>
-            </div>
+            </ng-template>
         </ng-template>
     </div>
 </div>

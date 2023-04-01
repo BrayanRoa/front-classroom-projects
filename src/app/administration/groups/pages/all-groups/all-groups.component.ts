@@ -13,19 +13,19 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./all-groups.component.css']
 })
 export class AllGroupsComponent extends BaseComponent {
-  
+
   groups: GroupData[] = []
   teachers: any[] = [] //TODO: OJO CAMBIAR EL ANY
 
   subject!: string
-  code!: string 
+  code!: string
   id!: string
-  
+
   infoGroup!: FormGroup
-  
+
   loading: boolean = true
   isVisible = false;
-  person!:string
+  person!: string
 
   items!: MenuItem[];
   home!: MenuItem;
@@ -38,11 +38,17 @@ export class AllGroupsComponent extends BaseComponent {
   ) {
     super()
     this.id = this.aRoute.snapshot.paramMap.get('id')!
+    this.subject = this.aRoute.snapshot.paramMap.get('materia')!
     this.person = localStorage.getItem("email")!
     this.uploadGroupsOfSubject()
   }
-  
-  ngOnInit(): void {    
+
+  ngOnInit(): void {
+    this.items = [
+      { label: "Materias", disabled: true },
+      { label: 'Todas', routerLink: "/dashboard/materias" },
+      { label: `Grupos - ${this.subject}`, disabled: true }
+    ];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 
@@ -65,13 +71,7 @@ export class AllGroupsComponent extends BaseComponent {
         this.subject = value.data.name
         this.code = value.data.code
         this.groups = value.data.group
-
-        this.items = [
-          { label: "Materias", disabled:true},
-          { label: 'Todas', routerLink:"/dashboard/materias"},
-          { label: `Grupos - ${this.subject}`, disabled:true}
-        ];
-        this.loading=false
+        this.loading = false
       },
       error: err => {
         this.subject = "Materia Sin Grupos"
@@ -101,19 +101,19 @@ export class AllGroupsComponent extends BaseComponent {
     })
   }
 
-  enrollInGroup(id_group:string){
+  enrollInGroup(id_group: string) {
     this.personService.seePerson(this.person).subscribe({
-      next: person =>{
+      next: person => {
         this.personService.registerPersonInGroup(person.data.id, id_group).subscribe({
-          next: value =>{
+          next: value => {
             this.alertSuccess(value.data)
           },
-          error: err =>{
+          error: err => {
             this.alertWarning(err.error.data)
           }
         })
       },
-      error: err =>{
+      error: err => {
         this.alertError(err.error.data)
       }
     })
