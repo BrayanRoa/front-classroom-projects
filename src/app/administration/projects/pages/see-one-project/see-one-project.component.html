@@ -10,24 +10,128 @@
 
     <div class="box-info">
         <div class="loading" *ngIf="loading; else content">
-            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+            <nz-result nzStatus="info" nzTitle="Cargando Proyecto..." nzSubTitle="Espera un momento">
+                <div nz-result-extra>
+                    <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+                </div>
+            </nz-result>
         </div>
 
-        <div>
-            <ng-template #content>
-                <div>
-                    <!-- <nz-breadcrumb>
-                        <nz-breadcrumb-item>
-                            <a routerLink="/dashboard/estudiantes">Application List</a>
-                        </nz-breadcrumb-item>
-                        <nz-breadcrumb-item>
-                            <a>Application List</a>
-                        </nz-breadcrumb-item>
-                        <nz-breadcrumb-item>An Application</nz-breadcrumb-item>
-                    </nz-breadcrumb> -->
-                    
-                </div>
-            </ng-template>
-        </div>
+        <ng-template #content>
+            <p-toolbar styleClass="mb-4 gap-2">
+                <ng-template pTemplate="left">
+                </ng-template>
+
+                <ng-template pTemplate="right">
+                    <nz-space>
+                        <p-button *ngIf="project.state === 'on hold'" label="Aprobar" icon="pi pi-folder-open"
+                            (onClick)="approved()" styleClass="p-button-sm p-button-raised p-button-help"></p-button>
+
+                        <p-button *ngIf="project.state !== 'on hold'" label="Inscribirme" icon="pi pi-folder-open"
+                            (onClick)="signUp()" styleClass="p-button-sm p-button-raised p-button-success"></p-button>
+                    </nz-space>
+                </ng-template>
+            </p-toolbar>
+            <div>
+                <p-fieldset legend="{{project.name | titlecase}}">
+                    <h4><b>Descripción</b></h4>
+                    <p class="m-0">
+                        <!-- {{project.description}} -->
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque minima porro alias id,
+                        voluptatum dolor velit. Eius ipsam consectetur ducimus, iure, eveniet illo ratione in
+                        tempora deserunt fugiat magnam aspernatur?
+                    </p>
+                    <br>
+                    <div style="display: flex; justify-content: start;">
+                        <div class="item-info">
+                            <h4><b>Estudiantes Permitidos</b></h4>
+                            <p class="m-0">
+                                <p-badge value="{{project.number_of_students}}" severity="success"></p-badge>
+                            </p>
+                        </div>
+
+                        <div class="item-info">
+                            <h4><b>Estudiantes Inscritos</b></h4>
+                            <p class="m-0">
+                                <p-badge value="{{project.registeredPersons}}" severity="warning"></p-badge>
+                            </p>
+                        </div>
+
+                        <div class="item-info">
+                            <h4><b>Estado Del Proyecto</b></h4>
+                            <div class="tag">
+                                <div class="tag" *ngIf="project.state === 'in progress'">
+                                    <p-tag styleClass="mr-2" icon="pi pi-hourglass" severity="primary"
+                                        value="En Desarrollo"></p-tag>
+                                </div>
+                                <div class="tag" *ngIf="project.state === 'on hold'">
+                                    <p-tag styleClass="mr-2" icon="pi pi-stopwatch" severity="danger"
+                                        value="Por Aprobar"></p-tag>
+                                </div>
+                                <div class="tag" *ngIf="project.state === 'finished'">
+                                    <p-tag styleClass="mr-2" icon="pi pi-flag-fill" severity="success"
+                                        value="Finalizado"></p-tag>
+                                </div>
+                                <div class="tag" *ngIf="project.state === 'to start'">
+                                    <p-tag styleClass="mr-2" icon="pi pi-flag-fill" severity="warning"
+                                        value="Por Iniciar"></p-tag>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br>
+                    <h4><b>Personas Inscritas</b></h4>
+                    <div class="container-fluid">
+                        <div style="display: flex; justify-content: space-around;" *ngIf="persons; else withOutPerson">
+                            <div>
+
+                                <p-carousel [value]="persons" [numVisible]="1" [numScroll]="1" [circular]="false"
+                                    [responsiveOptions]="responsiveOptions">
+                                    <ng-template let-person pTemplate="item">
+                                        <div class="product-item">
+                                            <div class="person-item-content">
+                                                <div class="mb-3 content-image">
+                                                    <div>
+                                                        <img src="{{person.person.img}}" />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h4 class="mb-1" style="text-align: center;">
+                                                        {{person.person.names | titlecase}}
+                                                        {{person.person.lastnames | titlecase}}</h4>
+                                                    <h6 class="mt-0 mb-3" style="text-align: center;">
+                                                        {{person.person.institutional_mail}}</h6>
+                                                    <div class="car-buttons mt-5" style="text-align: center;">
+                                                        <p-button type="button"
+                                                            styleClass="p-button p-button-rounded mr-2" icon="pi pi-eye"
+                                                            routerLink="/dashboard/ver_persona/{{person.person.code}}"></p-button>
+                                                        <p-button type="button"
+                                                            styleClass="p-button-success p-button-rounded mr-2"
+                                                            icon="pi pi-star-fill"></p-button>
+                                                        <p-button type="button"
+                                                            styleClass="p-button-help p-button-rounded"
+                                                            icon="pi pi-cog"></p-button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </p-carousel>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <ng-template #withOutPerson>
+                        <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
+                    </ng-template>
+
+
+
+
+                </p-fieldset>
+            </div>
+        </ng-template>
     </div>
 </div>
