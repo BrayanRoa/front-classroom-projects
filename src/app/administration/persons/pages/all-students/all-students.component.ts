@@ -40,7 +40,8 @@ export class AllStudentsComponent extends BaseComponent {
         this.loading = false
       }),
       error: (e => {
-        this.alertError(e.error.data)
+        this.loading = false
+        // this.alertError(e.error.data)
       })
     })
   }

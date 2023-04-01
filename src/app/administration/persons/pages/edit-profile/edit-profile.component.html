@@ -5,6 +5,18 @@
     </div>
   </div>
 
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="Cargar Imagen De Perfil" (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <form [formGroup]="formTemplate">
+        <div class="mb-3">
+          <input formControlName="template" (change)="sendTemplate($event)" class="form-control" type="file"
+            id="formFile">
+        </div>
+      </form>
+    </ng-container>
+  </nz-modal>
+
   <div class="box-info">
     <div class="loading" *ngIf="loading; else content">
       <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
@@ -23,13 +35,15 @@
                   <h2>
                     {{ person.names | titlecase }}
                     {{ person.lastnames | titlecase }}
+                    <div class="mt-2">
+                      <p-button (click)="showModal()" label="Subir Imagen" icon="pi pi-upload" type="file"
+                        styleClass="p-button-sm p-button-raised p-button-help"></p-button>
+                    </div>
                   </h2>
                 </div>
               </div>
             </div>
             <div class="col-8 info-text">
-              <!-- TODO: COLOCAR EL FORMULARIO AQUI -->
-              <!-- TODO: formControlName="" -->
               <div class="field col-12 md:col-4">
                 <span class="p-float-label">
                   <input type="text" id="inputtext" pInputText />
@@ -50,7 +64,6 @@
                   <label for="inputtext-right">Right Icon</label>
                 </span>
               </div>
-              <!-- TODO: FINAL DEL FORMULARIO -->
             </div>
           </div>
         </div>

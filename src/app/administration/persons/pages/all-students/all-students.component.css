@@ -1,0 +1,18 @@
+.loading {
+    position: relative;
+    /* asegura que el div sea el contenedor relativo */
+    height: 100%;
+    /* asegura que el div ocupe toda la altura de la ventana */
+}
+
+p.progressBar {
+    position: absolute;
+    /* posiciona el elemento p de manera absoluta */
+    top: 50%;
+    /* lo coloca en la mitad de la altura del contenedor */
+    left: 50%;
+    /* lo coloca en la mitad de la anchura del contenedor */
+    transform: translate(-50%, -50%);
+    /* lo centra correctamente */
+    /* Opcional: añade estilos adicionales para el elemento p */
+}
