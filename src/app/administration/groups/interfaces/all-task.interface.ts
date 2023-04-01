@@ -9,10 +9,10 @@ export interface AllTaskInterface {
 export interface TaskData {
     name:   string;
     active: boolean;
-    task:   Task[];
+    task:   TaskInterface[];
 }
 
-export interface Task {
+export interface TaskInterface {
     id:           string;
     created_at:   string;
     updated_at:   string;
