@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ResponseHttp } from 'src/app/shared/interfaces/response.interface';
 import { NewProjectInterface } from '../interfaces/new-project.interface';
 import { OneProjectInterface } from '../interfaces/one-project.interface';
+import { PersonWithProject } from '../interfaces/person_with_project.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,13 @@ export class ProjectService {
 
   findOneProject(id:string):Observable<OneProjectInterface>{
     return this.http.get<OneProjectInterface>(`${this.URL}/project/${id}`)
+  }
+
+  changeState(id:string, state:string):Observable<ResponseHttp>{
+    return this.http.patch<ResponseHttp>(`${this.URL}/project/change_state`,{id, state})
+  }
+
+  findProjectsWithPersons(id:string):Observable<PersonWithProject>{
+    return this.http.get<PersonWithProject>(`${this.URL}/project_person/persons/${id}`)
   }
 }
