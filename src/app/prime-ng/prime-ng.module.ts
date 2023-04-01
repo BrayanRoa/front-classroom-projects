@@ -10,9 +10,12 @@ import { ChipModule } from 'primeng/chip';
 
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
-
+import { ToolbarModule } from 'primeng/toolbar';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-
+import { DataViewModule, DataViewLayoutOptions } from 'primeng/dataview';
+import { FieldsetModule } from 'primeng/fieldset';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { BadgeModule } from 'primeng/badge';
 @NgModule({
   declarations: [],
   imports: [
@@ -25,7 +28,12 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     ChipModule,
     TableModule,
     FileUploadModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    ToolbarModule,
+    DataViewModule,
+    FieldsetModule,
+    NzSkeletonModule,
+    BadgeModule
   ],
   exports: [
     ButtonModule,
@@ -36,7 +44,13 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     ChipModule,
     TableModule,
     FileUploadModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    ToolbarModule,
+    DataViewModule,
+    DataViewLayoutOptions,
+    FieldsetModule,
+    NzSkeletonModule,
+    BadgeModule
   ]
 })
 export class PrimeNgModule { }
