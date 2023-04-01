@@ -14,14 +14,10 @@ import { MenuItem } from 'primeng/api';
 })
 export class MySubjectsComponent extends BaseComponent{
 
-  title: string = "Mis Materias"
   mySubjects: GroupElement[] = []
-  id: string = ""
-  loading = true;
-  person_id: string = ""
 
-  dtOptions: DataTables.Settings = {}
-  dtTrigger = new Subject<any>();
+  person_id!: string
+  loading = true;
 
   items!: MenuItem[];
   home!: MenuItem;
@@ -35,13 +31,6 @@ export class MySubjectsComponent extends BaseComponent{
   }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 8,
-      language: {
-        url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-      }
-    };
     this.items = [
       { label: "Materias", disabled:true},
       { label: 'Mis Materias'}];

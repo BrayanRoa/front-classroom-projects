@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
 import { BaseComponent } from 'src/app/shared/base/base.component';
 import { SubjectData } from "../../interfaces/all-subject.interface"
 import { SubjectService } from '../../service/subject.service';
@@ -14,9 +13,6 @@ import { MenuItem } from 'primeng/api';
 })
 export class AllSubjectsComponent extends BaseComponent {
 
-  title: string = "Materias"
-  dtOptions: DataTables.Settings = {}
-  dtTrigger = new Subject<any>();
   subjects: SubjectData[] = []
   loading = true;
   isVisible = false;
@@ -33,16 +29,9 @@ export class AllSubjectsComponent extends BaseComponent {
   }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 6,
-      language: {
-        url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-      }
-    };
     this.items = [
-      { label: "Materias",  disabled:true},
-      { label: 'Todas'}];
+      { label: "Materias", disabled: true },
+      { label: 'Todas' }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 
@@ -69,15 +58,10 @@ export class AllSubjectsComponent extends BaseComponent {
     })
   }
 
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
-  }
-
   uploadsSubjects() {
     this.subjectService.uploadSubjects().subscribe({
       next: (resp => {
         this.subjects = resp.data
-        this.dtTrigger.next(this.subjects)
         this.loading = false
       }),
       error: (e => {
