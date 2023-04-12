@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ViewMyProjects } from '../../interfaces/my_projects.interface';
+import { ListMyProjects } from '../../interfaces/my_projects.interface';
 import { PersonService } from '../../service/person.service';
 import { BaseComponent } from '../../../../shared/base/base.component';
 import { MenuItem } from 'primeng/api';
+import { LoginService } from 'src/app/auth/service/login.service';
 
 @Component({
   selector: 'app-my-projects',
@@ -11,14 +12,15 @@ import { MenuItem } from 'primeng/api';
 })
 export class MyProjectsComponent extends BaseComponent {
 
-  projects!: ViewMyProjects
-  loading:boolean = true
+  projects!: ListMyProjects[]
+  loading: boolean = true
 
   items!: MenuItem[];
   home!: MenuItem;
 
   constructor(
-    private personService: PersonService
+    private personService: PersonService,
+    private authService: LoginService
   ) {
     super()
     this.uploadMyProjects()
@@ -27,14 +29,16 @@ export class MyProjectsComponent extends BaseComponent {
   ngOnInit(): void {
     this.items = [
       { label: "Proyectos", disabled: true },
-      { label: 'Mis Proyectos',  disabled: true}];
+      { label: 'Mis Proyectos', disabled: true }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 
   uploadMyProjects() {
-    this.personService.viewMyProjects(localStorage.getItem("email")!).subscribe({
+    const { email } = this.authService.auth
+    this.personService.viewMyProjects(email!).subscribe({
       next: value => {
-        this.projects = value
+        console.log(value);
+        this.projects = value.data.projects
         this.loading = false
       },
       error: e => {

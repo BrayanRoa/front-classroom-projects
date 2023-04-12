@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from 'src/app/shared/base/base.component';
-import { SubjectData } from "../../interfaces/all-subject.interface"
+import { ListSubjectsInterface } from "../../interfaces/all-subject.interface"
 import { SubjectService } from '../../service/subject.service';
 import { MenuItem } from 'primeng/api';
 
@@ -13,9 +13,10 @@ import { MenuItem } from 'primeng/api';
 })
 export class AllSubjectsComponent extends BaseComponent {
 
-  subjects: SubjectData[] = []
+  subjects: ListSubjectsInterface[] = []
   loading = true;
   isVisible = false;
+  role!:string
 
   items!: MenuItem[];
   home!: MenuItem;
@@ -26,6 +27,7 @@ export class AllSubjectsComponent extends BaseComponent {
   ) {
     super()
     this.uploadsSubjects()
+    this.role = localStorage.getItem("role")!
   }
 
   ngOnInit(): void {
@@ -33,6 +35,18 @@ export class AllSubjectsComponent extends BaseComponent {
       { label: "Materias", disabled: true },
       { label: 'Todas' }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
+  }
+
+  uploadsSubjects() {
+    this.subjectService.uploadSubjects().subscribe({
+      next: (resp => {
+        this.subjects = resp.data
+        this.loading = false
+      }),
+      error: (e => {
+        this.loading = false
+      })
+    })
   }
 
   infoSubject: FormGroup = this.fb.group({
@@ -58,18 +72,6 @@ export class AllSubjectsComponent extends BaseComponent {
     })
   }
 
-  uploadsSubjects() {
-    this.subjectService.uploadSubjects().subscribe({
-      next: (resp => {
-        this.subjects = resp.data
-        this.loading = false
-      }),
-      error: (e => {
-        this.loading = false
-      })
-    })
-  }
-
   showModal(): void {
     this.isVisible = true;
   }
@@ -80,7 +82,6 @@ export class AllSubjectsComponent extends BaseComponent {
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 }

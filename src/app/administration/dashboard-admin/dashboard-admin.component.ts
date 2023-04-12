@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BaseComponent } from 'src/app/shared/base/base.component';
 import Swal from 'sweetalert2';
 import { PersonService } from '../persons/service/person.service';
+import { LoginService } from 'src/app/auth/service/login.service';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -17,18 +18,21 @@ export class DashboardAdminComponent extends BaseComponent{
 
   constructor(
     private router:Router,
-    private personService:PersonService
+    private personService:PersonService,
+    private readonly authService:LoginService
   ){
     super()
     this.mail = localStorage.getItem("email")!
+    // this.mail = this.authService.auth.email!
     this.infoPerson()
   }
 
   infoPerson(){
     this.personService.seePerson(this.mail).subscribe({
       next: value =>{
+        console.log(value);
         this.namePerson = `${value.data.names} ${value.data.lastnames}`
-        this.img = value.data.img!
+        this.img = (value.data.img)?value.data.img:this.img_default
       }
     })
   }

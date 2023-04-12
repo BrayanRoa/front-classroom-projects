@@ -28,9 +28,15 @@
           <div class="row">
             <div class="col-4 info-img">
               <div>
-                <div class="img">
+                <div class="img" *ngIf="person.img; else content">
                   <img [src]="person.img" alt="" />
                 </div>
+                <ng-template #content>
+                  <div class="img">
+                    <img src="https://res.cloudinary.com/dmaqkkeno/image/upload/v1679972910/ayd-folder-pruebas/imagen-perfil-sin-foto_fpmrc2.jpg" alt="" />
+                  </div>
+                </ng-template>
+                
                 <div class="names-person">
                   <h2>
                     {{ person.names | titlecase }}

@@ -3,10 +3,10 @@
 export interface SubjectInterface {
     status:    number;
     statusMsg: string;
-    data:      SubjectData[];
+    data:      ListSubjectsInterface[];
 }
 
-export interface SubjectData {
+export interface ListSubjectsInterface {
     id:         string;
     created_at: string;
     updated_at: string;

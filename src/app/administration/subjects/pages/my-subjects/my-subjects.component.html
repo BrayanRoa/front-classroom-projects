@@ -9,16 +9,24 @@
 
     <div class="box-info">
         <div class="loading" *ngIf="loading; else content">
-            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+            <nz-result nzStatus="info" nzTitle="Cargando Mis Materias..." nzSubTitle="Espera un momento">
+                <div nz-result-extra>
+                    <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+                </div>
+            </nz-result>
         </div>
 
-        <div>
-            <ng-template #content>
+        <ng-template #content>
+            <nz-result *ngIf="mySubjects.length === 0; else info" nzStatus="404"
+                nzTitle="No Tienes Materias Matriculadas Aún">
+            </nz-result>
 
+            <ng-template #info>
                 <p-table [value]="mySubjects" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
                     selectionMode="single" [tableStyle]="{ 'min-width': '50rem' }"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                    [rowsPerPageOptions]="[5,10, 25, 50]" [scrollable]="true" scrollHeight="370px" [virtualScroll]="true" [virtualScrollItemSize]="46">
+                    [rowsPerPageOptions]="[5,10, 25, 50]" [scrollable]="true" scrollHeight="370px"
+                    [virtualScroll]="true" [virtualScrollItemSize]="46">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Nombre
@@ -83,6 +91,6 @@
                     </ng-template>
                 </p-table>
             </ng-template>
-        </div>
+        </ng-template>
     </div>
 </div>

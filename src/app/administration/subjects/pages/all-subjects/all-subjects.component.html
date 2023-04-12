@@ -44,59 +44,55 @@
             </nz-result>
         </div>
 
-        <div>
-            <ng-template #content>
-                <p-toolbar styleClass="mb-4 gap-2">
-                    <ng-template pTemplate="left">
+        <ng-template #content>
+            <p-toolbar styleClass="mb-4 gap-2">
+                <ng-template pTemplate="left">
 
-                    </ng-template>
-                    <ng-template pTemplate="right">
-                        <nz-space>
-                            <p-button label="Nueva Materia" icon="pi pi-plus" (click)="showModal()"
-                                styleClass="p-button-sm p-button-raised p-button-success"></p-button>
-
-                        </nz-space>
-                    </ng-template>
-                </p-toolbar>
-
-                <nz-result *ngIf="subjects.length === 0; else info" nzStatus="404"
-                    nzTitle="No hay materias registrados aún">
-                </nz-result>
-
-                <ng-template #info>
-
-
-                    <p-table [value]="subjects" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
-                        selectionMode="single" [tableStyle]="{ 'min-width': '50rem' }"
-                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                        [rowsPerPageOptions]="[5,10, 25, 50]">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th>Nombre
-                                    <p-columnFilter field="names" display="menu" [showOperator]="true"></p-columnFilter>
-                                </th>
-                                <th>
-                                    Codigo
-                                    <p-columnFilter field="code" display="menu" [showOperator]="true"></p-columnFilter>
-                                </th>
-                                <th>Acciones</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-subject>
-                            <tr>
-                                <td>
-                                    {{subject.name | titlecase}}
-                                </td>
-                                <td>{{ subject.code }}</td>
-                                <td class="buttons">
-                                    <p-button label="Ver Grupos" icon="pi pi-eye" styleClass="p-button-sm"
-                                        routerLink="/dashboard/{{subject.name}}/grupos/{{subject.id}}"></p-button>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
                 </ng-template>
+                <ng-template pTemplate="right">
+                    <nz-space>
+                        <p-button *ngIf="role === 'docente'" label="Nueva Materia" icon="pi pi-plus" (click)="showModal()"
+                            styleClass="p-button-sm p-button-raised p-button-success"></p-button>
+
+                    </nz-space>
+                </ng-template>
+            </p-toolbar>
+
+            <nz-result *ngIf="subjects.length === 0; else info" nzStatus="404"
+                nzTitle="No hay materias registrados aún">
+            </nz-result>
+
+            <ng-template #info>
+                <p-table [value]="subjects" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                    selectionMode="single" [tableStyle]="{ 'min-width': '50rem' }"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[5,10, 25, 50]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Nombre
+                                <p-columnFilter field="names" display="menu" [showOperator]="true"></p-columnFilter>
+                            </th>
+                            <th>
+                                Codigo
+                                <p-columnFilter field="code" display="menu" [showOperator]="true"></p-columnFilter>
+                            </th>
+                            <th>Acciones</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-subject>
+                        <tr>
+                            <td>
+                                {{subject.name | titlecase}}
+                            </td>
+                            <td>{{ subject.code }}</td>
+                            <td class="buttons">
+                                <p-button label="Ver Grupos" icon="pi pi-eye" styleClass="p-button-sm"
+                                    routerLink="/dashboard/{{subject.name}}/grupos/{{subject.id}}"></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </ng-template>
-        </div>
+        </ng-template>
     </div>
 </div>

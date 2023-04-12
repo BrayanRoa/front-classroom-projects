@@ -1,42 +1,35 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
-import { BaseComponent } from '../../../../shared/base/base.component';
-import { TaskService } from '../../service/task.service';
+import { MenuItem } from 'primeng/api';
 import { TasksInterface } from '../../interfaces/all_task_projects.interface';
-
+import { TaskService } from '../../service/task.service';
+import { ListTaskGroup } from '../../interfaces/task_of_group.interface';
 
 @Component({
-  selector: 'app-all-task',
-  templateUrl: './all-task.component.html',
-  styleUrls: ['./all-task.component.css']
+  selector: 'app-task-manager',
+  templateUrl: './task-manager.component.html',
+  styleUrls: ['./task-manager.component.css']
 })
-export class AllTaskComponent extends BaseComponent {
-
-  loading: boolean = true
-  tasks!: TasksInterface[]
-
-  group_id!: string
-  subject_name!: string
-  group_name!: string
-  project_id!: string
-
-  // date!: Date
+export class TaskManagerComponent {
 
   items!: MenuItem[];
   home!: MenuItem;
 
+  group_id!: string
+  subject_name!: string
+  group_name!: string
+
+  tasks!:ListTaskGroup[]
+
+  loading: boolean = true
+
   constructor(
-    private aRoute: ActivatedRoute,
-    private taskService: TaskService
-    // private groupService: GroupService
+    private readonly aRoute: ActivatedRoute,
+    private readonly taskService:TaskService
   ) {
-    super()
     this.group_id = this.aRoute.snapshot.paramMap.get("group_id")!
     this.subject_name = this.aRoute.snapshot.paramMap.get("subject")!
     this.group_name = this.aRoute.snapshot.paramMap.get("group_name")!
-    this.project_id = this.aRoute.snapshot.paramMap.get("project_id")!
-    // this.date = new Date()
     this.uploadTask()
   }
 
@@ -50,14 +43,14 @@ export class AllTaskComponent extends BaseComponent {
   }
 
   uploadTask() {
-    this.taskService.findAllTaskOfProject(this.group_id, this.project_id).subscribe({
+    console.log(this.group_id);
+    this.taskService.findAllTaskOfGroup(this.group_id).subscribe({
       next: value => {
         this.tasks = value.data
         this.loading = false
       },
       error: e => {
         this.loading = false
-        // this.alertError(e.error.data)
       }
     })
   }

@@ -24,6 +24,10 @@
 
                 <ng-template pTemplate="right">
                     <nz-space>
+                        <p-button label="Tareas" icon="pi pi-file-edit" styleClass="p-button-sm p-button-warning"
+                            routerLink="/dashboard/task/{{subject_name}}/{{group_name}}/{{group_id}}/{{project_id}}"
+                            badge="{{numTask}}" badgeClass="p-badge-danger"></p-button>
+
                         <p-button *ngIf="project.state === 'on hold'" label="Aprobar" icon="pi pi-folder-open"
                             (onClick)="approved()" styleClass="p-button-sm p-button-raised p-button-help"></p-button>
 
@@ -77,7 +81,6 @@
                                         value="Por Iniciar"></p-tag>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <br>
@@ -92,9 +95,14 @@
                                         <div class="product-item">
                                             <div class="person-item-content">
                                                 <div class="mb-3 content-image">
-                                                    <div>
+                                                    <div *ngIf="person.person.img; else content">
                                                         <img src="{{person.person.img}}" />
                                                     </div>
+
+                                                    <ng-template #content>
+                                                        <img src="{{person.person.img}}" />
+                                                    </ng-template>
+
                                                 </div>
                                                 <div>
                                                     <h4 class="mb-1" style="text-align: center;">

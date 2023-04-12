@@ -12,7 +12,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class AllTeachersComponent extends BaseComponent {
 
-  persons: PersonsInterface[] = []
+  persons!: PersonsInterface[]
   loading: boolean = true
 
   items!: MenuItem[];

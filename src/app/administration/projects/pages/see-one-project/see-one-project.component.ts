@@ -6,6 +6,8 @@ import { DataProject } from '../../interfaces/one-project.interface';
 import { PersonService } from '../../../persons/service/person.service';
 import { BaseComponent } from '../../../../shared/base/base.component';
 import { PersonProject } from '../../interfaces/person_with_project.interface';
+import { TaskService } from 'src/app/administration/task/service/task.service';
+import { LoginService } from 'src/app/auth/service/login.service';
 @Component({
   selector: 'app-see-one-project',
   templateUrl: './see-one-project.component.html',
@@ -22,9 +24,10 @@ export class SeeOneProjectComponent extends BaseComponent {
   project!: DataProject
   persons!: PersonProject[]
   messages!: Message[]
+  email!:string
 
   loading: boolean = true;
-  // loading2: boolean = false;
+  numTask!: string
 
   responsiveOptions!: any[];
 
@@ -35,6 +38,7 @@ export class SeeOneProjectComponent extends BaseComponent {
     private aRoute: ActivatedRoute,
     private projectService: ProjectService,
     private personService: PersonService,
+    private authService: LoginService,
     private router: Router
   ) {
     super()
@@ -42,6 +46,7 @@ export class SeeOneProjectComponent extends BaseComponent {
     this.group_name = this.aRoute.snapshot.paramMap.get("group")!
     this.group_id = this.aRoute.snapshot.paramMap.get("group_id")!
     this.project_id = this.aRoute.snapshot.paramMap.get("id")!
+    this.email = localStorage.getItem("email")!
     this.findOneProject()
   }
 
@@ -91,8 +96,7 @@ export class SeeOneProjectComponent extends BaseComponent {
   }
 
   signUp() {
-    const email = localStorage.getItem("email")!
-    this.personService.seePerson(email).subscribe({
+    this.personService.seePerson(this.email).subscribe({
       next: value => {
         this.personService.signUpInProject({
           person_id: value.data.id,

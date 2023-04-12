@@ -1,3 +1,5 @@
+/* 👌 */
+
 export interface GetAllPersonsInterface {
     status:    number;
     statusMsg: string;

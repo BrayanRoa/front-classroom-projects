@@ -11,7 +11,6 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./all-students.component.css']
 })
 export class AllStudentsComponent extends BaseComponent {
-  title: string = "Estudiantes"
 
   persons: PersonsInterface[] = []
   loading = true;

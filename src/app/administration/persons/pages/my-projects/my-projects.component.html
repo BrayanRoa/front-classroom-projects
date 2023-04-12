@@ -8,54 +8,61 @@
 
 
     <div class="box-info">
+
         <div class="loading" *ngIf="loading; else content">
-            <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+            <nz-result nzStatus="info" nzTitle="Cargando Proyectos..." nzSubTitle="Espera un momento">
+                <div nz-result-extra>
+                    <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+                </div>
+            </nz-result>
         </div>
 
-        <div>
-            <ng-template #content>
+        <ng-template #content>
+            <nz-result *ngIf="projects.length === 0; else info" nzStatus="404" nzTitle="No tienes proyectos aún">
+            </nz-result>
+        </ng-template>
 
-                <p-table [value]="projects.data.projects" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
-                    selectionMode="single" [tableStyle]="{ 'min-width': '50rem' }"
-                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                    [rowsPerPageOptions]="[5,10, 25, 50]" [scrollable]="true" scrollHeight="370px"
-                    [virtualScroll]="true" [virtualScrollItemSize]="46">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Nombre
-                                <p-columnFilter field="names" display="menu" [showOperator]="true"></p-columnFilter>
-                            </th>
-                            <th>
-                                Materia
-                                <p-columnFilter field="code" display="menu" [showOperator]="true"></p-columnFilter>
-                            </th>
-                            <th>Grupo</th>
-                            <th>Estado Del Proyecto</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-project>
-                        <tr>
-                            <td>
-                                {{project.project.name| titlecase}}
-                            </td>
-                            <td>{{ project.project.group.subject.name | titlecase}}</td>
-                            <td>{{ project.project.group.name }}</td>
-                            <td>
-                                <div class="state">
-                                    <div *ngIf="project.project.state === 'in progress' ">
-                                        <p-tag icon="pi pi-hourglass" severity="primary" value="En Proceso"></p-tag>
-                                    </div>
-
-                                    <div *ngIf="project.project.state === 'finished' ">
-                                        <p-tag styleClass="mr-2" icon="pi pi-check" severity="success"
-                                            value="Finalizado"></p-tag>
-                                    </div>
+        <ng-template #info>
+            <p-table [value]="projects" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                selectionMode="single" [tableStyle]="{ 'min-width': '50rem' }"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[5,10, 25, 50]" [scrollable]="true" scrollHeight="370px" [virtualScroll]="true"
+                [virtualScrollItemSize]="46">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Nombre
+                            <p-columnFilter field="names" display="menu" [showOperator]="true"></p-columnFilter>
+                        </th>
+                        <th>
+                            Materia
+                            <p-columnFilter field="code" display="menu" [showOperator]="true"></p-columnFilter>
+                        </th>
+                        <th>Grupo</th>
+                        <th>Estado Del Proyecto</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-project>
+                    <tr>
+                        <td>
+                            {{project.name| titlecase}}
+                        </td>
+                        <td>{{ project.group.subject.name | titlecase}}</td>
+                        <td>{{ project.group.name }}</td>
+                        <td>
+                            <div class="state">
+                                <div *ngIf="project.project.state === 'in progress' ">
+                                    <p-tag icon="pi pi-hourglass" severity="primary" value="En Proceso"></p-tag>
                                 </div>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </ng-template>
-        </div>
+
+                                <div *ngIf="project.project.state === 'finished' ">
+                                    <p-tag styleClass="mr-2" icon="pi pi-check" severity="success"
+                                        value="Finalizado"></p-tag>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </ng-template>
     </div>
 </div>

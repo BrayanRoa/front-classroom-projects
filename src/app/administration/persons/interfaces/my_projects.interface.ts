@@ -17,10 +17,10 @@ export interface Data {
     num_document:       string;
     img:                string;
     active:             boolean;
-    projects:           ProjectElement[];
+    projects:           ListMyProjects[];
 }
 
-export interface ProjectElement {
+export interface ListMyProjects {
     id:         string;
     created_at: string;
     updated_at: string;

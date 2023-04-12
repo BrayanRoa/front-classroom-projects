@@ -6,13 +6,14 @@ import { BaseComponent } from 'src/app/shared/base/base.component';
 import Swal from 'sweetalert2';
 import { GroupElement } from '../../interfaces/my-subjects.interface';
 import { MenuItem } from 'primeng/api';
+import { LoginService } from 'src/app/auth/service/login.service';
 
 @Component({
   selector: 'app-my-subjects',
   templateUrl: './my-subjects.component.html',
   styleUrls: ['./my-subjects.component.css']
 })
-export class MySubjectsComponent extends BaseComponent{
+export class MySubjectsComponent extends BaseComponent {
 
   mySubjects: GroupElement[] = []
 
@@ -24,7 +25,8 @@ export class MySubjectsComponent extends BaseComponent{
 
   constructor(
     private personService: PersonService,
-    private groupPersonService: GroupPersonService
+    private groupPersonService: GroupPersonService,
+    private readonly authService: LoginService
   ) {
     super()
     this.uploadMySubjects()
@@ -32,17 +34,19 @@ export class MySubjectsComponent extends BaseComponent{
 
   ngOnInit(): void {
     this.items = [
-      { label: "Materias", disabled:true},
-      { label: 'Mis Materias'}];
+      { label: "Materias", disabled: true },
+      { label: 'Mis Materias' }];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 
   uploadMySubjects() {
-    const email = localStorage.getItem("email")
+    const email = localStorage.getItem("email") 
     this.personService.uploadMySubjects(email!).subscribe({
       next: value => {
         this.mySubjects = value.data.groups
-        this.person_id = value.data.id
+        if(this.mySubjects.length !== 0){
+          this.person_id = value.data.id
+        }
         this.loading = false
       },
       error: err => {
@@ -51,21 +55,20 @@ export class MySubjectsComponent extends BaseComponent{
     })
   }
 
-  cancel(group: string, state:string) {
+  cancel(group: string, state: string) {
     Swal.fire({
       icon: "warning",
-      title: '¿Estas Seguro/a?',
+      title: '¿Estas Seguro/a que deseas cancelar la materia?',
       showCancelButton: true,
       confirmButtonText: 'Si',
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.groupPersonService.changeStateOfSubject(this.person_id, group, state).subscribe({
           next: value => {
             this.alertSuccess(value.data)
             this.uploadMySubjects()
           },
-          error: err =>{
+          error: err => {
             this.alertError(err.error.data)
           }
         })

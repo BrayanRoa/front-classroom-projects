@@ -18,6 +18,19 @@
         </div>
 
         <ng-template #content>
+            <p-toolbar styleClass="mb-4 gap-2">
+                <ng-template pTemplate="left">
+
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <nz-space>
+                        <p-button label="Nueva Tarea" icon="pi pi-plus"
+                            styleClass="p-button-sm p-button-raised p-button-success"
+                            routerLink="/dashboard/tasks/{{subject_name}}/{{group_name}}/{{group_id}}/new_task"></p-button>
+                    </nz-space>
+                </ng-template>
+            </p-toolbar>
+
             <nz-result *ngIf="!tasks; else info" nzStatus="404" nzTitle="No hay tareas registradas aún">
             </nz-result>
 
@@ -33,7 +46,6 @@
                             </th>
                             <th>Fecha Limite</th>
                             <th>Estado</th>
-                            <th>Acciones</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-task>
@@ -51,11 +63,6 @@
                                     </ng-template>
                                 </div>
                             </td>
-                            <td>
-                                <p-button label="Ver" icon="pi pi-eye" styleClass="p-button-sm"
-                                    routerLink="/dashboard/task/{{subject_name}}/{{group_name}}/{{group_id}}/{{task.id}}/{{project_id}}/ver"></p-button>
-                            </td>
-
                         </tr>
                     </ng-template>
                 </p-table>

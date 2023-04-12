@@ -21,7 +21,7 @@ export class PersonsGroupComponent extends BaseComponent {
   group!: string
   id!: string
   isVisible = false;
-  numTask!:string
+  // numTask!:string
 
   items!: MenuItem[];
   home!: MenuItem;
@@ -35,7 +35,7 @@ export class PersonsGroupComponent extends BaseComponent {
     this.id = this.aRoute.snapshot.paramMap.get("id")!
     this.subject = this.aRoute.snapshot.paramMap.get("subject")!
     this.group = this.aRoute.snapshot.paramMap.get("group")!
-    this.taskActive()
+    // this.taskActive()
     this.uploadPersonsOfGroup()
   }
 
@@ -60,13 +60,16 @@ export class PersonsGroupComponent extends BaseComponent {
     })
   }
 
-  taskActive() {
-    this.taskService.countActiveTask(this.id).subscribe({
-      next: value => {
-        this.numTask = value.data
-      }
-    })
-  }
+  // taskActive() {
+  //   this.taskService.countActiveTask(this.id).subscribe({
+  //     next: value => {
+  //       this.numTask = value.data
+  //     },
+  //     error: e =>{
+  //       console.log(e);
+  //     }
+  //   })
+  // }
 
   closeGroup() {
     this.alertWarning("¿Está seguro@ que desea cerrar el grupo? - Está acción es irreversible")

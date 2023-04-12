@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from '../../../../shared/base/base.component';
 import { PersonService } from '../../../persons/service/person.service';
 import { MenuItem } from 'primeng/api';
+import { LoginService } from 'src/app/auth/service/login.service';
 
 @Component({
   selector: 'app-all-groups',
@@ -26,20 +27,23 @@ export class AllGroupsComponent extends BaseComponent {
   loading: boolean = true
   isVisible = false;
   person!: string
+  role!:string
 
   items!: MenuItem[];
   home!: MenuItem;
 
   constructor(
-    private groupService: GroupService,
-    private aRoute: ActivatedRoute,
-    private personService: PersonService,
-    private fb: FormBuilder
+    private readonly groupService: GroupService,
+    private readonly personService: PersonService,
+    private readonly authService: LoginService,
+    private readonly aRoute: ActivatedRoute,
+    private readonly fb: FormBuilder
   ) {
     super()
     this.id = this.aRoute.snapshot.paramMap.get('id')!
     this.subject = this.aRoute.snapshot.paramMap.get('materia')!
     this.person = localStorage.getItem("email")!
+    this.role = localStorage.getItem("role")!
     this.uploadGroupsOfSubject()
   }
 
@@ -74,7 +78,6 @@ export class AllGroupsComponent extends BaseComponent {
         this.loading = false
       },
       error: err => {
-        this.subject = "Materia Sin Grupos"
         this.loading = false
       }
     })
@@ -133,7 +136,6 @@ export class AllGroupsComponent extends BaseComponent {
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 }
