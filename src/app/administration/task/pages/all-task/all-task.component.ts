@@ -45,6 +45,7 @@ export class AllTaskComponent extends BaseComponent {
       { label: 'Materias', disabled: true },
       { label: 'Mis Materias', routerLink: "/dashboard/mis_materias" },
       { label: this.subject_name, routerLink: `/dashboard/personas/${this.subject_name}/${this.group_name}/${this.group_id}` },
+      { label: 'Proyectos', routerLink: `/dashboard/proyectos/${this.subject_name}/${this.group_name}/${this.group_id}` },
       { label: 'Tareas', disabled: true }]
     this.home = { icon: 'pi pi-home', routerLink: '/' };
   }

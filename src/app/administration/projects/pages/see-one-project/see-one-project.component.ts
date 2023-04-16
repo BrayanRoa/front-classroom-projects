@@ -49,7 +49,6 @@ export class SeeOneProjectComponent extends BaseComponent {
     this.project_id = this.aRoute.snapshot.paramMap.get("id")!
     this.email = localStorage.getItem("email")!
     this.role = localStorage.getItem("role")!
-    console.log(this.role);
     this.findOneProject()
   }
 
@@ -131,5 +130,9 @@ export class SeeOneProjectComponent extends BaseComponent {
         this.alertError(e.error.data)
       }
     })
+  }
+
+  uploadBreadcrum(){
+    
   }
 }

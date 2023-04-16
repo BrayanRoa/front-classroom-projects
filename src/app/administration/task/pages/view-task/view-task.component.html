@@ -36,10 +36,16 @@
 
                 <ng-template pTemplate="right">
                     <nz-space>
-                        <div *ngIf="role ==='estudiante' && task.state === 'undelivered'">
+                        <div *ngIf="(role ==='estudiante' || dateCurrent > task_date)">
                             <p-button (click)="showModal()" label="Agregar Entrega" icon="pi pi-upload" type="file"
                                 styleClass="p-button-sm p-button-raised p-button-help"></p-button>
                         </div>
+
+                        <div *ngIf="(role ==='docente')">
+                            <p-button (click)="downloadDelivery()" label="Descargar Entrega" icon="pi pi-upload" type="file"
+                                styleClass="p-button-sm p-button-raised p-button-secondary"></p-button>
+                        </div>
+
                     </nz-space>
                 </ng-template>
             </p-toolbar>
@@ -64,7 +70,11 @@
                             <h4><b>Estado</b></h4>
                             <!-- TODO: SI LA FECHA YA SE PASO, COLOCAR UN TAG ROJO -->
                             <p class="m-0">
-                                <p-badge value="{{task.state }}" severity="success"></p-badge>
+                                <p-badge *ngIf="task.state === 'delivered'; else undelivered" value="Entregado" severity="success"></p-badge>
+                                <ng-template #undelivered>
+                                    <p-badge value="Sin Entregar" severity="danger"></p-badge>
+                                </ng-template>
+                                
                             </p>
                         </div>
                     </div>
@@ -72,5 +82,11 @@
                 </p-fieldset>
             </div>
         </ng-template>
+    </div>
+</div>
+
+<div class="loading-overlay" *ngIf="chargeFile">
+    <div class="loading-spinner">
+        <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
     </div>
 </div>

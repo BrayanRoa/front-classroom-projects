@@ -40,7 +40,6 @@ export class TaskService {
   }
 
   addDelivery(id: string, file: any): Observable<ResponseHttp> {
-    console.log(id, file);
     return this.http.patch<ResponseHttp>(`${this.URL}/task_project/add_delivery/${id}`, file)
   }
 }
