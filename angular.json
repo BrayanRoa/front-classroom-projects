@@ -23,11 +23,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              {
-                "glob":"_redirects",
-                "input": "src",
-                "output": "/"
-              },
+              "src/_redirects",
               {
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
