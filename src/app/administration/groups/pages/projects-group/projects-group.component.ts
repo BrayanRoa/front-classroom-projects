@@ -29,6 +29,8 @@ export class ProjectsGroupComponent extends BaseComponent {
   items!: MenuItem[];
   home!: MenuItem;
 
+  role!:string
+
   selectedFile!: File;
 
   constructor(
@@ -42,6 +44,7 @@ export class ProjectsGroupComponent extends BaseComponent {
     this.group_id = this.aRoute.snapshot.paramMap.get("group_id")!
     this.subject_name = this.aRoute.snapshot.paramMap.get("subject")!
     this.group_name = this.aRoute.snapshot.paramMap.get("group_name")!
+    this.role = localStorage.getItem("role")!
     this.uploadProjectOfGroup()
     this.loadForm()
   }
@@ -132,7 +135,7 @@ export class ProjectsGroupComponent extends BaseComponent {
   }
 
   downloadFile() {
-    const url = 'https://res.cloudinary.com/dmaqkkeno/raw/upload/v1679692829/ayd-folder-pruebas/projects-excel_d7flbk.xlsx';
+    const url = 'https://res.cloudinary.com/dmaqkkeno/raw/upload/v1681619101/ayd-folder-pruebas/plantilla_vin0mx.xlsx';
     this.http.get(url, { responseType: 'blob' }).subscribe((res:any) => {
       const a = document.createElement('a');
       const objectUrl = URL.createObjectURL(res);

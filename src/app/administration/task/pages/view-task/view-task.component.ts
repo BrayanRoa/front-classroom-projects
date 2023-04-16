@@ -19,8 +19,8 @@ export class ViewTaskComponent extends BaseComponent {
   task!: OneTaskProject
   task_id!: string
   project_id!: string
-  // deliveryForm!: FormGroup
-
+  role!:string
+  
   items!: MenuItem[];
   home!: MenuItem;
 
@@ -34,6 +34,7 @@ export class ViewTaskComponent extends BaseComponent {
     super()
     this.task_id = this.aRoute.snapshot.paramMap.get("task_id")!
     this.project_id = this.aRoute.snapshot.paramMap.get("project_id")!
+    this.role = localStorage.getItem("role")!
     this.viewTask()
   }
 

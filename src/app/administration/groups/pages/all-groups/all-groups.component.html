@@ -66,7 +66,8 @@
                 </ng-template>
             </p-toolbar>
 
-            <nz-result *ngIf="groups.length === 0; else info" nzStatus="404" nzTitle="No hay grupos registrados para la materia">
+            <nz-result *ngIf="groups.length === 0; else info" nzStatus="404"
+                nzTitle="No hay grupos registrados para la materia">
             </nz-result>
 
             <ng-template #info>

@@ -1,39 +1,105 @@
-.container{
+.container {
     height: 100%;
 }
 
-.row{
+.row {
     height: 100%;
 }
 
-.info-img{
+.info-img {
     height: 100%;
     border-radius: 10px 0 0 10px;
-    background-image: linear-gradient(to bottom, rgb(0, 251, 255), #0073ff);
-    display: flex;
-    justify-content: center;
-}
-
-img{
-    border-radius: 50%;
-    width: 200px;
-    height: 200px;
-    margin-top: 15px;
-}
-
-.img{
+    background-color: #F45050;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.names-person{
+/* img{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin-top: 15px;
+} */
+
+img {
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    padding: 5px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.names-person {
     text-align: center;
 }
 
-.info-text{
+.info-text {
     padding: 25px;
     height: 100%;
     border-radius: 0 10px 10px 0px;
-    background-image: linear-gradient(to bottom, rgb(0, 251, 255), #ff00d9);
+    background-color: #F0F0F0;
+}
+
+.field {
+    margin-bottom: 10px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+/* .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 20px;
+} */
+
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 0.5 significa una opacidad del 50% */
+    z-index: 9999;
+    /* Asegúrate de que la capa esté en el nivel superior */
+}
+
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

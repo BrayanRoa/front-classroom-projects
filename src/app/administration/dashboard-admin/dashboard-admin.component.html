@@ -8,11 +8,11 @@
             </a>
         </div>
         <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Personas' : ''"
+            <!-- <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Personas' : ''"
                 nzMatchRouter routerLink="/dashboard/main">
                 <span nz-icon nzType="dashboard"></span>
                 <span>Dashboard</span>
-            </li>
+            </li> -->
 
             <li nz-submenu nzOpen nzTitle="Personas" nzIcon="user">
                 <ul>
@@ -36,7 +36,7 @@
                 </ul>
             </li>
 
-            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Personas' : ''"
+            <li nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="isCollapsed ? 'Mis Proyectos' : ''"
                 nzMatchRouter routerLink="/dashboard/proyecto/my_projects">
                 <span nz-icon nzType="project"></span>
                 <span>Proyectos</span>

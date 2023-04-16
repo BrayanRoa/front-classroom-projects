@@ -20,7 +20,6 @@
     </nz-modal>
 
 
-
     <div class="box-info">
         <div class="loading" *ngIf="loading; else content">
             <nz-result nzStatus="info" nzTitle="Cargando Tarea..." nzSubTitle="Espera un momento">
@@ -37,7 +36,7 @@
 
                 <ng-template pTemplate="right">
                     <nz-space>
-                        <div *ngIf="task.state === 'undelivered'">
+                        <div *ngIf="role ==='estudiante' && task.state === 'undelivered'">
                             <p-button (click)="showModal()" label="Agregar Entrega" icon="pi pi-upload" type="file"
                                 styleClass="p-button-sm p-button-raised p-button-help"></p-button>
                         </div>

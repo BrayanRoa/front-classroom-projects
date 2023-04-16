@@ -31,14 +31,16 @@
                 <div class="img" *ngIf="person.img; else content">
                   <img [src]="person.img" alt="" />
                 </div>
-                <ng-template #content>
+                <ng-template #content class="img">
                   <div class="img">
-                    <img src="https://res.cloudinary.com/dmaqkkeno/image/upload/v1679972910/ayd-folder-pruebas/imagen-perfil-sin-foto_fpmrc2.jpg" alt="" />
+                    <img
+                      src="https://res.cloudinary.com/dmaqkkeno/image/upload/v1679972910/ayd-folder-pruebas/imagen-perfil-sin-foto_fpmrc2.jpg"
+                      alt="" />
                   </div>
                 </ng-template>
-                
+
                 <div class="names-person">
-                  <h2>
+                  <h2 style="color: white;">
                     {{ person.names | titlecase }}
                     {{ person.lastnames | titlecase }}
                     <div class="mt-2">
@@ -50,25 +52,41 @@
               </div>
             </div>
             <div class="col-8 info-text">
-              <div class="field col-12 md:col-4">
-                <span class="p-float-label">
-                  <input type="text" id="inputtext" pInputText />
-                  <label for="inputtext">InputText</label>
-                </span>
-              </div>
-              <div class="field col-12 md:col-4">
-                <span class="p-float-label p-input-icon-left">
-                  <i class="pi pi-search"></i>
-                  <input formControlName="" type="text" id="inputtext-left" pInputText />
-                  <label for="inputtext-left">Apellidos</label>
-                </span>
-              </div>
-              <div class="field col-12 md:col-4">
-                <span class="p-float-label p-input-icon-right">
-                  <i class="pi pi-spin pi-spinner"></i>
-                  <input type="text" id="inputtext-right" pInputText />
-                  <label for="inputtext-right">Right Icon</label>
-                </span>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-6 field">
+                    <label for="exampleInputEmail1" class="form-label">Correo Institucional</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      disabled value="{{person.institutional_mail}}">
+                  </div>
+                  <div class="col-6 field">
+                    <label for="exampleInputEmail1" class="form-label">Nombres</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      disabled value="{{person.names}} {{person.lastnames}}">
+                  </div>
+
+                  <div class="col-6 field">
+                    <label for="exampleInputEmail1" class="form-label">Código</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      disabled value="{{person.code}}">
+                  </div>
+                  <div class="col-6 field">
+                    <label for="exampleInputEmail1" class="form-label">Documento</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      disabled value="{{person.num_document}}">
+                  </div>
+
+                  <div class="col-6 field">
+                    <label for="exampleInputEmail1" class="form-label">Rol</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      disabled value="{{person.role.name}}">
+                  </div>
+                  <div class="col-6 field">
+                    <label for="exampleInputEmail1" class="form-label">Tipo De Documento</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                      disabled value="{{person.document_type.name}}">
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -76,5 +94,12 @@
         <!-- Aquí puedes agregar el contenido que deseas mostrar cuando isLoading es false -->
       </ng-template>
     </div>
+  </div>
+</div>
+
+
+<div class="loading-overlay" *ngIf="chargeImg">
+  <div class="loading-spinner">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
   </div>
 </div>

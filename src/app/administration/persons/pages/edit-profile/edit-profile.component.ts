@@ -15,6 +15,7 @@ export class EditProfileComponent extends BaseComponent {
 
   person!: OnePersonsInterface
   loading: boolean = true
+  chargeImg: boolean = false
   mail: string
   isVisible: boolean = false
 
@@ -43,7 +44,6 @@ export class EditProfileComponent extends BaseComponent {
   uploadPerson(mail: string) {
     this.personService.seePerson(mail).subscribe({
       next: value => {
-        console.log(value);
         this.person = value.data
         this.loading = false
       },
@@ -67,10 +67,12 @@ export class EditProfileComponent extends BaseComponent {
 
   handleOk(): void {
     this.isVisible = false;
+    this.chargeImg = true
     const formData = new FormData();
     formData.append('archivo', this.selectedFile, this.selectedFile.name);
     this.personService.uploadImgProfile(this.person.id, formData).subscribe({
       next: value => {
+        this.chargeImg = false
         this.alertSuccess(value.data)
         this.uploadPerson(this.mail)
       },

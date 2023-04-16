@@ -24,15 +24,16 @@
 
                 <ng-template pTemplate="right">
                     <nz-space>
-                        <p-button label="Tareas" icon="pi pi-file-edit" styleClass="p-button-sm p-button-warning"
+                        <p-button *ngIf="project.state !== 'on hold' " label="Tareas" icon="pi pi-file-edit" styleClass="p-button-sm p-button-warning"
                             routerLink="/dashboard/task/{{subject_name}}/{{group_name}}/{{group_id}}/{{project_id}}"
                             badge="{{numTask}}" badgeClass="p-badge-danger"></p-button>
 
-                        <p-button *ngIf="project.state === 'on hold'" label="Aprobar" icon="pi pi-folder-open"
+                        <p-button *ngIf="role === 'docente' && project.state === 'on hold'" label="Aprobar" icon="pi pi-folder-open"
                             (onClick)="approved()" styleClass="p-button-sm p-button-raised p-button-help"></p-button>
 
-                        <p-button *ngIf="project.state !== 'on hold'" label="Inscribirme" icon="pi pi-folder-open"
-                            (onClick)="signUp()" styleClass="p-button-sm p-button-raised p-button-success"></p-button>
+                        <p-button *ngIf="role !== 'docente' && project.state !== 'on hold'" label="Inscribirme"
+                            icon="pi pi-folder-open" (onClick)="signUp()"
+                            styleClass="p-button-sm p-button-raised p-button-success"></p-button>
                     </nz-space>
                 </ng-template>
             </p-toolbar>
@@ -40,10 +41,7 @@
                 <p-fieldset legend="{{project.name | titlecase}}">
                     <h4><b>Descripción</b></h4>
                     <p class="m-0">
-                        <!-- {{project.description}} -->
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque minima porro alias id,
-                        voluptatum dolor velit. Eius ipsam consectetur ducimus, iure, eveniet illo ratione in
-                        tempora deserunt fugiat magnam aspernatur?
+                        {{project.description}}
                     </p>
                     <br>
                     <div style="display: flex; justify-content: start;">
@@ -57,7 +55,7 @@
                         <div class="item-info">
                             <h4><b>Estudiantes Inscritos</b></h4>
                             <p class="m-0">
-                                <p-badge value="{{project.registeredPersons}}" severity="warning"></p-badge>
+                                <p-badge value="{{project.registered_persons}}" severity="warning"></p-badge>
                             </p>
                         </div>
 

@@ -18,11 +18,14 @@ export class MyProjectsComponent extends BaseComponent {
   items!: MenuItem[];
   home!: MenuItem;
 
+  email!:string
+
   constructor(
     private personService: PersonService,
     private authService: LoginService
   ) {
     super()
+    this.email = localStorage.getItem("email")!
     this.uploadMyProjects()
   }
 
@@ -34,15 +37,13 @@ export class MyProjectsComponent extends BaseComponent {
   }
 
   uploadMyProjects() {
-    const { email } = this.authService.auth
-    this.personService.viewMyProjects(email!).subscribe({
+    this.personService.viewMyProjects(this.email).subscribe({
       next: value => {
-        console.log(value);
         this.projects = value.data.projects
         this.loading = false
       },
       error: e => {
-        this.alertError(e.error.data)
+        this.loading = false
       }
     })
   }

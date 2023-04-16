@@ -24,29 +24,21 @@
                                     <img src="{{person.img}}" alt="">
                                 </div>
                                 <ng-template #noimage>
-                                    <img src="https://res.cloudinary.com/dmaqkkeno/image/upload/v1679972910/ayd-folder-pruebas/imagen-perfil-sin-foto_fpmrc2.jpg" alt="">
-                                </ng-template> 
+                                    <img src="https://res.cloudinary.com/dmaqkkeno/image/upload/v1679972910/ayd-folder-pruebas/imagen-perfil-sin-foto_fpmrc2.jpg"
+                                        alt="">
+                                </ng-template>
                             </div>
                         </div>
                         <div class="col-8 info-text">
                             <div class="row">
-                                <div class="col-6">
-                                    <h5>Nombre:</h5>
-                                    <p>{{person.names |titlecase}} {{person.lastnames | titlecase}}</p>
-                                </div>
-                                <div class="col-6">
-                                    <h5>Correo Institucional:</h5>
-                                    <p>{{person.institutional_mail}}</p>
-                                </div>
-
-                                <div class="col-6">
-                                    <h5>Código:</h5>
-                                    <p>{{person.code}}</p>
-                                </div>
-                                <div class="col-6">
-                                    <h5>Rol:</h5>
-                                    <p>{{person.role.name | titlecase}}</p>
-                                </div>
+                                <h5>Nombre:</h5>
+                                <p-tag styleClass="mr-2" severity="primary" value="{{person.names |titlecase}} {{person.lastnames | titlecase}}"></p-tag>                                
+                                <h5>Correo Institucional:</h5>
+                                <p-tag styleClass="mr-2" severity="warning" value="{{person.institutional_mail}}"></p-tag>
+                                <h5>Código:</h5>
+                                <p-tag styleClass="mr-2" severity="info" value="{{person.code}}"></p-tag>
+                                <h5>Rol:</h5>
+                                <p-tag styleClass="mr-2" severity="success" value="{{person.role.name | titlecase}}"></p-tag>
                             </div>
                         </div>
                     </div>

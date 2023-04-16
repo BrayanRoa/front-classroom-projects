@@ -27,6 +27,7 @@ export class PersonService {
 
   registerPersonInGroup(person:string, group:string): Observable<ResponseHttp>{
     const state = "in progress"
+    console.log(person, group, state);
     return this.http.post<ResponseHttp>(`${this.URL}/group_person/create`,{person, group, state})
   }
 

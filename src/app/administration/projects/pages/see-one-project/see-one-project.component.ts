@@ -25,6 +25,7 @@ export class SeeOneProjectComponent extends BaseComponent {
   persons!: PersonProject[]
   messages!: Message[]
   email!:string
+  role!:string
 
   loading: boolean = true;
   numTask!: string
@@ -47,6 +48,8 @@ export class SeeOneProjectComponent extends BaseComponent {
     this.group_id = this.aRoute.snapshot.paramMap.get("group_id")!
     this.project_id = this.aRoute.snapshot.paramMap.get("id")!
     this.email = localStorage.getItem("email")!
+    this.role = localStorage.getItem("role")!
+    console.log(this.role);
     this.findOneProject()
   }
 
@@ -122,6 +125,7 @@ export class SeeOneProjectComponent extends BaseComponent {
     this.projectService.changeState(this.project_id, "in progress").subscribe({
       next: value => {
         this.alertSuccess(value.data)
+        this.findOneProject()
       },
       error: e => {
         this.alertError(e.error.data)

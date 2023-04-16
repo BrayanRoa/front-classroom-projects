@@ -39,10 +39,10 @@
                 </ng-template>
 
                 <ng-template pTemplate="right">
-                    <p-button (click)="showModal()" label="Cargar Proyectos" icon="pi pi-upload" type="file"
+                    <p-button *ngIf="role === 'docente'" (click)="showModal()" label="Cargar Proyectos" icon="pi pi-upload" type="file"
                         styleClass="p-button-sm p-button-raised p-button-help"></p-button>
 
-                    <p-button (click)="downloadFile()" label="Descargar Plantilla" icon="pi pi-file-excel"
+                    <p-button *ngIf="role === 'docente'" (click)="downloadFile()" label="Descargar Plantilla" icon="pi pi-file-excel"
                         styleClass="p-button-sm p-button-raised p-button-secondary"></p-button>
 
                 </ng-template>
@@ -62,7 +62,9 @@
 
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>Nombre</th>
+                            <th>Nombre
+                                <p-columnFilter field="name" display="menu" [showOperator]="true"></p-columnFilter>
+                            </th>
                             <th># Estudiantes</th>
                             <th>Cupos Disponibles</th>
                             <th>Estado</th>
@@ -75,13 +77,13 @@
                             <td>{{project.number_of_students}}</td>
                             <td>
                                 <div
-                                    *ngIf="project.registeredPersons === project.number_of_students || project.state === 'finished'; else disponibilidad">
+                                    *ngIf="project.registered_persons === project.number_of_students || project.state === 'finished'; else disponibilidad">
                                     <p-tag styleClass="mr-2" icon="pi pi-times" severity="danger"
                                         value="No Disponible"></p-tag>
                                 </div>
                                 <ng-template class="tag" #disponibilidad>
                                     <p-tag styleClass="mr-2" severity="success"
-                                        value="{{project.number_of_students - project.registeredPersons}} Disponible"></p-tag>
+                                        value="{{project.number_of_students - project.registered_persons}} Disponible"></p-tag>
                                 </ng-template>
                             </td>
                             <td>

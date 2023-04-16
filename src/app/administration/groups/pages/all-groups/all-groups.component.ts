@@ -92,6 +92,7 @@ export class AllGroupsComponent extends BaseComponent {
             this.alertSuccess(value.data)
             this.infoGroup.reset()
             this.handleOk()
+            this.teachers = []
           },
           error: err => {
             this.alertError(err.error.data)
@@ -133,9 +134,13 @@ export class AllGroupsComponent extends BaseComponent {
   handleOk(): void {
     this.isVisible = false;
     this.uploadGroupsOfSubject()
+    this.infoGroup.reset()
+    this.teachers = []
   }
-
+  
   handleCancel(): void {
     this.isVisible = false;
+    this.infoGroup.reset()
+    this.teachers = []
   }
 }

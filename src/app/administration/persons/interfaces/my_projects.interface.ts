@@ -37,7 +37,7 @@ export interface ProjectProject {
     active:             boolean;
     state:              string;
     number_of_students: number;
-    registeredPersons:  number;
+    registered_persons:  number;
     full:               boolean;
     group:              Group;
 }
