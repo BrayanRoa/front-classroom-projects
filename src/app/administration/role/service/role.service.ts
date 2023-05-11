@@ -16,6 +16,6 @@ export class RoleService {
   ) { }
 
   uploadRoles():Observable<RoleInterface>{
-    return this.http.get<RoleInterface>(`${this.URL}/roles`)
+    return this.http.get<RoleInterface>(`${this.URL}/role`)
   }
 }
