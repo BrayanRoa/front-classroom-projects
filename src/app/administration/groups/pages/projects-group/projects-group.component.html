@@ -19,6 +19,40 @@
         </ng-container>
     </nz-modal>
 
+
+
+    <nz-modal [(nzVisible)]="visible" nzTitle="Asignar Alumnos y Proyecto" (nzOnCancel)="handleCancel()"
+        [nzOkDisabled]="studentProject.invalid" (nzOnOk)="assignStudentProject()">
+        <ng-container *nzModalContent>
+
+            <form [formGroup]="studentProject">
+              <div class="mb-4 row">
+                <label class="col-sm-4 col-form-label text-end fw-bold">Proyecto:</label>
+                <div class="col-sm-8">
+                    <select formControlName="proyecto" class="form-select" aria-label="Default select example">
+                        <option *ngFor="let project of projectGroup" selected value="{{project.id}}">{{project.name}}</option>
+                    </select>
+                    <span class="form-text text-danger" *ngIf="valid('proyecto')">
+                        Debe seleccionar un Proyecto
+                    </span>
+                </div>
+              </div>
+
+              <div class="mb-4 row">
+                <label class="col-sm-4 col-form-label text-end fw-bold">Alumno:</label>
+                <div class="col-sm-8">
+                    <select formControlName="persona" class="form-select" aria-label="Default select example">
+                        <option *ngFor="let alumno of studentsGroup" selected value="{{alumno.id}}">{{alumno.names}}</option>
+                    </select>
+                    <span class="form-text text-danger" *ngIf="valid('persona')">
+                        Debe seleccionar un Alumno
+                    </span>
+                </div>
+              </div>
+            </form>
+        </ng-container>
+    </nz-modal>
+
     <div class="box-info">
         <div class="loading" *ngIf="loading; else content">
             <nz-result nzStatus="info" nzTitle="Cargando Proyectos..." nzSubTitle="Espera un momento">
@@ -32,11 +66,12 @@
         <ng-template #content>
             <p-toolbar styleClass="mb-4 gap-2">
                 <ng-template pTemplate="left">
-                    <p-button label="Proponer Proyecto" icon="pi pi-plus"
+                    <p-button label="Nuevo Proyecto" icon="pi pi-plus"
                         routerLink="/dashboard/proyecto/agregar/{{subject_name}}/{{group_name}}/{{group_id}}"
                         styleClass="p-button-sm p-button-raised p-button-success"></p-button>
 
                 </ng-template>
+
 
                 <ng-template pTemplate="right">
                     <p-button *ngIf="role === 'docente'" (click)="showModal()" label="Cargar Proyectos" icon="pi pi-upload" type="file"
@@ -45,6 +80,8 @@
                     <p-button *ngIf="role === 'docente'" (click)="downloadFile()" label="Descargar Plantilla" icon="pi pi-file-excel"
                         styleClass="p-button-sm p-button-raised p-button-secondary"></p-button>
 
+                    <p-button *ngIf="role === 'docente'" (click)="showModalAlumno()" label="Asignar Alumno" icon="pi pi-upload" type="file"
+                        styleClass="p-button-sm p-button-raised p-button-help"></p-button>
                 </ng-template>
             </p-toolbar>
 

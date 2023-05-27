@@ -122,3 +122,7 @@ nz-button-group {
   align-items: center;
   justify-content: end;
 }
+
+p-chip {
+  display: flex !important;
+}

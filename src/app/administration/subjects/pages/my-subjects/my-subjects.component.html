@@ -39,6 +39,7 @@
                             <th>Grupo</th>
                             <th>Estado</th>
                             <th>Acciones</th>
+                            <th>Proyectos</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-subject>
@@ -87,6 +88,12 @@
                                         (click)="cancel(subject.group.id, 'in progress')"></p-button>
                                 </ng-container>
                             </td>
+
+                            <td>
+                                <p-button label="Info" icon="pi pi-eye"
+                                    styleClass="p-button-sm p-button-raised p-button-primary" (click)="showModal(subject.group.subject.code)">
+                                </p-button>
+                            </td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -94,3 +101,27 @@
         </ng-template>
     </div>
 </div>
+
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Proyectos" (nzOnCancel)="handleCancel()">
+  <ng-container *nzModalContent>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Proyectos</th>
+          <th>Estudiantes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of projectGroup">
+          <td>{{project.name}}</td>
+          <td>
+            <ul>
+              <li *ngFor="let person of project.personas">{{person.names}}</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container> -
+</nz-modal>

@@ -1,6 +1,4 @@
 <div class="base">
-
-
     <div class="site-page-header-ghost-wrapper">
         <div class="card flex justify-content-center">
             <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
@@ -27,17 +25,48 @@
                                     </span>
                                 </div>
                             </div>
+
+                            <div class="col-6">
+                              <label class="text-end fw-bold">Semestre:</label>
+                              <div class="col-sm-8">
+                                  <input type="number" class="form-control" formControlName="semestre">
+                                  <span class="form-text text-danger" *ngIf="validateFields('semestre')">
+                                      El campo debe ser un número positivo
+                                  </span>
+                              </div>
+                            </div>
+
+                            <div class="col-4">
+                              <label class="text-end fw-bold">Fecha De Inicio:</label>
+                              <div class="col-sm-8">
+                                  <input type="date" class="form-control" formControlName="fecha_inicio">
+                                  <span class="form-text text-danger" *ngIf="validateFields('fecha_inicio')">
+                                      El campo debe ser la fecha de hoy
+                                  </span>
+                              </div>
+                            </div>
+
+                            <div class="col-4">
+                              <label class="text-end fw-bold">Fecha De Finalización:</label>
+                              <div class="col-sm-8">
+                                  <input type="date" class="form-control" formControlName="fecha_finalizacion">
+                                  <span class="form-text text-danger" *ngIf="validateFields('fecha_finalizacion')">
+                                      El campo debe ser una fecha mayor al día de hoy
+                                  </span>
+                              </div>
+                          </div>
+
                             <div class="col-6">
                                 <label class="text-end fw-bold">Cantidad De Alumnos:</label>
                                 <div class="col-sm-8">
-                                    <input type="number" class="form-control" formControlName="number_of_students">
-                                    <span class="form-text text-danger" *ngIf="validateFields('number_of_students')">
+                                    <input type="number" class="form-control" formControlName="numberOfStudents">
+                                    <span class="form-text text-danger" *ngIf="validateFields('numberOfStudents')">
                                         El campo debe ser un número positivo
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row pt-3">
                             <label class="text-start fw-bold">Descripción del Proyecto:</label>
                             <textarea rows="12" cols="30" pInputTextarea formControlName="description"></textarea>

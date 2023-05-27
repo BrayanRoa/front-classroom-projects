@@ -13,7 +13,7 @@ import { TaskOfGroupInterface } from '../interfaces/task_of_group.interface';
 })
 export class TaskService {
 
-  URL: string = environment.API_URL
+  URL: string = environment.API_NODE
 
   constructor(
     private http: HttpClient

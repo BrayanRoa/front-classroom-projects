@@ -9,8 +9,9 @@ import { SubjectInterface } from '../interfaces/all-subject.interface';
   providedIn: 'root'
 })
 export class SubjectService {
-  
-  private URL:string = environment.API_URL
+
+  private URL:string = environment.API_NODE
+  private URL_spring: string = environment.API_SPRING
 
   constructor(
     private http:HttpClient
@@ -20,6 +21,11 @@ export class SubjectService {
     return this.http.get<SubjectInterface>(`${this.URL}/subjects`)
   }
 
+  //listado de estudiantes de un proyecto, grupo y semestre
+  Students(codigoMateria: string){
+    return this.http.get<any>(`${this.URL_spring}/project/by_subject_code_and_semester/${codigoMateria}/1`)
+
+  }
   register(code:string, name:string):Observable<ResponseHttp>{
     return this.http.post<ResponseHttp>(`${this.URL}/subject/create`,{code, name})
   }

@@ -9,7 +9,7 @@ import { DocumentInterface } from '../interfaces/document.interface';
 })
 export class DocumentService {
 
-  private URL: string = environment.API_URL
+  private URL: string = environment.API_NODE
 
   constructor(
     private readonly http: HttpClient

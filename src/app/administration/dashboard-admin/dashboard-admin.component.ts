@@ -30,7 +30,6 @@ export class DashboardAdminComponent extends BaseComponent{
   infoPerson(){
     this.personService.seePerson(this.mail).subscribe({
       next: value =>{
-        console.log(value);
         this.namePerson = `${value.data.names} ${value.data.lastnames}`
         this.img = (value.data.img)?value.data.img:this.img_default
       }

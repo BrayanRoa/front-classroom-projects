@@ -9,13 +9,13 @@ import { RoleInterface } from '../interface/role.interface';
 })
 export class RoleService {
 
-  private URL: string = environment.API_URL
+  private URL: string = environment.API_NODE
 
   constructor(
     private readonly http:HttpClient
   ) { }
 
   uploadRoles():Observable<RoleInterface>{
-    return this.http.get<RoleInterface>(`${this.URL}/role`)
+    return this.http.get<RoleInterface>(`${this.URL}/roles`)
   }
 }

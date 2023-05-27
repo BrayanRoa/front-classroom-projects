@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { GroupElement } from '../../interfaces/my-subjects.interface';
 import { MenuItem } from 'primeng/api';
 import { LoginService } from 'src/app/auth/service/login.service';
+import { SubjectService } from '../../service/subject.service';
 
 @Component({
   selector: 'app-my-subjects',
@@ -19,6 +20,9 @@ export class MySubjectsComponent extends BaseComponent {
 
   person_id!: string
   loading = true;
+  isVisible : boolean = false;
+
+  projectGroup: any[] = [];
 
   items!: MenuItem[];
   home!: MenuItem;
@@ -26,6 +30,7 @@ export class MySubjectsComponent extends BaseComponent {
   constructor(
     private personService: PersonService,
     private groupPersonService: GroupPersonService,
+    private subjectService: SubjectService,
     private readonly authService: LoginService
   ) {
     super()
@@ -39,8 +44,31 @@ export class MySubjectsComponent extends BaseComponent {
     this.home = { icon: 'pi pi-home', routerLink: '/' };
   }
 
+  showModal(datos: string): void {
+    this.isVisible = true;
+    this.students(datos);
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
+
+  students(datos:string){
+    this.subjectService.Students(datos).subscribe({
+      next: value => {
+         this.alertSuccess(value.data)
+         this.projectGroup = value
+         console.log(value)
+       },
+       error: e => {
+         this.alertError(e.error.data)
+       }
+    })
+  }
+
   uploadMySubjects() {
-    const email = localStorage.getItem("email") 
+    const email = localStorage.getItem("email")
     this.personService.uploadMySubjects(email!).subscribe({
       next: value => {
         this.mySubjects = value.data.groups

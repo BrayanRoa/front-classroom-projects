@@ -15,7 +15,7 @@ import { ViewMyProjects } from '../interfaces/my_projects.interface';
 })
 export class PersonService {
 
-  private URL: string = environment.API_URL
+  private URL: string = environment.API_NODE
 
   constructor(
     private http:HttpClient

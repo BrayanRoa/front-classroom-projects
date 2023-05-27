@@ -9,7 +9,7 @@ import { ResponseHttp } from '../../../shared/interfaces/response.interface';
 })
 export class GroupPersonService {
 
-  URL: string = environment.API_URL
+  URL: string = environment.API_NODE
 
   constructor(
     private http: HttpClient

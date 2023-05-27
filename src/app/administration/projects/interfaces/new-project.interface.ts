@@ -4,7 +4,15 @@ export interface NewProjectInterface {
     name:               string;
     description:        string;
     state:              string;
-    group:              string;
-    number_of_students: number;
-    full:               boolean
+    numberOfStudents:   number;
+    grupo:              Group;
+    registeredPersons:  number;
+    full:               boolean;
+    semestre:           number;
+    fecha_inicio:       string;
+    fecha_finalizacion: string;
+}
+
+interface Group {
+    id: string;
 }

@@ -12,14 +12,19 @@ import { PersonWithProject } from '../interfaces/person_with_project.interface';
 })
 export class ProjectService {
 
-  private readonly URL:string = environment.API_URL
+  private readonly URL:string = environment.API_NODE
+  private readonly URL_Spring: string = environment.API_SPRING
 
   constructor(
     private http:HttpClient
   ) { }
 
+  // listProject(id:string): Observable<ResponseHttp>{
+  //   return this.http.get<ResponseHttp>(`${this.URL_Spring}/project`)
+  // }
+
   create(body:NewProjectInterface):Observable<ResponseHttp>{
-    return this.http.post<ResponseHttp>(`${this.URL}/project/create`, body)
+    return this.http.post<ResponseHttp>(`${this.URL_Spring}/project/`, body)
   }
 
   uploadExcelOfProjects(id:string,archivo:any):Observable<ResponseHttp>{

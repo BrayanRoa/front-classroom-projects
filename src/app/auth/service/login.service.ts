@@ -9,7 +9,7 @@ import { DataToken, ResponseToken } from '../interfaces/token.interface';
 })
 export class LoginService {
 
-  private URL: string = environment.API_URL
+  private URL: string = environment.API_NODE
   private _auth!: DataToken | undefined
 
   constructor(

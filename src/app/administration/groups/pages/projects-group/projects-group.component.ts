@@ -15,16 +15,21 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./projects-group.component.css']
 })
 export class ProjectsGroupComponent extends BaseComponent {
-  
+
   projects: ProjectInterface[] = []
 
   group_id!: string
   subject_name!:string
   group_name!:string
   infoProject!: FormGroup
+  studentProject!: FormGroup
+
+  projectGroup: any[] = [];
+  studentsGroup: any[] = [];
 
   loading: boolean = true
   isVisible: boolean = false
+  visible:boolean = false
 
   items!: MenuItem[];
   home!: MenuItem;
@@ -51,11 +56,13 @@ export class ProjectsGroupComponent extends BaseComponent {
 
   ngOnInit(): void {
     this.items = [
-      { label: 'Materias', disabled:true }, 
-      { label: 'Mis Materias', routerLink:"/dashboard/mis_materias" }, 
-      { label: this.subject_name, routerLink:`/dashboard/personas/${this.subject_name}/${this.group_name}/${this.group_id}` }, 
+      { label: 'Materias', disabled:true },
+      { label: 'Mis Materias', routerLink:"/dashboard/mis_materias" },
+      { label: this.subject_name, routerLink:`/dashboard/personas/${this.subject_name}/${this.group_name}/${this.group_id}` },
       { label: 'Proyectos', disabled:true }]
     this.home = { icon: 'pi pi-home', routerLink: '/' };
+    this.listProject();
+    this.studentProjectGroup();
   }
 
   formTemplate:FormGroup = this.fb.group({
@@ -86,9 +93,6 @@ export class ProjectsGroupComponent extends BaseComponent {
       next: value => {
         this.projects = value.data.project
         this.loading = false
-      },
-      error: err => {
-        this.alertError(err.error.data)
       }
     })
   }
@@ -99,9 +103,6 @@ export class ProjectsGroupComponent extends BaseComponent {
         this.alertSuccess(value.data)
         this.uploadProjectOfGroup()
         this.isVisible = false
-      },
-      error: err =>{
-        this.alertError(err.error.data)
       }
     })
   }
@@ -109,6 +110,61 @@ export class ProjectsGroupComponent extends BaseComponent {
   showModal(): void {
     this.isVisible = true;
   }
+
+  showModalAlumno(): void {
+    this.visible = true;
+  }
+
+
+  studentProjectGroup(){
+    this.studentProject = this.fb.group({
+      proyecto: ["", [Validators.required]],
+      persona: ["", [Validators.required]],
+      state : ["true" , [Validators.required]]
+    })
+  }
+
+  valid(field: string) {
+    return this.studentProject.controls[field].errors &&
+      this.studentProject.controls[field].touched
+  }
+
+  listProject(){
+    this.groupService.listProjectGroup(this.group_id).subscribe({
+      next: resp =>{
+        this.projectGroup = resp;
+        this.visible = false;
+        this.listGroup();
+        console.log(this.projectGroup)
+      }
+    })
+  }
+
+  listGroup(){
+    this.groupService.listGroup(this.group_id).subscribe({
+      next: resp =>{
+        this.studentsGroup = resp;
+        this.visible = false;
+        console.log(this.studentsGroup)
+      }
+    })
+  }
+
+  assignStudentProject(){
+    const parsedFormProject = {...this.studentProject.value};
+    parsedFormProject.proyecto = {id: parsedFormProject.proyecto};
+    parsedFormProject.persona = {id: parsedFormProject.persona};
+
+    this.groupService.AsigProject(parsedFormProject.proyecto, parsedFormProject.persona, parsedFormProject.state).subscribe({
+      next: value => {
+        this.alertSuccess(value.data)
+      },
+      error: e => {
+        this.alertError(e.error.data)
+      }
+    })
+  }
+
 
   handleOk(): void {
     this.isVisible = false;
